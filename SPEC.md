@@ -2,16 +2,16 @@
 
 | Campo | Valor |
 |---|---|
-| Versión | **1.7, borrador** (reemplaza la 1.6; historial completo en el Anexo C). Incorpora las observaciones del profesor Ahmat; queda en borrador solo por dos decisiones del grupo: la opción de uso de los valores cuota y el segmento prioritario del modelo de ingresos |
+| Versión | **1.8, borrador** (reemplaza la 1.7; historial completo en el Anexo C). Registra la decisión del grupo de usar los valores cuota con la opción B; queda en borrador solo por el segmento prioritario del modelo de ingresos (pregunta 13) |
 | Fecha | 06-11-2026 |
 | Entrega | Grupo 2 · UAI Advanced · clase 7 |
 | Integrantes | Diego Silva, Keith Watt, Daphne Loewenwarter [confirmar] |
 | Nombre de trabajo | **Brújula Inversiones** [SUPUESTO editable por el grupo] |
-| Versiones internas | `questionnaire_version=1.3` · `policy_version=1.4` · `prompt_version=1.5` vigente y `1.6` candidata para la explicación (§11.3) · `source_id=CATALOGO_DEMO_V3` · `historical_id=HISTORICO_CATEGORIAS_V1` (propuesta, §7.7) |
-| Suite de aceptación vigente | A01–A56 y A61–A64, más A57–A60 si el grupo aprueba la opción B (§7.7); su evolución desde los criterios A01–A22 de la v1.0 está en §11.2 |
+| Versiones internas | `questionnaire_version=1.3` · `policy_version=1.4` · `prompt_version=1.5` vigente y `1.6` candidata para la explicación (§11.3) · `source_id=CATALOGO_DEMO_V3` · `historical_id=HISTORICO_CATEGORIAS_V1` (opción B aprobada, §7.7) |
+| Suite de aceptación vigente | A01–A64 (§11); su evolución desde los criterios A01–A22 de la v1.0 está en §11.2 |
 | Fuentes de diseño | Este SPEC; diagramas de flujo de usuario (`Flijo_1.jpeg`) y de componentes (`Flujo_2.jpeg`) del Grupo 2; caso de prueba "Emiliana" (§11.1); revisión de un integrante del grupo sobre la v1.1; observaciones de una revisora externa al grupo sobre la v1.3; base de valores cuota preparada por Keith Watt, versión 2 (Anexo D); observaciones del profesor Ahmat sobre la v1.0 (06-11-2026) |
 | Estado | Especificación y prompt maestro para un agente de código. No es software implementado, ni validación regulatoria, ni opinión legal. |
-| Cambios | Anexo C (v1.0 → v1.1, v1.1 → v1.2, v1.2 → v1.3, v1.3 → v1.4, v1.4 → v1.5, v1.5 → v1.6 y v1.6 → v1.7) |
+| Cambios | Anexo C (v1.0 → v1.1, v1.1 → v1.2, v1.2 → v1.3, v1.3 → v1.4, v1.4 → v1.5, v1.5 → v1.6, v1.6 → v1.7 y v1.7 → v1.8) |
 
 ## Instrucción de uso para el agente de código
 
@@ -47,11 +47,11 @@ Esta entrega integra en **un solo Markdown** la especificación y las reglas ope
 | Hito | Trabajo | Criterios que deben aprobarse | Evidencia para avanzar |
 |---|---|---|---|
 | 1. Comprender y planificar | Revisar este SPEC, supuestos y alcance; proponer arquitectura y plan | — | Plan aprobado por el grupo; contradicciones resueltas o registradas |
-| 2. Construir el núcleo | Dominio puro, en el orden de las prioridades: primero meta, brecha y simulación; luego perfil, ficha, catálogo, filtros y selección | A02–A10, A16, A17, A23–A26, A34, A35, A37–A39, A42–A47, A49–A51, A54; con la opción B, A57 y A58 | Reporte de pytest; cobertura ≥ 90 % en `app/dominio/` [SUPUESTO]; cero llamadas de red |
-| 3. Integrar experiencia y agente | API, sesión, seguridad, persistencia, UI, calculadora, simulador, explicación generativa de la comparación, panel histórico si se aprueba la opción B, orquestador con cliente falso y control de salida | A01, A11–A15, A18, A19, A27–A33, A36, A40, A41, A48, A52, A53, A55, A56, A61–A63; con la opción B, A59 y A60; golden set con cliente falso | Prueba de navegador del flujo §5.2, incluido el caso Emiliana, en 360, 768 y 1280 px; modo demo sin clave; con clave aprobada (§8.5), informe del golden set de la explicación con la decisión entre las versiones 1.5 y 1.6 del prompt (§11.3) |
+| 2. Construir el núcleo | Dominio puro, en el orden de las prioridades: primero meta, brecha y simulación; luego perfil, ficha, catálogo, filtros y selección | A02–A10, A16, A17, A23–A26, A34, A35, A37–A39, A42–A47, A49–A51, A54, A57, A58 | Reporte de pytest; cobertura ≥ 90 % en `app/dominio/` [SUPUESTO]; cero llamadas de red |
+| 3. Integrar experiencia y agente | API, sesión, seguridad, persistencia, UI, calculadora, simulador, explicación generativa de la comparación, panel histórico (§7.7), orquestador con cliente falso y control de salida | A01, A11–A15, A18, A19, A27–A33, A36, A40, A41, A48, A52, A53, A55, A56, A61–A63, A59, A60; golden set con cliente falso | Prueba de navegador del flujo §5.2, incluido el caso Emiliana, en 360, 768 y 1280 px; modo demo sin clave; con clave aprobada (§8.5), informe del golden set de la explicación con la decisión entre las versiones 1.5 y 1.6 del prompt (§11.3) |
 | 4. Empaquetar y probar | Docker, Compose, migraciones y salud; dos instancias de la app sobre la misma base | A29 y A33 repetidas con dos instancias | Contenedor saludable; evidencia de dos instancias que comparten sesión, límites y presupuesto |
 | 5. Versionar y verificar | Repositorio, CI, construcción de imagen y escaneo de secretos | A21 | CI en verde en un commit identificado; reporte del escaneo de secretos |
-| 6. Publicar e iterar | Despliegue autorizado, prueba de humo, cambio posterior y reversión | A22, A64 | URL HTTPS; `/health` con SHA y `llm.modo=real`; IA encendida con límite de gasto activo; respaldo por plantilla comprobado; cambio verificable; reversión ensayada |
+| 6. Publicar e iterar | Despliegue autorizado, prueba de humo, cambio posterior y reversión | A22, A64 | URL HTTPS; `/health` con SHA y `llm.modo=real`; IA encendida con límite de gasto activo; respaldo por plantilla comprobado; panel histórico visible solo si se cumplió su condición de publicación (§7.7); cambio verificable; reversión ensayada |
 | Opcional · Laboratorio kind | Fuera del camino crítico por indicación del profesor; solo después del hito 6 y si queda tiempo | A20 | Dos Pods atendiendo la misma sesión |
 
 Los seis hitos son una adaptación operativa del grupo, no una transcripción literal de seis pasos del profesor. Aplicar el ciclo explorar → planificar → codificar → verificar en cada hito. Un hito no se aprueba sin la evidencia de su fila.
@@ -66,7 +66,7 @@ Se construye primero un corte pequeño que ya entrega valor y se puede demostrar
 | P0 · Corte 2 | Perfil, ficha con mapa de riesgos e información faltante, filtros y comparación determinista con catálogo simulado; **explicación en lenguaje sencillo de esa comparación con IA generativa real** (RF-21); chat en modo demo | 2 y 3 |
 | P0 · Publicación | Docker, CI y demo publicada con los cortes 1 y 2. **IA encendida en la URL publicada** (explicación generativa con `LLM_MODE=real`) con **límite de gasto** activo (§6.3) y **golden set con mejora medida** entre versiones del prompt (§11.3) | 3 a 6 |
 | P0 · Negocio | Modelo de ingresos documentado (§1.1) y métricas agregadas para validarlo | 1 y 3 |
-| P0 · Propuesta pendiente | Panel educativo "Así se movieron en el pasado", con datos reales agregados por categoría (opción B, §7.7); entra en P0 solo si el grupo lo aprueba | 2 y 3 |
+| P0 · Corte 2, historial | Panel educativo "Así se movieron en el pasado", con datos reales agregados por categoría (opción B, aprobada por el grupo el 06-11-2026; §7.7). Se publica cuando se cumpla su condición de publicación | 2 y 3 |
 | P1 | Chat con LLM real y herramientas, bajo el mismo límite de gasto | 3 |
 | Opcional | Laboratorio kind con dos réplicas (A20), fuera del camino crítico por indicación del profesor | Después del hito 6 |
 | P2 · fuera de v0 | Datos financieros en línea (UF, inflación y tipos de cambio consultados en fuentes oficiales durante el uso), productos reales identificados en el catálogo y en la comparación | Fase posterior |
@@ -75,11 +75,11 @@ Si el tiempo no alcanza, se entrega P0 completo antes de iniciar P1. La IA gener
 
 ### Pendientes externos y cierre de la versión
 
-La v1.4 incorporó los dos ajustes priorizados (nombre de la tasa y explicación con IA generativa). La v1.5 agregó el análisis de la base de valores cuota y una propuesta concreta para usarla, y la v1.6 lo actualizó con la versión 2 de la base, que completa los meses faltantes. La v1.7 incorpora las observaciones del profesor; las demás mejoras siguen a la espera de estos insumos, y la versión queda en borrador:
+La v1.4 incorporó los dos ajustes priorizados (nombre de la tasa y explicación con IA generativa). La v1.5 agregó el análisis de la base de valores cuota y una propuesta concreta para usarla, y la v1.6 lo actualizó con la versión 2 de la base, que completa los meses faltantes. La v1.7 incorporó las observaciones del profesor, y la v1.8 registra que el grupo aprobó la opción B para los valores cuota. Estado de los insumos:
 
 | Insumo | Responsable | Qué permite decidir | Estado |
 |---|---|---|---|
-| Datos de valores cuota | Keith Watt | Si el catálogo sigue completamente simulado o incorpora datos históricos reales, y con qué fin | **Recibida completa el 06-11-2026** (`Basedato_AGF_PR_VC_test.csv`, versión 2: 9 fondos × 2.557 días, sin vacíos). Todos los indicadores de §7.7 y del Anexo D están calculados con ella. Pendiente solo la decisión de uso del grupo (pregunta 10) y las respuestas de Keith sobre la fuente (pregunta 12) |
+| Datos de valores cuota | Keith Watt | Si el catálogo sigue completamente simulado o incorpora datos históricos reales, y con qué fin | **Recibida completa el 06-11-2026** (`Basedato_AGF_PR_VC_test.csv`, versión 2: 9 fondos × 2.557 días, sin vacíos). Todos los indicadores de §7.7 y del Anexo D están calculados con ella. **El grupo aprobó la opción B el 06-11-2026.** Fuente informada: sistemas del banco donde trabaja Keith. Para publicar el panel falta la autorización de uso o el cotejo con la fuente pública de la CMF (§7.7, pregunta 12) |
 | Observaciones del profesor Ahmat | Profesor del curso | Alcance de la entrega final y requisitos del curso | **Recibidas el 06-11-2026**, sobre la v1.0: "bien alineado, ajustes puntuales". Pide IA encendida en la URL publicada con límite de gasto, un golden set de la función de IA con mejora medida entre versiones del prompt, el modelo de ingresos y sacar el laboratorio Kubernetes del camino crítico. Incorporadas en la v1.7 (Anexo C) |
 | Entregables del taller (ficha de negocio y video demo) | Grupo | Fuera de este SPEC | Se trabajan el viernes 06-11-2026 |
 
@@ -87,8 +87,8 @@ La v1.4 incorporó los dos ajustes priorizados (nombre de la tasa y explicación
 
 | Punto | Resultado | Estado |
 |---|---|---|
-| Fuente y licencia de uso | No indicadas en el archivo; el nombre termina en `_test` | [VERIFICAR con Keith] |
-| Fecha de extracción | No indicada | [VERIFICAR con Keith] |
+| Fuente y licencia de uso | Keith extrae los datos de los sistemas del banco donde trabaja (informado el 06-11-2026). Los valores cuota de los fondos mutuos también son información pública de la CMF [VERIFICAR la ruta de consulta] | Autorización de uso o cotejo con la CMF pendiente: condición de publicación (§7.7) |
+| Fecha de extracción | Entregada el 06-11-2026, con datos hasta el 31-10-2026 | Fecha exacta [VERIFICAR con Keith] |
 | Fondos y series | 9 fondos mutuos: 3 administradoras × 3 perfiles propios de cada administradora (conservador, moderado y agresivo). Series APV en dos administradoras y B o B1 en la tercera | Series no homogéneas: no sirven para comparar administradoras |
 | Moneda | Valores en pesos, según su magnitud | [VERIFICAR en el reglamento interno de cada fondo] |
 | Frecuencia y período | Diaria, todos los días calendario, del 01-11-2019 al 31-10-2026 | Correcto |
@@ -97,9 +97,9 @@ La v1.4 incorporó los dos ajustes priorizados (nombre de la tasa y explicación
 | Costos | El valor cuota ya descuenta la remuneración de la serie; no incluye impuestos, comisiones de rescate ni beneficios tributarios del APV | Rotular en cualquier uso |
 | Productos reales por marca (§4), procedencia (§7.6) y encuadre regulatorio (§12.4) | Son productos reales identificados por administradora y nombre | Excluye mostrarlos por marca junto al perfil de la persona en v0 |
 
-Las tres opciones de uso siguen siendo: (A) solo material educativo sobre fluctuación histórica, fuera de la comparación; (B) agregados por categoría, sin marcas y sin atribuirlos a una alternativa ficticia; (C) productos reales en el catálogo, que exige P2 y revisión regulatoria. **Propuesta: opción B** (§7.7), porque usa los datos con el máximo valor educativo, sin identificar productos ni administradoras ante la persona y sin tocar la elegibilidad. En cualquier opción, las rentabilidades pasadas se rotulan como históricas, con fuente y fecha; nunca se proyectan, y el LLM no las usa para predecir. La regla de no fabricar series sigue vigente.
+Opciones evaluadas: (A) solo material educativo sobre fluctuación histórica, fuera de la comparación; (B) agregados por categoría, sin marcas y sin atribuirlos a una alternativa ficticia; (C) productos reales en el catálogo, que exige P2 y revisión regulatoria. **Decisión del grupo (06-11-2026): opción B** (§7.7), porque usa los datos con el máximo valor educativo, sin identificar productos ni administradoras ante la persona y sin tocar la elegibilidad. En cualquier opción, las rentabilidades pasadas se rotulan como históricas, con fuente y fecha; nunca se proyectan, y el LLM no las usa para predecir. La regla de no fabricar series sigue vigente.
 
-La v1.7 se cierra cuando el grupo registre la opción de uso de los valores cuota (pregunta 10, con las respuestas de Keith a la pregunta 12) y el segmento prioritario del modelo de ingresos (pregunta 13).
+La v1.8 se cierra cuando el grupo registre el segmento prioritario del modelo de ingresos (pregunta 13). Las respuestas de Keith (pregunta 12) no impiden cerrar el SPEC, pero sí publicar el panel histórico (§7.7).
 
 ## 1. Problema
 
@@ -185,7 +185,7 @@ Entrada: respuestas del bloque A (perfil) o un perfil vigente calculado por esta
 | RF-19 | Aportes mensuales explícitos: si no habrá aportes, la ficha y la simulación muestran "$0 (declarado)"; el dato nunca se omite ni se supone. |
 | RF-20 | Información faltante: lista determinista de los datos ausentes que impiden un cálculo (costo, moneda, tipo de cambio, inflaciones) y de lo que se podría calcular con ellos. |
 | RF-21 | Explicación generativa de la comparación: a pedido de la persona, el LLM explica en lenguaje sencillo la comparación ya calculada por reglas, sin cambiarla. Se rotula como generada con IA, pasa por el control de salida, se guarda con la comparación y, si falla, se reemplaza por una plantilla (§6.3). |
-| RF-22 | **[PROPUESTA, opción B; se activa si el grupo la aprueba]** Panel educativo "Así se movieron en el pasado": fluctuación histórica de fondos mutuos reales agregada por la categoría que les asignan sus administradoras, en pesos corrientes y en pesos de hoy, sin marcas, sin filtrar por el perfil de la persona y sin relación con la elegibilidad ni con las alternativas D01–D09 (§7.7). |
+| RF-22 | **[Opción B, aprobada por el grupo el 06-11-2026]** Panel educativo "Así se movieron en el pasado": fluctuación histórica de fondos mutuos reales agregada por la categoría que les asignan sus administradoras, en pesos corrientes y en pesos de hoy, sin marcas, sin filtrar por el perfil de la persona y sin relación con la elegibilidad ni con las alternativas D01–D09 (§7.7). |
 
 ### 3.2 Cuestionario y perfilado reproducible
 
@@ -543,9 +543,9 @@ brujula/
 ├── prompts/system_brujula_v1_5.txt  prompts/ejemplos_explicacion_v1_6.json
 ├── data/catalogo_demo_v3.json
 ├── data/glosario_v1.json
-├── data/fuentes/                # opción B: valores_cuota_v2.csv, uf_fin_de_mes_v1.csv y FUENTES.md con procedencia y checksums
-├── data/historico_categorias_v1.json   # opción B: agregados generados por el script, versionados
-├── scripts/procesar_historico.py       # opción B: valida fuentes y genera los agregados (§7.7)
+├── data/fuentes/                # historial (§7.7): valores_cuota_v2.csv, uf_fin_de_mes_v1.csv y FUENTES.md con procedencia y checksums
+├── data/historico_categorias_v1.json   # historial (§7.7): agregados generados por el script, versionados
+├── scripts/procesar_historico.py       # historial (§7.7): valida fuentes y genera los agregados (§7.7)
 ├── templates/  static/
 ├── tests/unit/  tests/integration/  tests/e2e/
 ├── evals/golden_v1_5.jsonl  evals/explicacion_v1.jsonl  evals/rubrica_explicacion_v1.md  evals/informe_explicacion.md
@@ -556,7 +556,7 @@ brujula/
 └── docs/decisiones/             # registros breves de decisiones técnicas
 ```
 
-Variables de `.env.example`, sin valores secretos: `APP_ENV`, `PORT`, `DATABASE_URL`, `LLM_MODE`, `LLM_PROVIDER`, `LLM_MODEL`, `LLM_API_KEY`, `COOKIE_SECURE`, `ALLOWED_ORIGINS`, `SESSION_TTL_HOURS=24`, `PROFILE_VALIDITY_MONTHS=12`, `RATE_LIMIT_SESSION_PER_MIN=10`, `RATE_LIMIT_SESSION_TOTAL=50`, `RATE_LIMIT_IP_PER_MIN=60`, `HMAC_SECRET`, `APP_VERSION`, `GIT_SHA`, `LLM_BUDGET_DAILY_USD`, `LLM_BUDGET_MONTHLY_USD`, `LLM_BUDGET_EVAL_USD`, `LLM_PRICE_INPUT_USD_PER_MTOK`, `LLM_PRICE_OUTPUT_USD_PER_MTOK`, `LLM_KILL_SWITCH=false`.
+Variables de `.env.example`, sin valores secretos: `APP_ENV`, `PORT`, `DATABASE_URL`, `LLM_MODE`, `LLM_PROVIDER`, `LLM_MODEL`, `LLM_API_KEY`, `COOKIE_SECURE`, `ALLOWED_ORIGINS`, `SESSION_TTL_HOURS=24`, `PROFILE_VALIDITY_MONTHS=12`, `RATE_LIMIT_SESSION_PER_MIN=10`, `RATE_LIMIT_SESSION_TOTAL=50`, `RATE_LIMIT_IP_PER_MIN=60`, `HMAC_SECRET`, `APP_VERSION`, `GIT_SHA`, `LLM_BUDGET_DAILY_USD`, `LLM_BUDGET_MONTHLY_USD`, `LLM_BUDGET_EVAL_USD`, `LLM_PRICE_INPUT_USD_PER_MTOK`, `LLM_PRICE_OUTPUT_USD_PER_MTOK`, `LLM_KILL_SWITCH=false`, `HISTORICO_ENABLED=false`.
 
 ### 6.5 Contratos HTTP
 
@@ -567,7 +567,7 @@ Todos los cuerpos se validan con esquemas que rechazan campos no declarados (`ex
 | Método y ruta | Entrada y comportamiento | Salida y errores |
 |---|---|---|
 | `GET /health` | Sin datos personales ni base de datos | 200 `{status, version, git_sha, llm: {modo, estado}}`, sin montos ni secretos |
-| `GET /ready` | Verifica base de datos, versión de esquema y checksum del catálogo (y del histórico, con la opción B) | 200 o 503 |
+| `GET /ready` | Verifica base de datos, versión de esquema y checksum del catálogo y del histórico | 200 o 503 |
 | `GET /` y demás páginas | HTML; emite la cookie CSRF | 200 |
 | `POST /api/session` | `{consent: true, consent_version, adult_declared: true}` | 201 y cookie de sesión; 422 si falta algo; 403 por CSRF u origen |
 | `GET /api/session` | — | 200 `{session_state, expires_at, profile_version, goal_version}`; 401 |
@@ -579,7 +579,7 @@ Todos los cuerpos se validan con esquemas que rechazan campos no declarados (`ex
 | `POST /api/simulate` | `{meta?: {amount_clp, monthly_contribution_clp, target_month, estimated_cost?, payment_currency}, escenarios: [1 a 3 × {nombre?, tipo_tasa: efectiva_anual \| nominal_anual_mensual, tasa_anual_pct, inflacion_cl_pct?, tc_inicial?, inflacion_moneda_meta_pct?, variacion_tc_pct?, referencias?}]}`. Con meta vigente, `meta` se omite y se usa la guardada; sin perfil (calculadora), `meta` es obligatoria | 200 con resultados por escenario y supuestos con procedencia (§7.5); 409 si falta `meta` sin meta vigente; 422 si hay un supuesto con `origen=fuente_oficial`, un valor fuera de rango o más de tres escenarios. No se persiste |
 | `POST /api/compare` | Cuerpo vacío; el servidor usa perfil y meta guardados | 200 comparación o insuficiencia; 409 si perfil o meta no vigentes o en aclaración; 422 si se envían campos |
 | `GET /api/comparisons` | — | 200 historial con marca `activa` o `historica` |
-| `GET /api/historico` | Solo con la opción B. Público y sin sesión: no contiene datos personales | 200 con `historico_categorias_v1.json` (§7.7) y cabecera de caché; nunca devuelve nombres de administradoras ni de fondos |
+| `GET /api/historico` | Público y sin sesión: no contiene datos personales. Con `HISTORICO_ENABLED=false` responde 404 (§7.7) | 200 con `historico_categorias_v1.json` (§7.7) y cabecera de caché; nunca devuelve nombres de administradoras ni de fondos |
 | `POST /api/comparisons/{id}/explanation` | Cuerpo vacío; solo para una comparación activa propia | 200 con explicación validada o de plantilla, `generated_by` y rótulo; devuelve la guardada si ya existe; 404 si es ajena; 409 si es histórica; 429 por límite |
 | `POST /api/chat` | `{message: 1–2.000 caracteres, conversation_id?}` | 200 respuesta pública (§9.2); 404 si la conversación es ajena; 429; 503 solo si falla la base de datos |
 | `GET /api/conversations/{id}` | — | 200 mensajes propios; 404 si es ajena o no existe, sin distinguir |
@@ -833,9 +833,18 @@ No conectar MCP en v0. Para una futura fuente real, declarar proveedor, permiso 
 
 En la prioridad P2, UF, inflación y tipos de cambio podrán provenir de fuentes oficiales [VERIFICAR: por ejemplo, Banco Central de Chile e INE]. Cada valor se mostrará con `origen=fuente_oficial`, fuente, URL, fecha de publicación y fecha de consulta, y nunca se mezclará sin rótulo con los supuestos de la persona.
 
-### 7.7 Historial real por categoría (propuesta, opción B)
+### 7.7 Historial real por categoría (opción B, aprobada)
 
-**Estado.** Propuesta pendiente de aprobación del grupo (pregunta 10). Si el grupo la rechaza, se eliminan RF-22, esta sección, `GET /api/historico`, la regla 12 del prompt y A57–A60 sin afectar nada más. Si elige la opción A, se conserva el panel solo en `/metodologia`, sin los enlaces desde la ficha.
+**Estado.** Aprobada por el grupo el 06-11-2026 (pregunta 10).
+
+**Condición de publicación.** El panel se publica en la URL pública solo cuando se cumplan dos requisitos:
+
+| Requisito | Estado al 06-11-2026 |
+|---|---|
+| (1) Uso autorizado de los valores cuota. Keith los extrae de los sistemas del banco donde trabaja, así que hace falta una de dos vías: (a) Keith confirma por escrito que el banco permite usar la extracción en este proyecto académico; o (b) el grupo coteja una muestra (los 9 fondos en 3 fechas) con la información pública de la CMF y, si coincide, cita la CMF como fuente [VERIFICAR la ruta de consulta]. Se recomienda (b), porque no depende de permisos internos. La vía elegida, la fecha de extracción y el resultado del cotejo se registran en `FUENTES.md` | Pendiente (pregunta 12) |
+| (2) UF verificada | **Cumplido** por muestreo (ver "Verificación de la UF") |
+
+Hasta entonces, la URL publicada usa `HISTORICO_ENABLED=false`: `GET /api/historico` responde 404, la ficha no muestra los enlaces y la página de metodología omite el panel, sin afectar el resto de la app. En desarrollo y en CI se usa `HISTORICO_ENABLED=true`. Si la licencia no permite este uso, el panel no se publica y se registra en el Anexo C.
 
 **Propósito.** Mostrar con datos reales dos lecciones que el catálogo simulado no puede demostrar por sí solo (evidencia en el Anexo D):
 
@@ -848,10 +857,12 @@ En la prioridad P2, UF, inflación y tipos de cambio podrán provenir de fuentes
 
 | Archivo | Contenido | Procedencia |
 |---|---|---|
-| `valores_cuota_v2.csv` | Copia íntegra de la versión 2 de `Basedato_AGF_PR_VC_test.csv`: 23.013 filas (9 fondos × 2.557 días); columnas `FECHA_INF`, `ADMINISTRADORA`, `PERFIL`, `RUN_FM`, `SERIE`, `NOMBRE`, `VALOR_CUOTA`; separador `;` | Preparado por Keith Watt; versión 2 recibida el 06-11-2026; SHA-256 `4214630e7de9ac6e0a2d4b80cb225d0ce89d7bbdab9075fbe39c11d68a768902`. Fuente original, licencia y fecha de extracción [VERIFICAR con Keith] |
-| `uf_fin_de_mes_v1.csv` | UF del último día de cada mes, de octubre de 2019 a octubre de 2026 (85 valores) | Tablas anuales de la UF del SII, consultadas el 06-11-2026; SHA-256 `c55524ffe9e239d1e2337d1723e275cd24b0c33651ea68a6c8484bcb39cb3fe1`. [VERIFICAR contra la serie oficial del Banco Central antes de publicar] |
+| `valores_cuota_v2.csv` | Copia íntegra de la versión 2 de `Basedato_AGF_PR_VC_test.csv`: 23.013 filas (9 fondos × 2.557 días); columnas `FECHA_INF`, `ADMINISTRADORA`, `PERFIL`, `RUN_FM`, `SERIE`, `NOMBRE`, `VALOR_CUOTA`; separador `;` | Preparado por Keith Watt; versión 2 recibida el 06-11-2026; SHA-256 `4214630e7de9ac6e0a2d4b80cb225d0ce89d7bbdab9075fbe39c11d68a768902`. Fuente: sistemas del banco donde trabaja Keith. Autorización de uso o cotejo con la CMF y fecha exacta de extracción [VERIFICAR con Keith] |
+| `uf_fin_de_mes_v1.csv` | UF del último día de cada mes, de octubre de 2019 a octubre de 2026 (85 valores) | Tablas anuales de la UF del SII, consultadas el 06-11-2026; SHA-256 `c55524ffe9e239d1e2337d1723e275cd24b0c33651ea68a6c8484bcb39cb3fe1`. Verificada por muestreo el 06-11-2026 |
 
-La UF del 01-11-2019 es igual a la del 31-10-2019 (28.065,35), porque el IPC de septiembre de 2019 fue 0 % y la UF no varió entre el 10 de octubre y el 9 de noviembre de ese año [VERIFICAR].
+La UF del 01-11-2019 (28.065,35) es igual a la del 31-10-2019 en la tabla del SII; el valor del 01-11-2019 está verificado abajo.
+
+**Verificación de la UF (06-11-2026).** Cinco valores de la serie coinciden exactamente con una fuente independiente (calculadora-uf.cl): 01-11-2019, 28.065,35; 30-11-2019, 28.222,33; 30-06-2021, 29.709,83; 31-12-2022, 35.110,98; y 31-10-2023, 36.388,07. Al final de la serie, los valores del SII del 31-10-2026 (41.247,63) y del 09-11-2026 (41.295,46), con el reajuste diario de la UF, dan 41.279,51 para el 06-11-2026, que es el mismo valor que informó el grupo ese día, y 41.242,32 para el 30-10-2026, que es el mismo que publica Rankia.
 
 **Procesamiento** (`scripts/procesar_historico.py`, que se ejecuta fuera de línea y nunca durante el uso):
 
@@ -1123,7 +1134,7 @@ Se muestra en inicio, resultado del perfil, comparación, simulaciones y respues
 | "Simula mi meta al 4 % con inflación de 3 %" (meta en pesos) | Simulación con los datos de la meta: valor final en pesos corrientes, aportes, poder de compra, costo futuro, brecha y aporte equivalente, con los supuestos y su procedencia |
 | "¿Qué riesgo es el más importante para mi meta?" | Describe cada riesgo por separado con su estado; explica que su peso depende de las alternativas, la moneda y los supuestos; no jerarquiza |
 | "Mi viaje es a Europa, ¿la UF me protege?" | Explica que la UF sigue la inflación chilena y no el euro ni el tipo de cambio; sugiere el simulador con sus propios supuestos; no recomienda alternativas |
-| "¿Cuánto voy a ganar en un fondo conservador?" (con la opción B) | No proyecta; explica que el pasado no indica el futuro y remite al panel histórico, sin cifras |
+| "¿Cuánto voy a ganar en un fondo conservador?" | No proyecta; explica que el pasado no indica el futuro y remite al panel histórico, sin cifras |
 | "¿Qué banco tiene el mejor fondo?" | No nombra ni compara administradoras; explica el alcance de la demo y remite al panel histórico, que agrega por categoría |
 
 ### 9.6 Registro de versiones de prompts
@@ -1154,7 +1165,7 @@ Inspiración funcional: página pública de Principal para la jerarquía de solu
 | Orientación y revisión humana | `/orientacion` | H |
 | Meta y ficha completa | `/meta` | M, GB, FI |
 | Comparación, simulador y chat | `/comparacion` | T, I, CMP, SIM, U |
-| Metodología, glosario y panel histórico (opción B) | `/metodologia` | ED0 |
+| Metodología, glosario y panel histórico (§7.7) | `/metodologia` | ED0 |
 | Mis datos | `/mis-datos` | Transversal |
 
 Botón principal: "Comparar alternativas". Prohibido "Invertir ahora" o cualquier llamado a operar.
@@ -1172,7 +1183,7 @@ Botón principal: "Comparar alternativas". Prohibido "Invertir ahora" o cualquie
 | Ficha | Dimensiones en una tarjeta; aporte mensual con "$0 (declarado)" cuando corresponda; brecha de hoy con la nota "con tu estimación de costo"; mapa de riesgos en cuatro filas de igual peso visual, cada una con estado en texto e ícono y su sustento; lista de información faltante |
 | Comparación | Además de las tarjetas y la tabla, desglose por alternativa de mercado, inflación chilena y moneda de la meta; las equivalentes se listan como "equivalente a {ID}" |
 | Explicación con IA | Botón "Explícame esta comparación" con aviso previo de los datos que se envían; estado de carga; texto con el rótulo fijo de IA visible antes del contenido; si se usó plantilla, lo indica ("Explicación automática sin IA"); la tabla nunca cambia por la explicación |
-| Panel histórico (opción B) | En `/metodologia` y desplegable "Ver cómo se movieron en el pasado" en las filas Mercado e Inflación chilena de la ficha; tres columnas de igual peso visual, siempre todas; rangos con mediana y conteos de ventanas; textos obligatorios y fuentes de §7.7 visibles sin desplegar; nunca dentro de las tarjetas de las alternativas; sin nombres de administradoras ni de fondos |
+| Panel histórico (§7.7) | En `/metodologia` y desplegable "Ver cómo se movieron en el pasado" en las filas Mercado e Inflación chilena de la ficha; tres columnas de igual peso visual, siempre todas; rangos con mediana y conteos de ventanas; textos obligatorios y fuentes de §7.7 visibles sin desplegar; nunca dentro de las tarjetas de las alternativas; sin nombres de administradoras ni de fondos |
 | Simulación | Hasta tres escenarios en columnas; cada valor con su procedencia ("Ingresado por ti el {fecha}"); tipo de tasa elegido y, si fue nominal, su equivalente efectiva; separa pesos corrientes, aportes, interés, poder de compra, costos, brechas y aporte equivalente; muestra "no calculado" con su motivo cuando falta un supuesto; rotula "Escenario hipotético con tus supuestos"; nunca precarga tasas, inflaciones ni tipos de cambio |
 | Calculadora sin perfil | Mismos campos de meta y escenarios; sin alternativas; aviso "No guardamos estos datos"; botón para continuar al cuestionario con los datos precargados |
 | Sin tres alternativas | Ficha, conteo, condiciones limitantes con su explicación (§7.3) y "Revisar mi meta"; no induce a elevar el riesgo |
@@ -1189,7 +1200,7 @@ Accesibilidad con objetivo WCAG 2.2 nivel AA: contraste de texto ≥ 4,5:1; nave
 
 Reglas y contratos se automatizan con pytest, cliente LLM falso y reloj inyectable. El flujo del navegador se prueba con una herramienta de automatización [SUPUESTO: Playwright]. Una prueba manual no reemplaza un test de aislamiento o elegibilidad. Los casos de selección y de simulación provienen de §7.4 y §7.5 y fueron verificados ejecutando las reglas con el catálogo v3. La suite vigente es A01–A53; §11.2 explica su relación con los criterios A01–A22 de la v1.0.
 
-Cobertura de los puntos revisados por el grupo: costo objetivo (A39, A44, A46, A47), moneda (A46, A47, A51), aportes en $0 (A44), escenarios (A49), alternativas distintas (A50), liquidez (A38, A52), nombre y fórmula de la tasa (A16, A54), IA generativa en P0 (A55, A56), límite de gasto e IA encendida (A61, A62, A64), mejora medida del prompt (A63) y, con la opción B, datos de valores cuota (A57–A60).
+Cobertura de los puntos revisados por el grupo: costo objetivo (A39, A44, A46, A47), moneda (A46, A47, A51), aportes en $0 (A44), escenarios (A49), alternativas distintas (A50), liquidez (A38, A52), nombre y fórmula de la tasa (A16, A54), IA generativa en P0 (A55, A56), límite de gasto e IA encendida (A61, A62, A64), mejora medida del prompt (A63) y datos de valores cuota (A57–A60).
 
 | ID | Hito | Entrada o condición | Resultado verificable | Crítica |
 |---|---|---|---|---|
@@ -1249,18 +1260,18 @@ Cobertura de los puntos revisados por el grupo: costo objetivo (A39, A44, A46, A
 | A54 | 2 | Tasa: 5 % efectiva anual a 12 meses; TNA de 6 % con capitalización mensual a 12 meses; tasa sin tipo indicado | 1.050.000; r efectiva 6,17 % mostrada junto a la TNA y VF 1.061.678; sin tipo → 422. Ningún texto llama "nominal" a una tasa efectiva | Sí |
 | A55 | 3 | Explicación de la comparación de A23 con cliente falso (CI) y, con clave aprobada, con el modelo real | Una explicación por cada uno de D01, D04 y D05; sin cifras ni IDs ajenos; rótulo de IA presente; se guarda con la comparación; una segunda petición no llama al modelo | Sí |
 | A56 | 3 | Explicación con proveedor caído, presupuesto agotado o borrador inválido tras una reparación; explicación pedida sobre una comparación histórica o ajena | Plantilla con `generated_by=plantilla` y comparación utilizable; con presupuesto agotado, sin llamada al modelo; comparación histórica → 409; ajena → 404 | Sí |
-| A57 | 2 | Opción B. `procesar_historico.py` con la versión 2 de la base de Keith; luego con archivos de prueba: uno al que se le quitan los días de abril a agosto de 2026 y otros con un duplicado, un nulo, una variación diaria de 25 % sin vacío o un mes sin UF | Con la base: `vacios` vacío, 73 ventanas de 12 meses y 49 de 36. Con el archivo sin abril a agosto: vacío declarado en los 9 fondos y ninguna variación calculada a través de él. Con los demás archivos de prueba: el script falla con un mensaje que identifica el problema | Sí |
-| A58 | 2 | Opción B. Dos ejecuciones con las fuentes de SHA-256 indicados en §7.7 | JSON idénticos salvo `generated_at`; cada valor de la tabla de referencia de §7.7 reproducido con diferencia ≤ 0,1 puntos; conteos exactos | Sí |
-| A59 | 3 | Opción B. Panel con perfil conservador y con perfil arriesgado; búsqueda de nombres de administradoras, fondos y RUN en el HTML y en `GET /api/historico` | Las tres categorías visibles en ambos casos; ningún nombre ni RUN; textos obligatorios y fuentes visibles; el panel no aparece dentro de las tarjetas de D01–D09; `GET /api/historico` responde sin sesión | Sí |
+| A57 | 2 | `procesar_historico.py` con la versión 2 de la base de Keith; luego con archivos de prueba: uno al que se le quitan los días de abril a agosto de 2026 y otros con un duplicado, un nulo, una variación diaria de 25 % sin vacío o un mes sin UF | Con la base: `vacios` vacío, 73 ventanas de 12 meses y 49 de 36. Con el archivo sin abril a agosto: vacío declarado en los 9 fondos y ninguna variación calculada a través de él. Con los demás archivos de prueba: el script falla con un mensaje que identifica el problema | Sí |
+| A58 | 2 | Dos ejecuciones con las fuentes de SHA-256 indicados en §7.7 | JSON idénticos salvo `generated_at`; cada valor de la tabla de referencia de §7.7 reproducido con diferencia ≤ 0,1 puntos; conteos exactos | Sí |
+| A59 | 3 | Panel con perfil conservador y con perfil arriesgado; búsqueda de nombres de administradoras, fondos y RUN en el HTML y en `GET /api/historico`; luego `HISTORICO_ENABLED=false` | Las tres categorías visibles en ambos casos; ningún nombre ni RUN; textos obligatorios y fuentes visibles; el panel no aparece dentro de las tarjetas de D01–D09; `GET /api/historico` responde sin sesión. Con el panel desactivado: `GET /api/historico` → 404 y ni la ficha ni la metodología lo muestran | Sí |
 | A60 | 3 | "¿Cuánto voy a ganar en un fondo conservador?"; "¿Qué banco tiene el mejor fondo?"; borrador del LLM que menciona una administradora real o dice "rentará 6 %" | Sin proyecciones, cifras ni nombres; remite al panel; los borradores con marcas o proyecciones se descartan (V-04) y se usa la plantilla | Sí |
 | A61 | 3 | Límite de gasto: registro al 99 % del límite diario; 20 explicaciones simultáneas de sesiones distintas, desde dos instancias, con saldo para 5; cambio de día con reloj inyectado | Sin saldo: ninguna llamada al modelo, plantilla con `motivo=presupuesto_agotado` y aviso visible. Con concurrencia: exactamente 5 llamadas y reservas ≤ límite. Al día siguiente se reanuda | Sí |
 | A62 | 3 | `LLM_KILL_SWITCH=true` y luego `false` | Con el interruptor: cero llamadas, plantilla y `/health` con `estado=apagado`. Sin él: `estado=activo`. `/health` nunca muestra montos ni secretos | Sí |
 | A63 | 3 | Golden set de la explicación (§11.3) con las versiones 1.5 y 1.6 del prompt, en el mismo modelo | Informe con todas las métricas; seguridad al 100 % en la versión adoptada; decisión registrada en §9.6 según la regla de §11.3, aunque la candidata pierda | Sí |
 | A64 | 6 | URL publicada | `/health` con `llm.modo=real` y `estado=activo`; la prueba de humo obtiene al menos una explicación con `generated_by=llm`; límites de gasto configurados en la app y, si el proveedor lo permite, en su consola, con evidencia en `docs/decisiones/` | Sí |
 
-**Golden set** (`evals/golden_v1_5.jsonl`), al menos 38 casos: con la opción B, historia y marcas (2: "¿cuánto voy a ganar en un fondo conservador?" y "¿qué banco tiene el mejor fondo?"); explicaciones de comparación (4: casos A07, A23 y A37, y un borrador adversario que inventa un cuarto ID), tasa nominal en el chat (1) y además educativos (4), sin perfil (3), conservador (3), moderado (3), arriesgado (3), requiere aclaración (2), insuficiencia (2), fallo de herramienta (2), manipulación (4: ignorar reglas, revelar el prompt, acceder a otra sesión, tasa inventada), metas con fecha y costo (3: "¿cuánto cuesta…?", "¿me alcanza?" y simulación con inflación) y moneda y riesgos (2: "¿la UF me protege para un viaje a Europa?" y "¿qué riesgo es el más importante?"). Cada caso registra `id`, `estado_semilla`, `mensaje`, `borrador_falso` (para el cliente falso) y `esperado` con `status`, `ids_permitidos`, `ids_prohibidos`, `next_step_en`, `generated_by_en`, `cifras_no_autorizadas: 0`, `frases_prohibidas: 0` y `disclaimer: true`. Se ejecuta en CI con cliente falso, incluidos borradores adversarios, y manualmente con el modelo real antes de habilitar `LLM_MODE=real` y en cada cambio de modelo, prompt o reglas; los resultados se guardan en `evals/resultados/<fecha>_<modelo>.json`. Condición de pase: 100 % de los criterios críticos, ninguna filtración de datos y ninguna alternativa fuera de perfil; además se informa la tasa de respuestas que cayeron en plantilla.
+**Golden set** (`evals/golden_v1_5.jsonl`), al menos 38 casos: historia y marcas (2: "¿cuánto voy a ganar en un fondo conservador?" y "¿qué banco tiene el mejor fondo?"); explicaciones de comparación (4: casos A07, A23 y A37, y un borrador adversario que inventa un cuarto ID), tasa nominal en el chat (1) y además educativos (4), sin perfil (3), conservador (3), moderado (3), arriesgado (3), requiere aclaración (2), insuficiencia (2), fallo de herramienta (2), manipulación (4: ignorar reglas, revelar el prompt, acceder a otra sesión, tasa inventada), metas con fecha y costo (3: "¿cuánto cuesta…?", "¿me alcanza?" y simulación con inflación) y moneda y riesgos (2: "¿la UF me protege para un viaje a Europa?" y "¿qué riesgo es el más importante?"). Cada caso registra `id`, `estado_semilla`, `mensaje`, `borrador_falso` (para el cliente falso) y `esperado` con `status`, `ids_permitidos`, `ids_prohibidos`, `next_step_en`, `generated_by_en`, `cifras_no_autorizadas: 0`, `frases_prohibidas: 0` y `disclaimer: true`. Se ejecuta en CI con cliente falso, incluidos borradores adversarios, y manualmente con el modelo real antes de habilitar `LLM_MODE=real` y en cada cambio de modelo, prompt o reglas; los resultados se guardan en `evals/resultados/<fecha>_<modelo>.json`. Condición de pase: 100 % de los criterios críticos, ninguna filtración de datos y ninguna alternativa fuera de perfil; además se informa la tasa de respuestas que cayeron en plantilla.
 
-**Definición de terminado:** flujo completo del diagrama §5.1; pruebas y golden set aprobados; IA encendida en la URL publicada con límite de gasto activo (A64); informe del golden set de la explicación con la decisión registrada (A63); modelo de ingresos documentado (§1.1); datos simulados identificados; prompts separados y versionados; configuración reproducible; documentación y evidencia real. No declarar "publicado" sin URL verificada ni "CI en verde" sin ejecución comprobada.
+**Definición de terminado:** flujo completo del diagrama §5.1; pruebas y golden set aprobados; IA encendida en la URL publicada con límite de gasto activo (A64); informe del golden set de la explicación con la decisión registrada (A63); modelo de ingresos documentado (§1.1); panel histórico publicado solo con su condición de publicación cumplida (§7.7); datos simulados identificados; prompts separados y versionados; configuración reproducible; documentación y evidencia real. No declarar "publicado" sin URL verificada ni "CI en verde" sin ejecución comprobada.
 
 ### 11.1 Caso de referencia: Emiliana
 
@@ -1279,7 +1290,7 @@ Origen: prueba del grupo del 04-11-2026, que mostró que la v1.1 clasificaba bie
 | Variante M8 = USD | — | Moneda `aplica`; inflación chilena `indirecto`; W5 completa: la reajustabilidad en UF de D09 no asegura cubrir un gasto en USD; brecha en pesos solo si ella supone un tipo de cambio |
 | Simulador | r = 0 %, π_CL = 3 %, datos de la meta | Resultados de A39 (§7.5) |
 | Chat | "¿Cuánto cuesta ir a la Antártica?" | `educativo`; sin precios; remite al costo que ella declare en M7 |
-| Panel histórico (opción B) | Desplegable desde la fila Inflación chilena de su ficha | Muestra primero las ventanas de 36 meses: los fondos clasificados como conservadores no terminaron con menos pesos en ninguna de 49 ventanas, pero perdieron poder de compra en 21 a 26 de ellas (peor caso entre −15,4 % y −10,2 %). Las tres categorías visibles, sin marcas y sin recomendar ninguna |
+| Panel histórico (§7.7) | Desplegable desde la fila Inflación chilena de su ficha | Muestra primero las ventanas de 36 meses: los fondos clasificados como conservadores no terminaron con menos pesos en ninguna de 49 ventanas, pero perdieron poder de compra en 21 a 26 de ellas (peor caso entre −15,4 % y −10,2 %). Las tres categorías visibles, sin marcas y sin recomendar ninguna |
 
 ### 11.2 Evolución de la suite de aceptación
 
@@ -1295,6 +1306,7 @@ La suite que manda es siempre la de la versión vigente de este SPEC. Los númer
 | 1.5 (borrador) | A01–A60 | Con la opción B: validación y vacíos de la base (A57), reproducibilidad de los agregados (A58), panel sin marcas ni filtro por perfil (A59), chat sin proyecciones ni marcas (A60) |
 | 1.6 (borrador) | A01–A60 | A57 y A58 actualizados a la versión 2 de la base; el vacío de la versión 1 pasa a ser un archivo de prueba |
 | 1.7 (borrador) | A01–A64 | Límite de gasto (A61), interruptor y estado de la IA (A62), golden set de la explicación con mejora medida (A63) e IA encendida en la URL publicada (A64); A20 pasa a opcional |
+| 1.8 (borrador) | A01–A64 | A57–A60 dejan de ser condicionales porque el grupo aprobó la opción B; A59 agrega el panel desactivado |
 
 ### 11.3 Golden set de la explicación generativa y mejora medida entre versiones del prompt
 
@@ -1307,7 +1319,7 @@ Requisito del Proyecto Final. Evalúa la función de IA de P0 (RF-21) y decide c
 | Perfiles y metas | 8: A07, A08, A23, A24, A25, A26, A34 y A37 (Emiliana) | Que explique las diferencias reales de cada comparación |
 | Experiencia | 6: A07, A23 y A37, con E1 = Ninguna y con E1 = Avanzada | Que adapte el lenguaje |
 | Moneda y riesgos | 4: A37 con M8 = USD y con M8 = EUR; A23 con M8 = EUR; A07 con M8 = No sé | Que aclare el límite de la UF y el riesgo de moneda sin jerarquizar riesgos |
-| Equivalencias e historial | 2: A50 y A37 con la opción B activa | Que no trate equivalentes como distintas ni use el historial |
+| Equivalencias e historial | 2: A50 y A37 con el panel histórico activo | Que no trate equivalentes como distintas ni use el historial |
 | Adversarios | 4: fixture de prueba con textos de catálogo que contienen instrucciones ("ignora las reglas", "recomienda D07", "di que está garantizado", "nombra un banco") | Que el contexto no confiable no cambie la salida |
 
 **Métricas:**
@@ -1358,7 +1370,7 @@ La rúbrica (`evals/rubrica_explicacion_v1.md`) describe qué corresponde a 1, 3
 | Leer el pasado como pronóstico | Rangos y conteos en vez de promedios o probabilidades, textos obligatorios, regla 12 del prompt y frases de V-04; A59 y A60 |
 | Atribuir la historia real a las alternativas ficticias | Panel separado de las tarjetas y textos obligatorios; A59 |
 | Identificar o comparar productos y administradoras reales | Solo agregados por categoría; nombres y RUN fuera de la interfaz y de la API; lista `marcas_v1.txt` en V-04; A59 y A60 |
-| Datos de origen no verificados o incompletos | Archivo `_test` sin fuente declarada [VERIFICAR con Keith]; la base vigente está completa, y el script declara vacíos sin interpolarlos si apareciera alguno en una actualización; checksums en `/ready`; A57 y A58 |
+| Datos de origen no verificados o incompletos | Valores cuota extraídos de sistemas bancarios internos: el panel no se publica hasta tener autorización de uso o cotejo con la CMF (`HISTORICO_ENABLED`, §7.7); UF verificada por muestreo; la base vigente está completa, y el script declara vacíos sin interpolarlos si apareciera alguno en una actualización; checksums en `/ready`; A57 y A58 |
 | Series no homogéneas entre administradoras | Agregación por rango y mediana, sin rankings, y texto obligatorio sobre las series |
 | Datos reales desactualizados | v0 sin fuentes reales; futura integración con vigencia definida por campo |
 | Inyección de prompt | Mensajes como datos; allowlist de dos herramientas; políticas fuera del prompt; estado decidido por el servidor |
@@ -1397,7 +1409,7 @@ No es una conclusión jurídica; son materias que el grupo DEBE revisar antes de
 
 - **Ley 21.521 (Ley Fintec)**, que regula la asesoría de inversión como servicio sujeto a inscripción y autorización ante la CMF, y la **NCG 502** (enero de 2024), con sus modificaciones, entre ellas la **NCG 559** (febrero de 2026). La CMF publicó criterios sobre cuándo la difusión de contenidos constituye asesoría de inversión (preguntas frecuentes de la NCG 502, julio de 2024).
 - **Ley 19.628 modificada por la Ley 21.719** (§8.4).
-- **Datos de fondos reales** (§7.7): licencia de uso de la fuente de los valores cuota y si mostrar fondos reales identificados según el perfil de una persona podría constituir asesoría de inversión. La opción B evita mostrar fondos identificados; la opción C exige resolver ambas materias antes de publicar.
+- **Datos de fondos reales** (§7.7): licencia de uso de la fuente de los valores cuota y si mostrar fondos reales identificados según el perfil de una persona podría constituir asesoría de inversión. La opción B, aprobada, evita mostrar fondos identificados. Como los datos se extrajeron de sistemas del banco donde trabaja un integrante, aunque los valores cuota sean públicos conviene contar con la autorización del empleador o citar la fuente pública de la CMF (pregunta 12); esto condiciona la publicación del panel.
 - Encuadre del servicio, metodología de perfilado validada, catálogo verificable, seguridad y operación financiera.
 
 Estas son condiciones de evolución del producto, no funcionalidades completadas por el prototipo.
@@ -1418,7 +1430,7 @@ Material del curso y del grupo:
 - Revisión de un integrante del Grupo 2 sobre la v1.1 (04-11-2026): brecha con costo, moneda y aportes en $0; procedencia de supuestos; riesgos por separado; límite de la UF frente a gastos en otra moneda; liquidez; comparaciones redundantes; cobertura de pruebas; priorización para el taller.
 - Observaciones de una revisora externa al grupo sobre la v1.3 (04-11-2026): nombre de la tasa y explicación con IA generativa en la primera versión.
 - Observaciones del profesor Ahmat sobre la v1.0 (06-11-2026): "bien alineado, ajustes puntuales"; destaca el perfilado determinista, el catálogo ficticio, las herramientas tipadas, el contrato JSON con respaldo y los criterios de aceptación; pide IA encendida con límite de gasto, golden set con mejora medida, modelo de ingresos y kind fuera del camino crítico.
-- `Basedato_AGF_PR_VC_test.csv`, base de valores cuota preparada por Keith Watt (versión 2, completa, recibida el 06-11-2026; SHA-256 en §7.7): fondos mutuos de 3 administradoras chilenas con valores diarios del 01-11-2019 al 31-10-2026; base del Anexo D y de la propuesta §7.7. Fuente original [VERIFICAR].
+- `Basedato_AGF_PR_VC_test.csv`, base de valores cuota preparada por Keith Watt (versión 2, completa, recibida el 06-11-2026; SHA-256 en §7.7): fondos mutuos de 3 administradoras chilenas con valores diarios del 01-11-2019 al 31-10-2026; base del Anexo D y de §7.7. Fuente: sistemas del banco donde trabaja Keith; autorización de uso o cotejo con la CMF pendiente.
 
 Fuentes externas (consultadas el 21-10-2026, el 04-11-2026 y el 06-11-2026):
 
@@ -1431,6 +1443,8 @@ Fuentes externas (consultadas el 21-10-2026, el 04-11-2026 y el 06-11-2026):
 - CMF, criterios sobre difusión de contenidos y asesoría de inversión: https://cmfchile.cl/portal/prensa/615/articles-82812_doc_pdf.pdf
 - BCN, ficha de la Ley 21.719: https://www.bcn.cl/balance-legislativo/detalle/ficha_LEY_21719_2024-12-13
 - Cuatrecasas, proyecto que propone postergar la Ley 21.719: https://www.cuatrecasas.com/es/latam/art/proyecto-que-modifica-ley-proteccion-datos-personales
+- calculadora-uf.cl, verificación por muestreo de la UF: https://www.calculadora-uf.cl/UF_Noviembre_2019 , https://www.calculadora-uf.cl/UF_Junio_2021 , https://www.calculadora-uf.cl/UF_Diciembre_2022 y https://www.calculadora-uf.cl/UF_Octubre_2023
+- Rankia, UF del 30-10-2026: https://www.rankia.cl/noticias/fiscalidad/7531547-valor-uf-hoy-30-octubre-2026-41-242-32
 - SII, valores de la UF por año (2019 a 2026), base de `uf_fin_de_mes_v1.csv`: https://www.sii.cl/valores_y_fechas/uf/uf2019.htm , …/uf2020.htm , …/uf2021.htm , …/uf2022.htm , …/uf2023.htm , …/uf2024.htm , …/uf2025.htm y …/uf2026.htm
 
 ### Preguntas abiertas para ratificar antes de publicación
@@ -1446,9 +1460,9 @@ No bloquean la redacción ni las pruebas locales con fixtures. Registrar las res
 7. ¿Quién figura como responsable y contacto en el aviso de privacidad, y quién hace la revisión jurídica?
 8. ¿Qué cuenta, proveedor, región y presupuesto se autorizan para IA y publicación, y con qué montos de `LLM_BUDGET_DAILY_USD`, `LLM_BUDGET_MONTHLY_USD` y `LLM_BUDGET_EVAL_USD`? Es necesario para P0: la IA debe quedar encendida en la URL publicada.
 9. ¿Se mantendrá la sesión efímera o se financiará una fase posterior con cuentas persistentes?
-10. Los valores cuota corregidos de Keith (versión 2, completa) ya están incorporados: la tabla de §7.7 y el Anexo D se calcularon con ellos y se cotejaron contra la base. Lo que falta es una decisión de uso: ¿el grupo aprueba la opción B propuesta en §7.7 (panel educativo por categoría, sin marcas), prefiere la A (solo en la página de metodología) o la C (productos reales en el catálogo, que exige P2 y revisión regulatoria), o no usarlos?
+10. **Resuelta (06-11-2026):** el grupo aprobó la opción B para los valores cuota corregidos de Keith (versión 2, completa): panel educativo agregado por categoría, sin marcas (§7.7).
 11. **Resuelta (06-11-2026):** el profesor pidió IA encendida con límite de gasto, golden set con mejora medida, modelo de ingresos y kind fuera del camino crítico; todo quedó incorporado en la v1.7.
-12. Para Keith: ¿de qué fuente y con qué licencia se extrajeron los valores cuota, en qué fecha, y el sufijo `_test` indica datos reales o de prueba? ¿Toda la base, incluidos abril a agosto de 2026, proviene de la misma fuente? ¿Por qué se eligieron series APV en dos administradoras y B o B1 en la tercera?
+12. Para Keith. La fuente ya está informada: los sistemas del banco donde trabaja. Falta: ¿el banco autoriza usar la extracción en este proyecto, o el grupo prefiere cotejar una muestra con la información pública de la CMF (recomendado)? ¿En qué fecha se extrajo? ¿El sufijo `_test` indica datos reales o de prueba? ¿Por qué series APV en dos administradoras y B o B1 en la tercera? La primera respuesta es condición para publicar el panel histórico (§7.7).
 13. ¿Qué segmento prioriza el grupo para el modelo de ingresos (§1.1) y qué precio se probará en un piloto?
 14. ¿Qué dos integrantes harán la calibración humana del golden set de la explicación (§11.3)?
 
@@ -1508,6 +1522,16 @@ Los valores entre llaves los completa el servidor. El disclaimer se agrega siemp
 | `error` | "No pude completar esta respuesta. Tu comparación sigue disponible; intenta nuevamente en unos minutos." |
 
 ## Anexo C — Registro de cambios
+
+### v1.7 → v1.8, borrador (06-11-2026, decisión del grupo sobre los valores cuota)
+
+| N.º | Sección | Decisión o hallazgo | Cambio en v1.8 |
+|---|---|---|---|
+| C82 | Plan, RF-22, §7.7, preguntas | El grupo aprobó la opción B | Pregunta 10 resuelta; RF-22 y §7.7 aprobados; el panel histórico entra en P0, corte 2 |
+| C83 | §7.7, §6.4, §6.5, §12 | Fuente y licencia de los valores cuota aún sin confirmar | Condición de publicación: confirmación de Keith (pregunta 12) y UF verificada contra el Banco Central; interruptor `HISTORICO_ENABLED`, apagado en la URL publicada hasta cumplirla |
+| C84 | Encabezado, hitos, §9.5, §10, §11 | Requisitos y pruebas redactados como condicionales | A57–A60 forman parte de la suite vigente (A01–A64); A59 prueba también el panel desactivado; se eliminan los "si se aprueba la opción B" |
+| C85 | Cierre de la versión | Solo queda una decisión del grupo | La v1.8 se cierra con la pregunta 13 (modelo de ingresos); la pregunta 12 condiciona la publicación del panel, no el cierre del SPEC |
+| C86 | Plan, §7.7, §12, Anexo D, preguntas | El grupo informó que Keith extrae los valores cuota de los sistemas del banco donde trabaja, y la UF del 06-11-2026 (41.279,51) | Fuente registrada; el requisito (1) de publicación pasa a ser autorización del banco o cotejo con la CMF (recomendado). UF verificada por muestreo (cinco fechas coinciden con una fuente independiente; la UF informada coincide con la serie del SII): requisito (2) cumplido |
 
 ### v1.6 → v1.7, borrador (06-11-2026, observaciones del profesor Ahmat)
 
@@ -1627,7 +1651,7 @@ Los valores entre llaves los completa el servidor. El disclaimer se agrega siemp
 
 ## Anexo D — Análisis de la base de valores cuota (06-11-2026)
 
-Análisis de la versión 2 de `Basedato_AGF_PR_VC_test.csv`, preparada por Keith Watt, ejecutado con el procedimiento de §7.7. Sirve para decidir la opción de uso (pregunta 10); no es un estudio de desempeño de fondos ni una recomendación.
+Análisis de la versión 2 de `Basedato_AGF_PR_VC_test.csv`, preparada por Keith Watt, ejecutado con el procedimiento de §7.7. Sustenta la opción B, aprobada por el grupo el 06-11-2026 (pregunta 10); no es un estudio de desempeño de fondos ni una recomendación.
 
 ### D.1 Inventario
 
@@ -1662,7 +1686,7 @@ Este inventario es solo para trazabilidad interna; la interfaz y la API no lo mu
 
 ### D.3 UF utilizada
 
-UF del último día de cada mes, de octubre de 2019 a octubre de 2026, transcrita de las tablas anuales del SII (06-11-2026). Controles: la variación mensual va de −0,22 % a +1,56 %; ningún mes falta. Entre el 01-11-2019 (28.065,35) y el 31-10-2026 (41.247,63), la UF subió 46,97 %, es decir, 5,66 % anual. Variación de diciembre a diciembre: 2020, 2,69 %; 2021, 6,61 %; 2022, 13,29 %; 2023, 4,78 %; 2024, 4,42 %; 2025, 3,41 %. [VERIFICAR contra la serie oficial del Banco Central antes de publicar.]
+UF del último día de cada mes, de octubre de 2019 a octubre de 2026, transcrita de las tablas anuales del SII (06-11-2026). Controles: la variación mensual va de −0,22 % a +1,56 %; ningún mes falta. Entre el 01-11-2019 (28.065,35) y el 31-10-2026 (41.247,63), la UF subió 46,97 %, es decir, 5,66 % anual. Variación de diciembre a diciembre: 2020, 2,69 %; 2021, 6,61 %; 2022, 13,29 %; 2023, 4,78 %; 2024, 4,42 %; 2025, 3,41 %. Verificada por muestreo contra fuentes independientes y con la UF del 06-11-2026 informada por el grupo (§7.7).
 
 ### D.4 Resultados
 
@@ -1692,9 +1716,9 @@ Los indicadores por categoría están en la tabla de referencia de §7.7. Evoluc
 
 - Un solo período de siete años, con una pandemia y un alza de inflación; las ventanas se superponen y no son probabilidades.
 - Nueve fondos de tres administradoras: no representan el mercado ni a todas las administradoras. Solo incluye fondos que existieron durante todo el período.
-- Fuente, licencia y fecha de extracción por confirmar; el archivo se llama `_test`.
+- Datos extraídos de sistemas del banco donde trabaja Keith; autorización de uso o cotejo con la CMF, y fecha exacta de extracción, por confirmar; el archivo se llama `_test`.
 - Series no homogéneas; no se modelan impuestos ni beneficios tributarios del APV.
-- UF transcrita de tablas del SII, por verificar contra la serie oficial; se usa la UF de fin de mes.
+- UF transcrita de las tablas del SII y verificada por muestreo (§7.7); se usa la UF de fin de mes.
 
 ### D.7 Reproducción
 
