@@ -2,7 +2,7 @@
 
 | Campo | Valor |
 |---|---|
-| Versión | **1.8, borrador** (reemplaza la 1.7; historial completo en el Anexo C). Registra la decisión del grupo de usar los valores cuota con la opción B; queda en borrador solo por el segmento prioritario del modelo de ingresos (pregunta 13) |
+| Versión | **1.9, cerrada** (reemplaza la 1.8; historial completo en el Anexo C). Registra el modelo de ingresos elegido por el grupo: licencia educativa institucional. Las preguntas de §12 que siguen abiertas son ratificaciones antes de publicar y no reabren la especificación |
 | Fecha | 06-11-2026 |
 | Entrega | Grupo 2 · UAI Advanced · clase 7 |
 | Integrantes | Diego Silva, Keith Watt, Daphne Loewenwarter [confirmar] |
@@ -11,7 +11,7 @@
 | Suite de aceptación vigente | A01–A64 (§11); su evolución desde los criterios A01–A22 de la v1.0 está en §11.2 |
 | Fuentes de diseño | Este SPEC; diagramas de flujo de usuario (`Flijo_1.jpeg`) y de componentes (`Flujo_2.jpeg`) del Grupo 2; caso de prueba "Emiliana" (§11.1); revisión de un integrante del grupo sobre la v1.1; observaciones de una revisora externa al grupo sobre la v1.3; base de valores cuota preparada por Keith Watt, versión 2 (Anexo D); observaciones del profesor Ahmat sobre la v1.0 (06-11-2026) |
 | Estado | Especificación y prompt maestro para un agente de código. No es software implementado, ni validación regulatoria, ni opinión legal. |
-| Cambios | Anexo C (v1.0 → v1.1, v1.1 → v1.2, v1.2 → v1.3, v1.3 → v1.4, v1.4 → v1.5, v1.5 → v1.6, v1.6 → v1.7 y v1.7 → v1.8) |
+| Cambios | Anexo C (v1.0 → v1.1, v1.1 → v1.2, v1.2 → v1.3, v1.3 → v1.4, v1.4 → v1.5, v1.5 → v1.6, v1.6 → v1.7, v1.7 → v1.8 y v1.8 → v1.9) |
 
 ## Instrucción de uso para el agente de código
 
@@ -65,7 +65,8 @@ Se construye primero un corte pequeño que ya entrega valor y se puede demostrar
 | P0 · Corte 1 | Meta (fecha, costo y moneda), ahorro inicial, aportes con $0 explícito, brecha y simulación transparente con supuestos y procedencia; calculadora disponible sin perfil | 2 y 3 |
 | P0 · Corte 2 | Perfil, ficha con mapa de riesgos e información faltante, filtros y comparación determinista con catálogo simulado; **explicación en lenguaje sencillo de esa comparación con IA generativa real** (RF-21); chat en modo demo | 2 y 3 |
 | P0 · Publicación | Docker, CI y demo publicada con los cortes 1 y 2. **IA encendida en la URL publicada** (explicación generativa con `LLM_MODE=real`) con **límite de gasto** activo (§6.3) y **golden set con mejora medida** entre versiones del prompt (§11.3) | 3 a 6 |
-| P0 · Negocio | Modelo de ingresos documentado (§1.1) y métricas agregadas para validarlo | 1 y 3 |
+| P0 · Negocio | Modelo de ingresos elegido: licencia educativa institucional (§1.1); guía docente y propuesta de piloto fuera de la app; métricas agregadas en la app | 1 y 3 |
+| P1 · Negocio | "Modo curso": código de curso opcional e informe agregado y anónimo para el docente (§1.1) | Después del hito 6 |
 | P0 · Corte 2, historial | Panel educativo "Así se movieron en el pasado", con datos reales agregados por categoría (opción B, aprobada por el grupo el 06-11-2026; §7.7). Se publica cuando se cumpla su condición de publicación | 2 y 3 |
 | P1 | Chat con LLM real y herramientas, bajo el mismo límite de gasto | 3 |
 | Opcional | Laboratorio kind con dos réplicas (A20), fuera del camino crítico por indicación del profesor | Después del hito 6 |
@@ -75,7 +76,7 @@ Si el tiempo no alcanza, se entrega P0 completo antes de iniciar P1. La IA gener
 
 ### Pendientes externos y cierre de la versión
 
-La v1.4 incorporó los dos ajustes priorizados (nombre de la tasa y explicación con IA generativa). La v1.5 agregó el análisis de la base de valores cuota y una propuesta concreta para usarla, y la v1.6 lo actualizó con la versión 2 de la base, que completa los meses faltantes. La v1.7 incorporó las observaciones del profesor, y la v1.8 registra que el grupo aprobó la opción B para los valores cuota. Estado de los insumos:
+La v1.4 incorporó los dos ajustes priorizados (nombre de la tasa y explicación con IA generativa). La v1.5 agregó el análisis de la base de valores cuota y una propuesta concreta para usarla, y la v1.6 lo actualizó con la versión 2 de la base, que completa los meses faltantes. La v1.7 incorporó las observaciones del profesor; la v1.8, la aprobación de la opción B para los valores cuota; y la v1.9, el modelo de ingresos elegido. Estado de los insumos:
 
 | Insumo | Responsable | Qué permite decidir | Estado |
 |---|---|---|---|
@@ -99,7 +100,7 @@ La v1.4 incorporó los dos ajustes priorizados (nombre de la tasa y explicación
 
 Opciones evaluadas: (A) solo material educativo sobre fluctuación histórica, fuera de la comparación; (B) agregados por categoría, sin marcas y sin atribuirlos a una alternativa ficticia; (C) productos reales en el catálogo, que exige P2 y revisión regulatoria. **Decisión del grupo (06-11-2026): opción B** (§7.7), porque usa los datos con el máximo valor educativo, sin identificar productos ni administradoras ante la persona y sin tocar la elegibilidad. En cualquier opción, las rentabilidades pasadas se rotulan como históricas, con fuente y fecha; nunca se proyectan, y el LLM no las usa para predecir. La regla de no fabricar series sigue vigente.
 
-La v1.8 se cierra cuando el grupo registre el segmento prioritario del modelo de ingresos (pregunta 13). Las respuestas de Keith (pregunta 12) no impiden cerrar el SPEC, pero sí publicar el panel histórico (§7.7).
+**La v1.9 queda cerrada** como especificación de referencia para el Proyecto Final. Las respuestas de Keith (pregunta 12) condicionan solo la publicación del panel histórico (§7.7), y las demás preguntas abiertas de §12 se ratifican antes de publicar.
 
 ## 1. Problema
 
@@ -117,12 +118,12 @@ El resultado de v0 es una **demostración académica de orientación y simulaci�
 
 **Principio de neutralidad (DEBE).** Los ingresos no pueden depender de qué alternativa, producto o institución elija la persona. Quedan excluidos: comisiones por producto, pagos por aparecer o por la posición en el catálogo, venta o cesión de datos o contactos, y publicidad de productos financieros. Razones: la credibilidad de la orientación; la coherencia con una selección determinista sin criterios comerciales (§7.4); la privacidad (§8.4); y el riesgo de que la actividad se configure como asesoría o distribución de inversiones (§12.4).
 
-**Modelos posibles** (hipótesis por validar; la prioridad es [SUPUESTO] del grupo, pregunta 13):
+**Modelos evaluados.** Decisión del grupo (06-11-2026, pregunta 13): **licencia educativa institucional**.
 
 | Modelo | Quién paga | Qué recibe | Encaje con la app | Riesgos principales | Prioridad |
 |---|---|---|---|---|---|
-| Licencia de bienestar financiero (B2B2C) | Empleadores, cajas de compensación, gremios | Acceso para su población, metas de ejemplo configurables y un informe agregado y anónimo de uso | Alto: la app es educativa, neutral y no pide datos de identificación | Ciclo de venta largo; la organización no puede acceder a datos individuales (§8.4) | 1 |
-| Licencia educativa institucional | Universidades, institutos, colegios técnicos, fundaciones, municipios | Uso en cursos y programas de educación financiera, con el simulador y los casos | Alto: el caso Emiliana y el panel histórico funcionan como material docente | Presupuestos acotados; adaptación de contenidos | 2 |
+| Licencia educativa institucional | Universidades, institutos profesionales, CFT, fundaciones y municipios con programas para adultos | Uso en cursos y programas de educación financiera, con el simulador, los casos y el panel histórico | Alto: es lo más cercano a la demo actual y tiene el menor riesgo regulatorio | Presupuestos acotados; compras lentas; uso por semestre; contenido docente por producir | **1, elegido** |
+| Licencia de bienestar financiero (B2B2C) | Empleadores, cajas de compensación, gremios | Acceso para su población, metas de ejemplo configurables y un informe agregado y anónimo de uso | Alto: la app es educativa, neutral y no pide datos de identificación | Ciclo de venta largo; competencia; la organización no puede acceder a datos individuales (§8.4) | 2, expansión posterior |
 | Freemium para personas (B2C) | La persona | Gratis: el flujo actual. De pago: metas guardadas, recordatorios e informe descargable de escenarios | Medio: exige cuentas persistentes, fuera de v0 (pregunta 9) | Baja disposición a pagar; costo de adquisición | 3, fase posterior |
 | Marca blanca para entidades reguladas | Administradoras, bancos, corredoras | Herramienta de educación y perfilamiento para sus clientes | Bajo: pone en riesgo la neutralidad si la entidad incorpora sus productos | Conflicto de interés; responsabilidad regulatoria de la entidad | No prioritario |
 
@@ -135,13 +136,30 @@ El resultado de v0 es una **demostración académica de orientación y simulaci�
 
 **Métricas para validar el modelo**, agregadas, anónimas y calculadas desde `audit_events` y `llm_spend`: sesiones con consentimiento; perfiles válidos; metas registradas; comparaciones; explicaciones con IA y su costo medio; simulaciones; y proporción de sesiones que completan el flujo. Para un piloto B2B [SUPUESTO]: activación de la población invitada y una encuesta breve de utilidad, fuera de la app.
 
-**Qué cambia en v0.** Nada comercial. v0 mide el costo por explicación y calcula las métricas agregadas con `scripts/metricas_agregadas.py`, sin endpoint público ni datos personales. La ficha de negocio del taller desarrolla este modelo.
+**Modelo elegido: licencia educativa institucional.**
+
+| Elemento | Definición |
+|---|---|
+| Clientes | Universidades, institutos profesionales, CFT, fundaciones y municipios que dictan cursos o talleres de educación financiera **para personas adultas**. Los liceos quedan fuera mientras la app no tenga un diseño para menores de edad, con consentimiento de apoderados y las reglas especiales de la Ley 21.719 |
+| Qué se licencia | Uso de la app en cursos y talleres; el caso Emiliana y otros casos como actividades; el simulador; el panel histórico, cuando se publique; una guía docente con actividades y rúbrica; y, desde P1, el informe agregado por curso |
+| Estructura de precio a probar | Licencia anual por institución, por tramos de estudiantes [SUPUESTO: hasta 200, de 201 a 1.000 y más de 1.000], y una modalidad por curso y semestre para pilotos. Piso de precio de cada tramo = (costo variable medido por estudiante activo × estudiantes del tramo + costo fijo de soporte asignado) ÷ (1 − margen buscado). Los montos en pesos se fijan después del piloto, con el costo medido en el registro de gasto |
+| Piloto | Uno o dos cursos durante un semestre académico, sin costo o con descuento, con el precio de conversión escrito en la propuesta. Institución y curso por definir (pregunta 15) |
+| Éxito del piloto [SUPUESTO] | Al menos 60 % de los estudiantes completa el flujo; evaluación docente de 4 o más sobre 5; costo por estudiante activo dentro del presupuesto de IA; la institución declara intención de licenciar |
+| Métricas | Las métricas agregadas de esta sección, por curso cuando exista el modo curso; la encuesta docente y, si el curso la aplica, una evaluación de aprendizaje antes y después, ambas fuera de la app |
+| Neutralidad | La institución paga por un recurso docente; no vende productos financieros ni recibe datos individuales |
+| Expansión | El modo curso sirve después como "modo organización" para la licencia de bienestar financiero (prioridad 2) |
+
+**Qué cambia en v0.** Nada comercial y nada obligatorio en la app. v0 mide el costo por explicación y calcula las métricas agregadas con `scripts/metricas_agregadas.py`, sin endpoint público ni datos personales. Fuera de la app, el grupo prepara la guía docente y la propuesta de piloto, que alimentan la ficha de negocio del taller.
+
+**Modo curso (P1).** Código de curso opcional, que el estudiante ingresa después del consentimiento; no identifica a la persona. El docente ve un informe agregado del curso (sesiones, flujos completos, metas por tipo, uso de la explicación y del simulador) solo si el curso reúne al menos 10 sesiones [SUPUESTO], para evitar reidentificar a alguien; nunca ve respuestas, metas ni conversaciones individuales. El código se borra con la sesión.
 
 ## 2. Usuario y jobs
 
 Usuario primario: persona adulta (declara tener 18 años o más) hispanohablante en Chile que desea explorar opciones para una meta de ahorro o inversión. Moneda de la demo: CLP. La meta puede pagarse en otra moneda, pero la plataforma no consulta tipos de cambio: los supone y escribe la persona.
 
-Fuera del público objetivo de v0: menores de edad; personas que buscan ejecutar operaciones; consultas tributarias o previsionales individualizadas.
+Usuario secundario, por el modelo de ingresos (§1.1): docente o coordinador de un curso para adultos que usa la app como recurso de clase; en v0 no tiene funciones propias.
+
+Fuera del público objetivo de v0: menores de edad, también en el uso institucional; personas que buscan ejecutar operaciones; consultas tributarias o previsionales individualizadas.
 
 | ID | Trabajo del usuario |
 |---|---|
@@ -1307,6 +1325,7 @@ La suite que manda es siempre la de la versión vigente de este SPEC. Los númer
 | 1.6 (borrador) | A01–A60 | A57 y A58 actualizados a la versión 2 de la base; el vacío de la versión 1 pasa a ser un archivo de prueba |
 | 1.7 (borrador) | A01–A64 | Límite de gasto (A61), interruptor y estado de la IA (A62), golden set de la explicación con mejora medida (A63) e IA encendida en la URL publicada (A64); A20 pasa a opcional |
 | 1.8 (borrador) | A01–A64 | A57–A60 dejan de ser condicionales porque el grupo aprobó la opción B; A59 agrega el panel desactivado |
+| 1.9 (cerrada) | A01–A64 | Sin cambios: el modelo de ingresos no agrega funciones obligatorias en v0; el modo curso (P1) tendrá sus propios criterios |
 
 ### 11.3 Golden set de la explicación generativa y mejora medida entre versiones del prompt
 
@@ -1381,6 +1400,8 @@ La rúbrica (`evals/rubrica_explicacion_v1.md`) describe qué corresponde a 1, 3
 | Costos de IA o nube | Límite de gasto con reserva previa y bloqueo compartido, interruptor, límite en el proveedor si existe, límites de instancias y alertas; no confiar solo en alertas; A61, A62 y A64 |
 | Mejora del prompt sin evidencia | Golden set fijo, jueces a ciegas, calibración humana y regla de decisión (§11.3); A63 |
 | Modelo de ingresos que comprometa la neutralidad | Principio de neutralidad (§1.1): sin comisiones, posiciones pagadas, venta de datos ni publicidad de productos financieros |
+| Uso institucional con menores de edad | Licencia solo para educación superior y programas para adultos; liceos excluidos hasta diseñar consentimiento de apoderados y cumplir las reglas para menores de la Ley 21.719 |
+| Reidentificación en el informe por curso (P1) | Solo datos agregados, mínimo de 10 sesiones por curso y ningún dato individual para el docente |
 | Confusión con una plataforma autorizada | Identidad propia, etiquetas de demo, V-04 y revisión de habilitación antes de un servicio real |
 | Presión para asumir más riesgo | Reglas de interfaz de §10; ninguna advertencia ni insuficiencia sugiere elevar el riesgo |
 
@@ -1463,8 +1484,9 @@ No bloquean la redacción ni las pruebas locales con fixtures. Registrar las res
 10. **Resuelta (06-11-2026):** el grupo aprobó la opción B para los valores cuota corregidos de Keith (versión 2, completa): panel educativo agregado por categoría, sin marcas (§7.7).
 11. **Resuelta (06-11-2026):** el profesor pidió IA encendida con límite de gasto, golden set con mejora medida, modelo de ingresos y kind fuera del camino crítico; todo quedó incorporado en la v1.7.
 12. Para Keith. La fuente ya está informada: los sistemas del banco donde trabaja. Falta: ¿el banco autoriza usar la extracción en este proyecto, o el grupo prefiere cotejar una muestra con la información pública de la CMF (recomendado)? ¿En qué fecha se extrajo? ¿El sufijo `_test` indica datos reales o de prueba? ¿Por qué series APV en dos administradoras y B o B1 en la tercera? La primera respuesta es condición para publicar el panel histórico (§7.7).
-13. ¿Qué segmento prioriza el grupo para el modelo de ingresos (§1.1) y qué precio se probará en un piloto?
+13. **Resuelta (06-11-2026):** licencia educativa institucional, con licencia anual por tramos de estudiantes y una modalidad por curso para el piloto; los montos se fijan con el costo medido (§1.1).
 14. ¿Qué dos integrantes harán la calibración humana del golden set de la explicación (§11.3)?
+15. ¿En qué institución y curso se hará el piloto, quién lo contacta y quién redacta la guía docente?
 
 **Orden final al agente:** presenta primero el plan. Tras la aprobación ejecuta solo el primer hito autorizado, muestra evidencias y pide revisión del resultado antes de cruzar la siguiente puerta de calidad. Si un requisito es incompatible, plantea el conflicto y una alternativa concreta; no lo omitas silenciosamente.
 
@@ -1522,6 +1544,15 @@ Los valores entre llaves los completa el servidor. El disclaimer se agrega siemp
 | `error` | "No pude completar esta respuesta. Tu comparación sigue disponible; intenta nuevamente en unos minutos." |
 
 ## Anexo C — Registro de cambios
+
+### v1.8 → v1.9, cerrada (06-11-2026, modelo de ingresos)
+
+| N.º | Sección | Decisión o hallazgo | Cambio en v1.9 |
+|---|---|---|---|
+| C87 | §1.1, Plan, preguntas | El grupo eligió la licencia educativa institucional | Pregunta 13 resuelta; tabla de modelos reordenada; modelo elegido con clientes, licencia, estructura de precio, piloto, criterios de éxito, métricas y vía de expansión |
+| C88 | §1.1, §2, §12 | El uso en liceos implicaría usuarios menores de edad, fuera del público de v0 | Clientes limitados a educación superior y programas para adultos; nuevo riesgo con su control |
+| C89 | §1.1, Plan, §12 | Un informe por curso podría reidentificar estudiantes | Modo curso en P1, solo agregado y con un mínimo de 10 sesiones |
+| C90 | Encabezado, cierre | No quedan decisiones de especificación pendientes | Versión cerrada; la pregunta 12 condiciona solo la publicación del panel; nueva pregunta 15 (piloto) |
 
 ### v1.7 → v1.8, borrador (06-11-2026, decisión del grupo sobre los valores cuota)
 
