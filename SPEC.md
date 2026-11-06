@@ -2,16 +2,16 @@
 
 | Campo | Valor |
 |---|---|
-| Versión | **1.5, borrador** (reemplaza la 1.4; historial completo en el Anexo C). Incorpora el análisis de la base de valores cuota; no se cierra hasta recibir las observaciones del profesor y la decisión del grupo sobre la opción de uso de esos datos |
+| Versión | **1.6, borrador** (reemplaza la 1.5; historial completo en el Anexo C). Incorpora el análisis de la versión 2 de la base de valores cuota, sin vacíos; no se cierra hasta recibir las observaciones del profesor y la decisión del grupo sobre la opción de uso de esos datos |
 | Fecha | 06-11-2026 |
 | Entrega | Grupo 2 · UAI Advanced · clase 7 |
 | Integrantes | Diego Silva, Keith Watt, Daphne Loewenwarter [confirmar] |
 | Nombre de trabajo | **Brújula Inversiones** [SUPUESTO editable por el grupo] |
 | Versiones internas | `questionnaire_version=1.3` · `policy_version=1.4` · `prompt_version=1.5` · `source_id=CATALOGO_DEMO_V3` · `historical_id=HISTORICO_CATEGORIAS_V1` (propuesta, §7.7) |
 | Suite de aceptación vigente | A01–A56, más A57–A60 si el grupo aprueba la opción B (§7.7); su evolución desde los criterios A01–A22 de la v1.0 está en §11.2 |
-| Fuentes de diseño | Este SPEC; diagramas de flujo de usuario (`Flijo_1.jpeg`) y de componentes (`Flujo_2.jpeg`) del Grupo 2; caso de prueba "Emiliana" (§11.1); revisión de un integrante del grupo sobre la v1.1; observaciones de una revisora externa al grupo sobre la v1.3; base de valores cuota preparada por Keith Watt (Anexo D) |
+| Fuentes de diseño | Este SPEC; diagramas de flujo de usuario (`Flijo_1.jpeg`) y de componentes (`Flujo_2.jpeg`) del Grupo 2; caso de prueba "Emiliana" (§11.1); revisión de un integrante del grupo sobre la v1.1; observaciones de una revisora externa al grupo sobre la v1.3; base de valores cuota preparada por Keith Watt, versión 2 (Anexo D) |
 | Estado | Especificación y prompt maestro para un agente de código. No es software implementado, ni validación regulatoria, ni opinión legal. |
-| Cambios | Anexo C (v1.0 → v1.1, v1.1 → v1.2, v1.2 → v1.3, v1.3 → v1.4 y v1.4 → v1.5) |
+| Cambios | Anexo C (v1.0 → v1.1, v1.1 → v1.2, v1.2 → v1.3, v1.3 → v1.4, v1.4 → v1.5 y v1.5 → v1.6) |
 
 ## Instrucción de uso para el agente de código
 
@@ -72,11 +72,11 @@ Si el tiempo no alcanza, se entrega P0 completo antes de iniciar P1. La IA gener
 
 ### Pendientes externos y cierre de la versión
 
-La v1.4 incorporó los dos ajustes priorizados (nombre de la tasa y explicación con IA generativa). La v1.5 agrega el análisis de la base de valores cuota y una propuesta concreta para usarla; las demás mejoras siguen a la espera de estos insumos, y la versión queda en borrador:
+La v1.4 incorporó los dos ajustes priorizados (nombre de la tasa y explicación con IA generativa). La v1.5 agregó el análisis de la base de valores cuota y una propuesta concreta para usarla, y la v1.6 lo actualiza con la versión 2 de la base, que completa los meses faltantes; las demás mejoras siguen a la espera de estos insumos, y la versión queda en borrador:
 
 | Insumo | Responsable | Qué permite decidir | Estado |
 |---|---|---|---|
-| Datos de valores cuota | Keith Watt | Si el catálogo sigue completamente simulado o incorpora datos históricos reales, y con qué fin | **Recibido el 06-11-2026** (`Basedato_AGF_PR_VC_test.csv`); analizado en el Anexo D; opción B propuesta en §7.7; decisión del grupo pendiente (preguntas 10 y 12) |
+| Datos de valores cuota | Keith Watt | Si el catálogo sigue completamente simulado o incorpora datos históricos reales, y con qué fin | **Versión 2 recibida el 06-11-2026** (`Basedato_AGF_PR_VC_test.csv`, completa abril a agosto de 2026 y reemplaza a la versión 1); analizada en el Anexo D; opción B propuesta en §7.7; decisión del grupo pendiente (preguntas 10 y 12) |
 | Observaciones del profesor Ahmat | Profesor del curso | Alcance de la entrega final y requisitos del curso (por ejemplo, kind o agente con herramientas en P0) | Pendiente |
 | Entregables del taller (ficha de negocio y video demo) | Grupo | Fuera de este SPEC | Se trabajan el viernes 06-11-2026 |
 
@@ -89,14 +89,14 @@ La v1.4 incorporó los dos ajustes priorizados (nombre de la tasa y explicación
 | Fondos y series | 9 fondos mutuos: 3 administradoras × 3 perfiles propios de cada administradora (conservador, moderado y agresivo). Series APV en dos administradoras y B o B1 en la tercera | Series no homogéneas: no sirven para comparar administradoras |
 | Moneda | Valores en pesos, según su magnitud | [VERIFICAR en el reglamento interno de cada fondo] |
 | Frecuencia y período | Diaria, todos los días calendario, del 01-11-2019 al 31-10-2026 | Correcto |
-| Datos faltantes | Sin nulos, duplicados ni valores ≤ 0. **Faltan los 153 días del 01-04-2026 al 31-08-2026 en los 9 fondos**; el salto del 01-09-2026 (+3,5 % a +14,9 %) acumula cinco meses y no es una variación diaria | Debe tratarse como vacío, no como dato |
+| Datos faltantes | Sin nulos, duplicados ni valores ≤ 0. La versión 1 omitía los 153 días del 01-04-2026 al 31-08-2026; la versión 2 los completa (1.377 filas) y deja intactas las 21.636 filas anteriores | Completo; el script igual detecta vacíos en versiones futuras |
 | Dividendos o repartos | El valor cuota de estas series se presume acumulativo | [VERIFICAR en el reglamento interno] |
 | Costos | El valor cuota ya descuenta la remuneración de la serie; no incluye impuestos, comisiones de rescate ni beneficios tributarios del APV | Rotular en cualquier uso |
 | Productos reales por marca (§4), procedencia (§7.6) y encuadre regulatorio (§12.4) | Son productos reales identificados por administradora y nombre | Excluye mostrarlos por marca junto al perfil de la persona en v0 |
 
 Las tres opciones de uso siguen siendo: (A) solo material educativo sobre fluctuación histórica, fuera de la comparación; (B) agregados por categoría, sin marcas y sin atribuirlos a una alternativa ficticia; (C) productos reales en el catálogo, que exige P2 y revisión regulatoria. **Propuesta: opción B** (§7.7), porque usa los datos con el máximo valor educativo, sin identificar productos ni administradoras ante la persona y sin tocar la elegibilidad. En cualquier opción, las rentabilidades pasadas se rotulan como históricas, con fuente y fecha; nunca se proyectan, y el LLM no las usa para predecir. La regla de no fabricar series sigue vigente.
 
-La v1.5 se cierra cuando la decisión sobre la opción de uso y las observaciones del profesor queden registradas en las preguntas abiertas (§12) y en el Anexo C.
+La v1.6 se cierra cuando la decisión sobre la opción de uso y las observaciones del profesor queden registradas en las preguntas abiertas (§12) y en el Anexo C.
 
 ## 1. Problema
 
@@ -496,7 +496,7 @@ brujula/
 ├── prompts/system_brujula_v1_5.txt
 ├── data/catalogo_demo_v3.json
 ├── data/glosario_v1.json
-├── data/fuentes/                # opción B: valores_cuota_v1.csv, uf_fin_de_mes_v1.csv y FUENTES.md con procedencia y checksums
+├── data/fuentes/                # opción B: valores_cuota_v2.csv, uf_fin_de_mes_v1.csv y FUENTES.md con procedencia y checksums
 ├── data/historico_categorias_v1.json   # opción B: agregados generados por el script, versionados
 ├── scripts/procesar_historico.py       # opción B: valida fuentes y genera los agregados (§7.7)
 ├── templates/  static/
@@ -791,8 +791,8 @@ En la prioridad P2, UF, inflación y tipos de cambio podrán provenir de fuentes
 
 **Propósito.** Mostrar con datos reales dos lecciones que el catálogo simulado no puede demostrar por sí solo (evidencia en el Anexo D):
 
-1. **"Conservador" no significa "sin pérdidas".** Los fondos que sus administradoras clasifican como conservadores llegaron a caer entre 8,1 % y 11,9 % desde un máximo previo, y perdieron valor en pesos en 5 a 8 de 68 ventanas de 12 meses. Por eso la app mantiene la preservación de capital (R-08) como un criterio distinto de la etiqueta de perfil.
-2. **No perder pesos no es lo mismo que no perder poder de compra.** En ventanas de 36 meses, ninguno de los 9 fondos terminó con menos pesos (0 de 44 ventanas); medidos en pesos de hoy con la UF, los conservadores perdieron poder de compra en 21 a 26 de 44 ventanas. Es el riesgo que W4 y el caso Emiliana (§11.1) describen.
+1. **"Conservador" no significa "sin pérdidas".** Los fondos que sus administradoras clasifican como conservadores llegaron a caer entre 8,1 % y 11,9 % desde un máximo previo, y perdieron valor en pesos en 5 a 8 de 73 ventanas de 12 meses. Por eso la app mantiene la preservación de capital (R-08) como un criterio distinto de la etiqueta de perfil.
+2. **No perder pesos no es lo mismo que no perder poder de compra.** En ventanas de 36 meses, ninguno de los 9 fondos terminó con menos pesos (0 de 49 ventanas); medidos en pesos de hoy con la UF, los conservadores perdieron poder de compra en 21 a 26 de 49 ventanas. Es el riesgo que W4 y el caso Emiliana (§11.1) describen.
 
 **Lo que el panel NO hace.** No cambia la elegibilidad ni la selección; no se atribuye a D01–D09; no se filtra por el perfil de la persona (muestra siempre las tres categorías); no muestra administradoras, nombres de fondos, RUN ni rankings; no proyecta; no expresa probabilidades; no se envía al LLM.
 
@@ -800,7 +800,7 @@ En la prioridad P2, UF, inflación y tipos de cambio podrán provenir de fuentes
 
 | Archivo | Contenido | Procedencia |
 |---|---|---|
-| `valores_cuota_v1.csv` | Copia íntegra de `Basedato_AGF_PR_VC_test.csv`: 21.636 filas; columnas `FECHA_INF`, `ADMINISTRADORA`, `PERFIL`, `RUN_FM`, `SERIE`, `NOMBRE`, `VALOR_CUOTA`; separador `;` | Preparado por Keith Watt; recibido el 06-11-2026; SHA-256 `3e9c0fca4a796b65647daf0fac2a7c278fc61f96e47fdee96574bb508d080445`. Fuente original, licencia y fecha de extracción [VERIFICAR con Keith] |
+| `valores_cuota_v2.csv` | Copia íntegra de la versión 2 de `Basedato_AGF_PR_VC_test.csv`: 23.013 filas (9 fondos × 2.557 días); columnas `FECHA_INF`, `ADMINISTRADORA`, `PERFIL`, `RUN_FM`, `SERIE`, `NOMBRE`, `VALOR_CUOTA`; separador `;` | Preparado por Keith Watt; versión 2 recibida el 06-11-2026; SHA-256 `4214630e7de9ac6e0a2d4b80cb225d0ce89d7bbdab9075fbe39c11d68a768902`. Reemplaza a la versión 1 (SHA-256 `3e9c0fca…8d080445`), que tenía un vacío de abril a agosto de 2026. Fuente original, licencia y fecha de extracción [VERIFICAR con Keith] |
 | `uf_fin_de_mes_v1.csv` | UF del último día de cada mes, de octubre de 2019 a octubre de 2026 (85 valores) | Tablas anuales de la UF del SII, consultadas el 06-11-2026; SHA-256 `c55524ffe9e239d1e2337d1723e275cd24b0c33651ea68a6c8484bcb39cb3fe1`. [VERIFICAR contra la serie oficial del Banco Central antes de publicar] |
 
 La UF del 01-11-2019 es igual a la del 31-10-2019 (28.065,35), porque el IPC de septiembre de 2019 fue 0 % y la UF no varió entre el 10 de octubre y el 9 de noviembre de ese año [VERIFICAR].
@@ -810,15 +810,15 @@ La UF del 01-11-2019 es igual a la del 31-10-2019 (28.065,35), porque el IPC de 
 | Paso | Regla |
 |---|---|
 | Validación | El script DEBE fallar si faltan columnas, hay nulos, duplicados de fecha y RUN, valores ≤ 0, un RUN con más de una administradora, perfil o serie, una variación diaria fuera de ±20 % sin vacío previo, o un mes sin UF |
-| Vacíos | Detecta saltos de más de 3 días calendario y los declara en `vacios`. No calcula variaciones que crucen un vacío. Con la base actual: del 01-04-2026 al 31-08-2026 en los 9 fondos |
+| Vacíos | Detecta saltos de más de 3 días calendario y los declara en `vacios`. No calcula variaciones que crucen un vacío. Con la versión 2 de la base: ninguno |
 | Valor de fin de mes | Último valor disponible de cada mes; los meses dentro de un vacío quedan sin dato. Base: 01-11-2019 |
 | Pesos de hoy | `valor cuota / UF` del mismo fin de mes |
 | Ventanas | Variación entre dos fines de mes separados por 12 o 36 meses, solo cuando ambos extremos tienen dato. Las ventanas se superponen y se informan como conteos ("x de N"), no como porcentajes ni probabilidades |
 | Volatilidad | Desviación estándar de las variaciones mensuales en pesos corrientes × √12, sin variaciones que crucen el vacío |
-| Caída máxima | Mayor caída diaria desde un máximo previo, en pesos corrientes; el vacío puede ocultar caídas ocurridas en él |
+| Caída máxima | Mayor caída diaria desde un máximo previo, en pesos corrientes; si hubiera un vacío, se informa que puede ocultar caídas ocurridas en él |
 | Agregación | Para cada categoría de la administradora: mínimo, mediana y máximo entre sus 3 fondos. Sin promedios ponderados ni nombres |
 
-**Salida** (`data/historico_categorias_v1.json`, `historical_id=HISTORICO_CATEGORIAS_V1`): `{historical_id, generated_at, fuentes: [{archivo, sha256, procedencia, fecha_consulta}], periodo: {desde, hasta}, vacios: [...], ventanas: {"12": 68, "36": 44}, categorias: {conservador | moderado | agresivo: {n_fondos, series, metricas: {indicador: {min, mediana, max}}}}, indice_anual: {...}, notas: [...]}`. No incluye administradoras, nombres ni RUN; esos datos quedan solo en `data/fuentes/` para reproducir el cálculo.
+**Salida** (`data/historico_categorias_v1.json`, `historical_id=HISTORICO_CATEGORIAS_V1`): `{historical_id, generated_at, fuentes: [{archivo, sha256, procedencia, fecha_consulta}], periodo: {desde, hasta}, vacios: [...], ventanas: {"12": 73, "36": 49}, categorias: {conservador | moderado | agresivo: {n_fondos, series, metricas: {indicador: {min, mediana, max}}}}, indice_anual: {...}, notas: [...]}`. No incluye administradoras, nombres ni RUN; esos datos quedan solo en `data/fuentes/` para reproducir el cálculo.
 
 **Valores de referencia**, verificados ejecutando el procedimiento con las dos fuentes (mínimo · mediana · máximo entre los 3 fondos de cada categoría; período del 01-11-2019 al 31-10-2026):
 
@@ -826,24 +826,24 @@ La UF del 01-11-2019 es igual a la del 31-10-2019 (28.065,35), porque el IPC de 
 |---|---|---|---|
 | Variación total en pesos corrientes | +48,9 · +56,9 · +64,5 % | +68,8 · +72,4 · +79,7 % | +96,6 · +104,8 · +140,1 % |
 | Variación total en pesos de hoy (UF: +46,97 %) | +1,3 · +6,7 · +12,0 % | +14,8 · +17,3 · +22,3 % | +33,8 · +39,4 · +63,3 % |
-| Volatilidad anualizada | 3,8 · 4,7 · 5,4 % | 6,3 · 7,1 · 8,2 % | 11,1 · 11,6 · 12,0 % |
+| Volatilidad anualizada | 3,7 · 4,6 · 5,2 % | 6,1 · 7,0 · 8,1 % | 10,9 · 11,4 · 11,9 % |
 | Caída máxima desde un máximo previo | −11,9 · −8,8 · −8,1 % | −20,1 · −15,8 · −14,4 % | −26,8 · −24,8 · −23,4 % |
 | Peor ventana de 12 meses, pesos corrientes | −4,0 · −3,7 · −3,3 % | −4,4 · −4,0 · −2,1 % | −13,9 · −12,8 · −11,2 % |
 | Peor ventana de 12 meses, pesos de hoy | −10,6 · −10,2 · −9,7 % | −15,6 · −15,3 · −13,6 % | −24,0 · −23,0 · −21,6 % |
-| Ventanas de 12 meses negativas, pesos corrientes (de 68) | 5 · 7 · 8 | 2 · 6 · 11 | 9 · 12 · 17 |
-| Ventanas de 12 meses negativas, pesos de hoy (de 68) | 27 · 29 · 32 | 20 · 25 · 26 | 16 · 24 · 25 |
+| Ventanas de 12 meses negativas, pesos corrientes (de 73) | 5 · 7 · 8 | 2 · 6 · 11 | 9 · 12 · 17 |
+| Ventanas de 12 meses negativas, pesos de hoy (de 73) | 27 · 29 · 32 | 20 · 25 · 26 | 16 · 24 · 25 |
 | Peor ventana de 36 meses, pesos corrientes | +6,8 · +9,1 · +13,3 % | +6,4 · +7,0 · +13,0 % | +2,1 · +7,0 · +16,2 % |
 | Peor ventana de 36 meses, pesos de hoy | −15,4 · −12,2 · −10,2 % | −14,5 · −14,4 · −9,2 % | −18,0 · −14,1 · −6,7 % |
-| Ventanas de 36 meses negativas, pesos corrientes (de 44) | 0 · 0 · 0 | 0 · 0 · 0 | 0 · 0 · 0 |
-| Ventanas de 36 meses negativas, pesos de hoy (de 44) | 21 · 23 · 26 | 18 · 27 · 27 | 3 · 26 · 27 |
+| Ventanas de 36 meses negativas, pesos corrientes (de 49) | 0 · 0 · 0 | 0 · 0 · 0 | 0 · 0 · 0 |
+| Ventanas de 36 meses negativas, pesos de hoy (de 49) | 21 · 23 · 26 | 18 · 27 · 27 | 3 · 26 · 27 |
 
 **Reglas de presentación** (detalle de interfaz en §10):
 
 - Rótulo de cada columna: "Fondos que sus administradoras clasifican como «conservadores»", «moderados» o «agresivos». Es la clasificación de las administradoras, no el perfil que calcula esta app; «agresivo» no equivale a «arriesgado».
-- Cada valor se muestra como rango con su mediana ("entre −15,4 % y −10,2 %; mediana −12,2 %") y los conteos como "en 21 a 26 de 44 ventanas de 36 meses".
+- Cada valor se muestra como rango con su mediana ("entre −15,4 % y −10,2 %; mediana −12,2 %") y los conteos como "en 21 a 26 de 49 ventanas de 36 meses".
 - Primero se muestra la ventana (12 o 36 meses) más cercana al horizonte de la meta, si existe; las tres categorías se muestran siempre.
-- Textos obligatorios, como constantes del servidor: "Datos históricos de 9 fondos mutuos reales de 3 administradoras chilenas, del 01-11-2019 al 31-10-2026, sin datos de abril a agosto de 2026." · "Incluye la pandemia de 2020 y el alza de inflación de 2021 a 2023. Las ventanas se superponen: no son probabilidades." · "Lo que pasó no indica lo que pasará." · "El valor cuota ya descuenta la remuneración del fondo; no incluye impuestos ni beneficios tributarios. Dos administradoras usan series APV y una, series B y B1, por lo que las cifras no comparan administradoras." · "Este panel no describe las alternativas simuladas de la comparación." · Fuentes con fecha de consulta.
-- Gráfico permitido: mediana de cada categoría a fin de cada año, en pesos corrientes y en pesos de hoy (Anexo D), con el vacío marcado. Ningún otro gráfico con estos datos.
+- Textos obligatorios, como constantes del servidor: "Datos históricos de 9 fondos mutuos reales de 3 administradoras chilenas, del 01-11-2019 al 31-10-2026." · "Incluye la pandemia de 2020 y el alza de inflación de 2021 a 2023. Las ventanas se superponen: no son probabilidades." · "Lo que pasó no indica lo que pasará." · "El valor cuota ya descuenta la remuneración del fondo; no incluye impuestos ni beneficios tributarios. Dos administradoras usan series APV y una, series B y B1, por lo que las cifras no comparan administradoras." · "Este panel no describe las alternativas simuladas de la comparación." · Fuentes con fecha de consulta.
+- Gráfico permitido: mediana de cada categoría a fin de cada año, en pesos corrientes y en pesos de hoy (Anexo D), con los vacíos marcados si una versión futura de la base los tuviera. Ningún otro gráfico con estos datos.
 
 ## 8. Datos y estado
 
@@ -1182,7 +1182,7 @@ Cobertura de los puntos revisados por el grupo: costo objetivo (A39, A44, A46, A
 | A54 | 2 | Tasa: 5 % efectiva anual a 12 meses; TNA de 6 % con capitalización mensual a 12 meses; tasa sin tipo indicado | 1.050.000; r efectiva 6,17 % mostrada junto a la TNA y VF 1.061.678; sin tipo → 422. Ningún texto llama "nominal" a una tasa efectiva | Sí |
 | A55 | 3 | Explicación de la comparación de A23 con cliente falso (CI) y, con clave aprobada, con el modelo real | Una explicación por cada uno de D01, D04 y D05; sin cifras ni IDs ajenos; rótulo de IA presente; se guarda con la comparación; una segunda petición no llama al modelo | Sí |
 | A56 | 3 | Explicación con proveedor caído, presupuesto agotado o borrador inválido tras una reparación; explicación pedida sobre una comparación histórica o ajena | Plantilla con `generated_by=plantilla` y comparación utilizable; con presupuesto agotado, sin llamada al modelo; comparación histórica → 409; ajena → 404 | Sí |
-| A57 | 2 | Opción B. `procesar_historico.py` con la base de Keith; luego con archivos de prueba que contienen un duplicado, un nulo, una variación diaria de 25 % sin vacío o un mes sin UF | Con la base: vacío del 01-04-2026 al 31-08-2026 declarado en los 9 fondos y ninguna variación calculada a través de él. Con los archivos de prueba: el script falla con un mensaje que identifica el problema | Sí |
+| A57 | 2 | Opción B. `procesar_historico.py` con la versión 2 de la base de Keith; luego con archivos de prueba: uno sin los días de abril a agosto de 2026 (como la versión 1) y otros con un duplicado, un nulo, una variación diaria de 25 % sin vacío o un mes sin UF | Con la versión 2: `vacios` vacío, 73 ventanas de 12 meses y 49 de 36. Con el archivo sin abril a agosto: vacío declarado en los 9 fondos y ninguna variación calculada a través de él. Con los demás archivos de prueba: el script falla con un mensaje que identifica el problema | Sí |
 | A58 | 2 | Opción B. Dos ejecuciones con las fuentes de SHA-256 indicados en §7.7 | JSON idénticos salvo `generated_at`; cada valor de la tabla de referencia de §7.7 reproducido con diferencia ≤ 0,1 puntos; conteos exactos | Sí |
 | A59 | 3 | Opción B. Panel con perfil conservador y con perfil arriesgado; búsqueda de nombres de administradoras, fondos y RUN en el HTML y en `GET /api/historico` | Las tres categorías visibles en ambos casos; ningún nombre ni RUN; textos obligatorios y fuentes visibles; el panel no aparece dentro de las tarjetas de D01–D09; `GET /api/historico` responde sin sesión | Sí |
 | A60 | 3 | "¿Cuánto voy a ganar en un fondo conservador?"; "¿Qué banco tiene el mejor fondo?"; borrador del LLM que menciona una administradora real o dice "rentará 6 %" | Sin proyecciones, cifras ni nombres; remite al panel; los borradores con marcas o proyecciones se descartan (V-04) y se usa la plantilla | Sí |
@@ -1208,7 +1208,7 @@ Origen: prueba del grupo del 04-11-2026, que mostró que la v1.1 clasificaba bie
 | Variante M8 = USD | — | Moneda `aplica`; inflación chilena `indirecto`; W5 completa: la reajustabilidad en UF de D09 no asegura cubrir un gasto en USD; brecha en pesos solo si ella supone un tipo de cambio |
 | Simulador | r = 0 %, π_CL = 3 %, datos de la meta | Resultados de A39 (§7.5) |
 | Chat | "¿Cuánto cuesta ir a la Antártica?" | `educativo`; sin precios; remite al costo que ella declare en M7 |
-| Panel histórico (opción B) | Desplegable desde la fila Inflación chilena de su ficha | Muestra primero las ventanas de 36 meses: los fondos clasificados como conservadores no terminaron con menos pesos en ninguna de 44 ventanas, pero perdieron poder de compra en 21 a 26 de ellas (peor caso entre −15,4 % y −10,2 %). Las tres categorías visibles, sin marcas y sin recomendar ninguna |
+| Panel histórico (opción B) | Desplegable desde la fila Inflación chilena de su ficha | Muestra primero las ventanas de 36 meses: los fondos clasificados como conservadores no terminaron con menos pesos en ninguna de 49 ventanas, pero perdieron poder de compra en 21 a 26 de ellas (peor caso entre −15,4 % y −10,2 %). Las tres categorías visibles, sin marcas y sin recomendar ninguna |
 
 ### 11.2 Evolución de la suite de aceptación
 
@@ -1222,6 +1222,7 @@ La suite que manda es siempre la de la versión vigente de este SPEC. Los númer
 | 1.3 | A01–A53 | Sin aportes y sin inflación (A44), aportes (A45), moneda extranjera (A46, A47), procedencia de supuestos (A48), escenarios (A49), alternativas equivalentes (A50), riesgos por separado (A51), liquidez (A52), calculadora sin perfil (A53); A09, A10, A28, A37–A43 actualizados |
 | 1.4 (borrador) | A01–A56 | Tasa efectiva y conversión desde TNA (A54); explicación generativa de la comparación y su respaldo (A55, A56) |
 | 1.5 (borrador) | A01–A60 | Con la opción B: validación y vacíos de la base (A57), reproducibilidad de los agregados (A58), panel sin marcas ni filtro por perfil (A59), chat sin proyecciones ni marcas (A60) |
+| 1.6 (borrador) | A01–A60 | A57 y A58 actualizados a la versión 2 de la base; el vacío de la versión 1 pasa a ser un archivo de prueba |
 
 ## 12. Riesgos, guardrails y escalada a humano
 
@@ -1247,7 +1248,7 @@ La suite que manda es siempre la de la versión vigente de este SPEC. Los númer
 | Leer el pasado como pronóstico | Rangos y conteos en vez de promedios o probabilidades, textos obligatorios, regla 12 del prompt y frases de V-04; A59 y A60 |
 | Atribuir la historia real a las alternativas ficticias | Panel separado de las tarjetas y textos obligatorios; A59 |
 | Identificar o comparar productos y administradoras reales | Solo agregados por categoría; nombres y RUN fuera de la interfaz y de la API; lista `marcas_v1.txt` en V-04; A59 y A60 |
-| Datos de origen no verificados o incompletos | Archivo `_test` sin fuente declarada y vacío de abril a agosto de 2026: [VERIFICAR] con Keith, vacío declarado y no interpolado, checksums en `/ready`; A57 y A58 |
+| Datos de origen no verificados o incompletos | Archivo `_test` sin fuente declarada [VERIFICAR con Keith]; la versión 2 completa el vacío de la versión 1, y el script sigue declarando vacíos sin interpolarlos si reaparecen; checksums en `/ready`; A57 y A58 |
 | Series no homogéneas entre administradoras | Agregación por rango y mediana, sin rankings, y texto obligatorio sobre las series |
 | Datos reales desactualizados | v0 sin fuentes reales; futura integración con vigencia definida por campo |
 | Inyección de prompt | Mensajes como datos; allowlist de dos herramientas; políticas fuera del prompt; estado decidido por el servidor |
@@ -1303,7 +1304,7 @@ Material del curso y del grupo:
 - Teleduc UC, curso "Educación Financiera", módulo 2: variables nominales y reales, inflación y UF como herramienta de estabilidad frente a la inflación; base de W4, del simulador con inflación y de D09.
 - Revisión de un integrante del Grupo 2 sobre la v1.1 (04-11-2026): brecha con costo, moneda y aportes en $0; procedencia de supuestos; riesgos por separado; límite de la UF frente a gastos en otra moneda; liquidez; comparaciones redundantes; cobertura de pruebas; priorización para el taller.
 - Observaciones de una revisora externa al grupo sobre la v1.3 (04-11-2026): nombre de la tasa y explicación con IA generativa en la primera versión.
-- `Basedato_AGF_PR_VC_test.csv`, base de valores cuota preparada por Keith Watt (recibida el 06-11-2026; SHA-256 en §7.7): fondos mutuos de 3 administradoras chilenas con valores diarios del 01-11-2019 al 31-10-2026; base del Anexo D y de la propuesta §7.7. Fuente original [VERIFICAR].
+- `Basedato_AGF_PR_VC_test.csv`, base de valores cuota preparada por Keith Watt (versión 2, recibida el 06-11-2026; SHA-256 en §7.7; reemplaza a la versión 1 del mismo día): fondos mutuos de 3 administradoras chilenas con valores diarios del 01-11-2019 al 31-10-2026; base del Anexo D y de la propuesta §7.7. Fuente original [VERIFICAR].
 
 Fuentes externas (consultadas el 21-10-2026, el 04-11-2026 y el 06-11-2026):
 
@@ -1333,7 +1334,7 @@ No bloquean la redacción ni las pruebas locales con fixtures. Registrar las res
 9. ¿Se mantendrá la sesión efímera o se financiará una fase posterior con cuentas persistentes?
 10. Con los datos de valores cuota de Keith: ¿aprueba la opción B propuesta en §7.7, prefiere la A o la C, o ninguna?
 11. ¿Qué observaciones del profesor Ahmat cambian el alcance, y qué mejoras propuestas entran en la versión final y cuáles quedan como evolución futura?
-12. Para Keith: ¿de qué fuente y con qué licencia se extrajeron los valores cuota, en qué fecha, y el sufijo `_test` indica datos reales o de prueba? ¿Por qué faltan abril a agosto de 2026 y se pueden completar? ¿Por qué se eligieron series APV en dos administradoras y B o B1 en la tercera?
+12. Para Keith: ¿de qué fuente y con qué licencia se extrajeron los valores cuota, en qué fecha, y el sufijo `_test` indica datos reales o de prueba? ¿Los meses de abril a agosto de 2026 agregados en la versión 2 vienen de la misma fuente que el resto? ¿Por qué se eligieron series APV en dos administradoras y B o B1 en la tercera?
 
 **Orden final al agente:** presenta primero el plan. Tras la aprobación ejecuta solo el primer hito autorizado, muestra evidencias y pide revisión del resultado antes de cruzar la siguiente puerta de calidad. Si un requisito es incompatible, plantea el conflicto y una alternativa concreta; no lo omitas silenciosamente.
 
@@ -1391,6 +1392,15 @@ Los valores entre llaves los completa el servidor. El disclaimer se agrega siemp
 | `error` | "No pude completar esta respuesta. Tu comparación sigue disponible; intenta nuevamente en unos minutos." |
 
 ## Anexo C — Registro de cambios
+
+### v1.5 → v1.6, borrador (06-11-2026, versión 2 de la base de valores cuota)
+
+| N.º | Sección | Hallazgo | Cambio en v1.6 |
+|---|---|---|---|
+| C69 | Plan, §7.7, Anexo D | Keith entregó la versión 2 de la base, que completa abril a agosto de 2026 | Lista de verificación, fuentes (archivo `valores_cuota_v2.csv` y nuevo SHA-256), conteos de ventanas (73 y 49) y textos obligatorios actualizados; ya no se menciona un vacío |
+| C70 | §7.7, Anexo D | Indicadores por recalcular con la base completa | Recalculados: solo cambia la volatilidad anualizada (entre 0,1 y 0,2 puntos). Totales, caídas máximas, peores ventanas y conteos de ventanas negativas no cambian, porque las ventanas agregadas fueron todas positivas |
+| C71 | Anexo D | Faltaba verificar que la versión 2 no alterara los datos previos | Comparación fila a fila: las 21.636 filas anteriores son idénticas; el tramo agregado no muestra interpolación |
+| C72 | §11 | A57 suponía un vacío en la base | A57 usa la versión 2 y conserva el caso del vacío como archivo de prueba |
 
 ### v1.4 → v1.5, borrador (06-11-2026, base de valores cuota de Keith Watt)
 
@@ -1487,7 +1497,7 @@ Los valores entre llaves los completa el servidor. El disclaimer se agrega siemp
 
 ## Anexo D — Análisis de la base de valores cuota (06-11-2026)
 
-Análisis de `Basedato_AGF_PR_VC_test.csv`, preparado por Keith Watt, ejecutado con el procedimiento de §7.7. Sirve para decidir la opción de uso (pregunta 10); no es un estudio de desempeño de fondos ni una recomendación.
+Análisis de la versión 2 de `Basedato_AGF_PR_VC_test.csv`, preparada por Keith Watt, ejecutado con el procedimiento de §7.7. Sirve para decidir la opción de uso (pregunta 10); no es un estudio de desempeño de fondos ni una recomendación.
 
 ### D.1 Inventario
 
@@ -1510,14 +1520,15 @@ Este inventario es solo para trazabilidad interna; la interfaz y la API no lo mu
 | Revisión | Resultado |
 |---|---|
 | Formato | UTF-8, fines de línea CRLF, separador `;`, fechas `AAAAMMDD`, decimales con punto |
-| Volumen | 21.636 filas = 9 fondos × 2.404 fechas |
+| Volumen | 23.013 filas = 9 fondos × 2.557 fechas |
 | Nulos, duplicados (fecha + RUN + serie) y valores ≤ 0 | Ninguno |
 | Coherencia por RUN | Una sola administradora, clasificación, serie y nombre por RUN. Tildes inconsistentes entre fondos ("DINÁMICA" y "DINAMICA"), sin efecto en el cálculo |
 | Frecuencia | Todos los días calendario, incluidos fines de semana; el 97 % de los valores de sábado y domingo difiere del día anterior |
 | Período | Del 01-11-2019 al 31-10-2026 (2.557 días calendario) |
-| Vacío | Faltan los 153 días del 01-04-2026 al 31-08-2026, en los 9 fondos |
-| Salto tras el vacío | Del 31-03-2026 al 01-09-2026: entre +3,5 % y +14,9 % según el fondo. Acumula cinco meses; tratarlo como variación diaria inflaría la volatilidad |
-| Variaciones diarias mayores a 3 % (sin contar el vacío) | Marzo de 2020 (inicio de la pandemia), 15-07-2022 y 09-04-2025, en fondos moderados y agresivos |
+| Vacíos | Ninguno: hay dato para todos los días y fondos |
+| Comparación con la versión 1 | La versión 1 omitía los 153 días del 01-04-2026 al 31-08-2026. La versión 2 agrega esas 1.377 filas y deja idénticas las 21.636 anteriores (valores, nombres, administradoras y clasificaciones) |
+| Tramo agregado (abril a agosto de 2026) | Variaciones diarias entre −1,1 % y +1,5 %; el 99 % de los valores de fin de semana cambia; las transiciones del 31-03 al 01-04 y del 31-08 al 01-09 son normales; sin indicios de interpolación lineal |
+| Variaciones diarias mayores a 3 % | Marzo de 2020 (inicio de la pandemia), 15-07-2022 y 09-04-2025, en fondos moderados y agresivos |
 
 ### D.3 UF utilizada
 
@@ -1540,9 +1551,9 @@ Los indicadores por categoría están en la tabla de referencia de §7.7. Evoluc
 
 ### D.5 Hallazgos
 
-1. **"Conservador" no significa "sin pérdidas".** Los tres fondos conservadores tuvieron caídas máximas de 8,1 % a 11,9 % y terminaron con menos pesos en 5 a 8 de 68 ventanas de 12 meses; la peor, entre −4,0 % y −3,3 %, terminó en enero de 2022. Si estos fondos estuvieran en el catálogo, el filtro de preservación (R-08) los excluiría para Emiliana.
+1. **"Conservador" no significa "sin pérdidas".** Los tres fondos conservadores tuvieron caídas máximas de 8,1 % a 11,9 % y terminaron con menos pesos en 5 a 8 de 73 ventanas de 12 meses; la peor, entre −4,0 % y −3,3 %, terminó en enero de 2022. Si estos fondos estuvieran en el catálogo, el filtro de preservación (R-08) los excluiría para Emiliana.
 2. **Ganar pesos no es lo mismo que ganar poder de compra.** En pesos de hoy, la mediana de los conservadores llegó a estar 12,6 % bajo su punto de partida (octubre de 2023) y recién lo superó en julio de 2025. En siete años, su ganancia real total fue de 1,3 % a 12,0 % (0,2 % a 1,6 % anual), frente a 48,9 % a 64,5 % en pesos corrientes.
-3. **El plazo cambia lo que se observa.** En pesos corrientes, ningún fondo terminó con menos pesos en ventanas de 36 meses (0 de 44), mientras que los agresivos los perdieron en 9 a 17 de 68 ventanas de 12 meses. En pesos de hoy, todas las categorías tuvieron ventanas de 36 meses negativas, y todas esas ventanas terminan entre octubre de 2022 y diciembre de 2024, tras el alza de inflación.
+3. **El plazo cambia lo que se observa.** En pesos corrientes, ningún fondo terminó con menos pesos en ventanas de 36 meses (0 de 49), mientras que los agresivos los perdieron en 9 a 17 de 73 ventanas de 12 meses. En pesos de hoy, todas las categorías tuvieron ventanas de 36 meses negativas, y todas esas ventanas terminan entre octubre de 2022 y diciembre de 2024, tras el alza de inflación.
 4. **El peso de cada riesgo depende del período, del plazo y del fondo.** En 12 meses, la caída del mercado fue más visible en los agresivos; en 36 meses, la inflación pesó en todas las categorías. Esto respalda presentar los riesgos por separado y sin jerarquía (§3.3).
 5. **La dispersión dentro de cada categoría es grande.** Por ejemplo, la ganancia real total de los agresivos va de 33,8 % a 63,3 %. Parte de esa diferencia puede deberse a las series (APV frente a B o B1), así que los datos no sirven para comparar administradoras.
 6. **El catálogo y la elegibilidad no cambian.** Los datos ilustran lecciones; no calibran D01–D09 ni modifican reglas.
@@ -1552,7 +1563,6 @@ Los indicadores por categoría están en la tabla de referencia de §7.7. Evoluc
 - Un solo período de siete años, con una pandemia y un alza de inflación; las ventanas se superponen y no son probabilidades.
 - Nueve fondos de tres administradoras: no representan el mercado ni a todas las administradoras. Solo incluye fondos que existieron durante todo el período.
 - Fuente, licencia y fecha de extracción por confirmar; el archivo se llama `_test`.
-- Cinco meses sin datos en 2026; una caída ocurrida en ese lapso no aparecería.
 - Series no homogéneas; no se modelan impuestos ni beneficios tributarios del APV.
 - UF transcrita de tablas del SII, por verificar contra la serie oficial; se usa la UF de fin de mes.
 
