@@ -2,7 +2,7 @@
 
 | Campo | Valor |
 |---|---|
-| Versión | **1.9, cerrada** (reemplaza la 1.8; historial completo en el Anexo C). Registra el modelo de ingresos elegido por el grupo: licencia educativa institucional. Las preguntas de §12 que siguen abiertas son ratificaciones antes de publicar y no reabren la especificación |
+| Versión | **1.10, cerrada** (reemplaza la 1.9; historial completo en el Anexo C). Registra el cotejo de los valores cuota con la CMF (27 de 27 coinciden), con el que se cumplen las condiciones de publicación del panel histórico; la calibración humana del golden set; y el piloto replanteado como plan más una validación interna. Las preguntas de §12 que siguen abiertas son ratificaciones y no reabren la especificación |
 | Fecha | 06-11-2026 |
 | Entrega | Grupo 2 · UAI Advanced · clase 7 |
 | Integrantes | Diego Silva, Keith Watt, Daphne Loewenwarter [confirmar] |
@@ -11,7 +11,7 @@
 | Suite de aceptación vigente | A01–A64 (§11); su evolución desde los criterios A01–A22 de la v1.0 está en §11.2 |
 | Fuentes de diseño | Este SPEC; diagramas de flujo de usuario (`Flijo_1.jpeg`) y de componentes (`Flujo_2.jpeg`) del Grupo 2; caso de prueba "Emiliana" (§11.1); revisión de un integrante del grupo sobre la v1.1; observaciones de una revisora externa al grupo sobre la v1.3; base de valores cuota preparada por Keith Watt, versión 2 (Anexo D); observaciones del profesor Ahmat sobre la v1.0 (06-11-2026) |
 | Estado | Especificación y prompt maestro para un agente de código. No es software implementado, ni validación regulatoria, ni opinión legal. |
-| Cambios | Anexo C (v1.0 → v1.1, v1.1 → v1.2, v1.2 → v1.3, v1.3 → v1.4, v1.4 → v1.5, v1.5 → v1.6, v1.6 → v1.7, v1.7 → v1.8 y v1.8 → v1.9) |
+| Cambios | Anexo C (v1.0 → v1.1, v1.1 → v1.2, v1.2 → v1.3, v1.3 → v1.4, v1.4 → v1.5, v1.5 → v1.6, v1.6 → v1.7, v1.7 → v1.8, v1.8 → v1.9 y v1.9 → v1.10) |
 
 ## Instrucción de uso para el agente de código
 
@@ -67,7 +67,7 @@ Se construye primero un corte pequeño que ya entrega valor y se puede demostrar
 | P0 · Publicación | Docker, CI y demo publicada con los cortes 1 y 2. **IA encendida en la URL publicada** (explicación generativa con `LLM_MODE=real`) con **límite de gasto** activo (§6.3) y **golden set con mejora medida** entre versiones del prompt (§11.3) | 3 a 6 |
 | P0 · Negocio | Modelo de ingresos elegido: licencia educativa institucional (§1.1); guía docente y propuesta de piloto fuera de la app; métricas agregadas en la app | 1 y 3 |
 | P1 · Negocio | "Modo curso": código de curso opcional e informe agregado y anónimo para el docente (§1.1) | Después del hito 6 |
-| P0 · Corte 2, historial | Panel educativo "Así se movieron en el pasado", con datos reales agregados por categoría (opción B, aprobada por el grupo el 06-11-2026; §7.7). Se publica cuando se cumpla su condición de publicación | 2 y 3 |
+| P0 · Corte 2, historial | Panel educativo "Así se movieron en el pasado", con datos reales agregados por categoría (opción B, aprobada por el grupo el 06-11-2026; §7.7). Condición de publicación cumplida el 07-11-2026 | 2 y 3 |
 | P1 | Chat con LLM real y herramientas, bajo el mismo límite de gasto | 3 |
 | Opcional | Laboratorio kind con dos réplicas (A20), fuera del camino crítico por indicación del profesor | Después del hito 6 |
 | P2 · fuera de v0 | Datos financieros en línea (UF, inflación y tipos de cambio consultados en fuentes oficiales durante el uso), productos reales identificados en el catálogo y en la comparación | Fase posterior |
@@ -80,7 +80,7 @@ La v1.4 incorporó los dos ajustes priorizados (nombre de la tasa y explicación
 
 | Insumo | Responsable | Qué permite decidir | Estado |
 |---|---|---|---|
-| Datos de valores cuota | Keith Watt | Si el catálogo sigue completamente simulado o incorpora datos históricos reales, y con qué fin | **Recibida completa el 06-11-2026** (`Basedato_AGF_PR_VC_test.csv`, versión 2: 9 fondos × 2.557 días, sin vacíos). Todos los indicadores de §7.7 y del Anexo D están calculados con ella. **El grupo aprobó la opción B el 06-11-2026.** Fuente informada: sistemas del banco donde trabaja Keith. Para publicar el panel falta la autorización de uso o el cotejo con la fuente pública de la CMF (§7.7, pregunta 12) |
+| Datos de valores cuota | Keith Watt | Si el catálogo sigue completamente simulado o incorpora datos históricos reales, y con qué fin | **Recibida completa el 06-11-2026** (`Basedato_AGF_PR_VC_test.csv`, versión 2: 9 fondos × 2.557 días, sin vacíos). Todos los indicadores de §7.7 y del Anexo D están calculados con ella. **El grupo aprobó la opción B el 06-11-2026.** Fuente: sistemas del banco donde trabaja Keith. **Cotejada con la CMF el 07-11-2026: 27 de 27 valores coinciden** (Anexo D.8); se cita la CMF como fuente pública y el panel puede publicarse |
 | Observaciones del profesor Ahmat | Profesor del curso | Alcance de la entrega final y requisitos del curso | **Recibidas el 06-11-2026**, sobre la v1.0: "bien alineado, ajustes puntuales". Pide IA encendida en la URL publicada con límite de gasto, un golden set de la función de IA con mejora medida entre versiones del prompt, el modelo de ingresos y sacar el laboratorio Kubernetes del camino crítico. Incorporadas en la v1.7 (Anexo C) |
 | Entregables del taller (ficha de negocio y video demo) | Grupo | Fuera de este SPEC | Se trabajan el viernes 06-11-2026 |
 
@@ -88,13 +88,13 @@ La v1.4 incorporó los dos ajustes priorizados (nombre de la tasa y explicación
 
 | Punto | Resultado | Estado |
 |---|---|---|
-| Fuente y licencia de uso | Keith extrae los datos de los sistemas del banco donde trabaja (informado el 06-11-2026). Los valores cuota de los fondos mutuos también son información pública de la CMF [VERIFICAR la ruta de consulta] | Autorización de uso o cotejo con la CMF pendiente: condición de publicación (§7.7) |
-| Fecha de extracción | Entregada el 06-11-2026, con datos hasta el 31-10-2026 | Fecha exacta [VERIFICAR con Keith] |
+| Fuente y licencia de uso | Keith extrae los datos de los sistemas del banco donde trabaja. Los valores cuota son información pública de la CMF (herramienta "Cartola diaria por fondo"); el cotejo del 07-11-2026 dio 27 de 27 coincidencias | Cumplido: se cita la CMF como fuente pública (§7.7, Anexo D.8) |
+| Fecha de extracción | Entregada el 06-11-2026, con datos hasta el 31-10-2026 | No bloquea: los valores coinciden con la CMF |
 | Fondos y series | 9 fondos mutuos: 3 administradoras × 3 perfiles propios de cada administradora (conservador, moderado y agresivo). Series APV en dos administradoras y B o B1 en la tercera | Series no homogéneas: no sirven para comparar administradoras |
-| Moneda | Valores en pesos, según su magnitud | [VERIFICAR en el reglamento interno de cada fondo] |
+| Moneda | Pesos chilenos: la CMF informa moneda `$$` para los 9 fondos | Confirmado |
 | Frecuencia y período | Diaria, todos los días calendario, del 01-11-2019 al 31-10-2026 | Correcto |
 | Datos faltantes | Ninguno: 9 fondos × 2.557 días (23.013 filas), sin nulos, duplicados, vacíos ni valores ≤ 0 | Completo |
-| Dividendos o repartos | El valor cuota de estas series se presume acumulativo | [VERIFICAR en el reglamento interno] |
+| Dividendos o repartos | En las tres fechas cotejadas, la CMF no informa factor de reparto ni factor de ajuste para estos fondos | Sin repartos en las fechas revisadas; para todo el período [VERIFICAR en el reglamento interno] |
 | Costos | El valor cuota ya descuenta la remuneración de la serie; no incluye impuestos, comisiones de rescate ni beneficios tributarios del APV | Rotular en cualquier uso |
 | Productos reales por marca (§4), procedencia (§7.6) y encuadre regulatorio (§12.4) | Son productos reales identificados por administradora y nombre | Excluye mostrarlos por marca junto al perfil de la persona en v0 |
 
@@ -143,7 +143,9 @@ El resultado de v0 es una **demostración académica de orientación y simulaci�
 | Clientes | Universidades, institutos profesionales, CFT, fundaciones y municipios que dictan cursos o talleres de educación financiera **para personas adultas**. Los liceos quedan fuera mientras la app no tenga un diseño para menores de edad, con consentimiento de apoderados y las reglas especiales de la Ley 21.719 |
 | Qué se licencia | Uso de la app en cursos y talleres; el caso Emiliana y otros casos como actividades; el simulador; el panel histórico, cuando se publique; una guía docente con actividades y rúbrica; y, desde P1, el informe agregado por curso |
 | Estructura de precio a probar | Licencia anual por institución, por tramos de estudiantes [SUPUESTO: hasta 200, de 201 a 1.000 y más de 1.000], y una modalidad por curso y semestre para pilotos. Piso de precio de cada tramo = (costo variable medido por estudiante activo × estudiantes del tramo + costo fijo de soporte asignado) ÷ (1 − margen buscado). Los montos en pesos se fijan después del piloto, con el costo medido en el registro de gasto |
-| Piloto | Uno o dos cursos durante un semestre académico, sin costo o con descuento, con el precio de conversión escrito en la propuesta. Institución y curso por definir (pregunta 15) |
+| Piloto institucional (plan) | Uno o dos cursos durante un semestre académico, sin costo o con descuento, con el precio de conversión escrito en la propuesta. Se presenta como plan: el grupo no tiene hoy contacto con instituciones, y una institución concreta queda para una fase posterior |
+| Validación interna (Proyecto Final) | Sesión de prueba con 3 a 5 compañeros adultos del curso y, si acepta, el profesor como evaluador docente. Cada participante recorre el flujo con una meta propia o con el caso Emiliana. Se mide: cuántos completan el flujo sin ayuda; costo de IA por persona (registro de gasto); utilidad en una encuesta breve de 1 a 5, fuera de la app; y confusiones observadas. Con 3 a 5 personas es una prueba de uso cualitativa, no estadística: los resultados se informan como conteos ("4 de 5"), no como porcentajes. Criterios: todos menos uno, como máximo, completan el flujo sin ayuda; mediana de utilidad de 4 o más; ningún incidente de seguridad (cifras inventadas, marcas o recomendaciones) |
+| Guía docente | Borrador de una o dos páginas (objetivos, actividad con el caso Emiliana, preguntas de discusión y rúbrica), anexo a la ficha de negocio |
 | Éxito del piloto [SUPUESTO] | Al menos 60 % de los estudiantes completa el flujo; evaluación docente de 4 o más sobre 5; costo por estudiante activo dentro del presupuesto de IA; la institución declara intención de licenciar |
 | Métricas | Las métricas agregadas de esta sección, por curso cuando exista el modo curso; la encuesta docente y, si el curso la aplica, una evaluación de aprendizaje antes y después, ambas fuera de la app |
 | Neutralidad | La institución paga por un recurso docente; no vende productos financieros ni recibe datos individuales |
@@ -859,10 +861,10 @@ En la prioridad P2, UF, inflación y tipos de cambio podrán provenir de fuentes
 
 | Requisito | Estado al 06-11-2026 |
 |---|---|
-| (1) Uso autorizado de los valores cuota. Keith los extrae de los sistemas del banco donde trabaja, así que hace falta una de dos vías: (a) Keith confirma por escrito que el banco permite usar la extracción en este proyecto académico; o (b) el grupo coteja una muestra (los 9 fondos en 3 fechas) con la información pública de la CMF y, si coincide, cita la CMF como fuente [VERIFICAR la ruta de consulta]. Se recomienda (b), porque no depende de permisos internos. La vía elegida, la fecha de extracción y el resultado del cotejo se registran en `FUENTES.md` | Pendiente (pregunta 12) |
+| (1) Uso autorizado de los valores cuota. Keith los extrae de los sistemas del banco donde trabaja, así que hacía falta una de dos vías: (a) autorización escrita del banco; o (b) cotejo de una muestra con la información pública de la CMF y cita de la CMF como fuente | **Cumplido por la vía (b)** el 07-11-2026: los 9 fondos en 3 fechas (01-11-2019, 31-12-2022 y 31-10-2026) coinciden con la cartola diaria de la CMF; detalle en el Anexo D.8 y en `FUENTES.md` |
 | (2) UF verificada | **Cumplido** por muestreo (ver "Verificación de la UF") |
 
-Hasta entonces, la URL publicada usa `HISTORICO_ENABLED=false`: `GET /api/historico` responde 404, la ficha no muestra los enlaces y la página de metodología omite el panel, sin afectar el resto de la app. En desarrollo y en CI se usa `HISTORICO_ENABLED=true`. Si la licencia no permite este uso, el panel no se publica y se registra en el Anexo C.
+Ambos requisitos se cumplieron el 07-11-2026, así que la URL publicada usa `HISTORICO_ENABLED=true`. El interruptor se mantiene: con `HISTORICO_ENABLED=false`, `GET /api/historico` responde 404, la ficha no muestra los enlaces y la página de metodología omite el panel, sin afectar el resto de la app. Se usa si una revisión posterior lo exige, y cualquier cambio se registra en el Anexo C.
 
 **Propósito.** Mostrar con datos reales dos lecciones que el catálogo simulado no puede demostrar por sí solo (evidencia en el Anexo D):
 
@@ -875,7 +877,8 @@ Hasta entonces, la URL publicada usa `HISTORICO_ENABLED=false`: `GET /api/histor
 
 | Archivo | Contenido | Procedencia |
 |---|---|---|
-| `valores_cuota_v2.csv` | Copia íntegra de la versión 2 de `Basedato_AGF_PR_VC_test.csv`: 23.013 filas (9 fondos × 2.557 días); columnas `FECHA_INF`, `ADMINISTRADORA`, `PERFIL`, `RUN_FM`, `SERIE`, `NOMBRE`, `VALOR_CUOTA`; separador `;` | Preparado por Keith Watt; versión 2 recibida el 06-11-2026; SHA-256 `4214630e7de9ac6e0a2d4b80cb225d0ce89d7bbdab9075fbe39c11d68a768902`. Fuente: sistemas del banco donde trabaja Keith. Autorización de uso o cotejo con la CMF y fecha exacta de extracción [VERIFICAR con Keith] |
+| `valores_cuota_v2.csv` | Copia íntegra de la versión 2 de `Basedato_AGF_PR_VC_test.csv`: 23.013 filas (9 fondos × 2.557 días); columnas `FECHA_INF`, `ADMINISTRADORA`, `PERFIL`, `RUN_FM`, `SERIE`, `NOMBRE`, `VALOR_CUOTA`; separador `;` | Preparado por Keith Watt; versión 2 recibida el 06-11-2026; SHA-256 `4214630e7de9ac6e0a2d4b80cb225d0ce89d7bbdab9075fbe39c11d68a768902`. Fuente: sistemas del banco donde trabaja Keith; cotejada con la CMF (27 de 27 coinciden, Anexo D.8). Fecha exacta de extracción no informada; no afecta, porque los valores coinciden con la CMF |
+| `cmf_cotejo/` | Tres archivos de la herramienta pública "Cartola diaria por fondo" de la CMF, con todos los fondos: `ffmm_todos_20191101_20191101.txt`, `ffmm_todos_20221231_20221231.txt` y `ffmm_todos_20261031_20261031.txt` | Descargados el 07-11-2026; SHA-256 `8be083fd…99db5b3bb`, `8ec846fd…c8326f2fb` y `1ffb40c2…6fd67d6`. Evidencia del cotejo; el script no los usa |
 | `uf_fin_de_mes_v1.csv` | UF del último día de cada mes, de octubre de 2019 a octubre de 2026 (85 valores) | Tablas anuales de la UF del SII, consultadas el 06-11-2026; SHA-256 `c55524ffe9e239d1e2337d1723e275cd24b0c33651ea68a6c8484bcb39cb3fe1`. Verificada por muestreo el 06-11-2026 |
 
 La UF del 01-11-2019 (28.065,35) es igual a la del 31-10-2019 en la tabla del SII; el valor del 01-11-2019 está verificado abajo.
@@ -919,7 +922,7 @@ La UF del 01-11-2019 (28.065,35) es igual a la del 31-10-2019 en la tabla del SI
 - Rótulo de cada columna: "Fondos que sus administradoras clasifican como «conservadores»", «moderados» o «agresivos». Es la clasificación de las administradoras, no el perfil que calcula esta app; «agresivo» no equivale a «arriesgado».
 - Cada valor se muestra como rango con su mediana ("entre −15,4 % y −10,2 %; mediana −12,2 %") y los conteos como "en 21 a 26 de 49 ventanas de 36 meses".
 - Primero se muestra la ventana (12 o 36 meses) más cercana al horizonte de la meta, si existe; las tres categorías se muestran siempre.
-- Textos obligatorios, como constantes del servidor: "Datos históricos de 9 fondos mutuos reales de 3 administradoras chilenas, del 01-11-2019 al 31-10-2026." · "Incluye la pandemia de 2020 y el alza de inflación de 2021 a 2023. Las ventanas se superponen: no son probabilidades." · "Lo que pasó no indica lo que pasará." · "El valor cuota ya descuenta la remuneración del fondo; no incluye impuestos ni beneficios tributarios. Dos administradoras usan series APV y una, series B y B1, por lo que las cifras no comparan administradoras." · "Este panel no describe las alternativas simuladas de la comparación." · Fuentes con fecha de consulta.
+- Textos obligatorios, como constantes del servidor: "Datos históricos de 9 fondos mutuos reales de 3 administradoras chilenas, del 01-11-2019 al 31-10-2026." · "Incluye la pandemia de 2020 y el alza de inflación de 2021 a 2023. Las ventanas se superponen: no son probabilidades." · "Lo que pasó no indica lo que pasará." · "El valor cuota ya descuenta la remuneración del fondo; no incluye impuestos ni beneficios tributarios. Dos administradoras usan series APV y una, series B y B1, por lo que las cifras no comparan administradoras." · "Este panel no describe las alternativas simuladas de la comparación." · "Fuente de los valores cuota: Comisión para el Mercado Financiero (CMF), cartola diaria de fondos mutuos. Fuente de la UF: Servicio de Impuestos Internos." · Fechas de consulta.
 - Gráfico permitido: mediana de cada categoría a fin de cada año, en pesos corrientes y en pesos de hoy (Anexo D), con los vacíos marcados si una versión futura de la base los tuviera. Ningún otro gráfico con estos datos.
 
 ## 8. Datos y estado
@@ -1326,6 +1329,7 @@ La suite que manda es siempre la de la versión vigente de este SPEC. Los númer
 | 1.7 (borrador) | A01–A64 | Límite de gasto (A61), interruptor y estado de la IA (A62), golden set de la explicación con mejora medida (A63) e IA encendida en la URL publicada (A64); A20 pasa a opcional |
 | 1.8 (borrador) | A01–A64 | A57–A60 dejan de ser condicionales porque el grupo aprobó la opción B; A59 agrega el panel desactivado |
 | 1.9 (cerrada) | A01–A64 | Sin cambios: el modelo de ingresos no agrega funciones obligatorias en v0; el modo curso (P1) tendrá sus propios criterios |
+| 1.10 (cerrada) | A01–A64 | Sin cambios de criterios; el panel histórico pasa a publicarse (A59 se ejecuta con `HISTORICO_ENABLED=true` en la URL publicada) |
 
 ### 11.3 Golden set de la explicación generativa y mejora medida entre versiones del prompt
 
@@ -1357,7 +1361,7 @@ Requisito del Proyecto Final. Evalúa la función de IA de P0 (RF-21) y decide c
 
 La rúbrica (`evals/rubrica_explicacion_v1.md`) describe qué corresponde a 1, 3 y 5 en cada criterio.
 
-**Jueces.** Validadores deterministas para seguridad. Para calidad, un modelo juez fijo (modelo y versión registrados, temperatura 0) que recibe el contexto, la salida y la rúbrica, sin saber qué versión del prompt generó la salida y con el orden al azar. Calibración humana: dos integrantes puntúan a ciegas 12 salidas por versión [SUPUESTO]; si el juez y el promedio humano coinciden dentro de ±1 punto en menos del 70 % de las salidas [SUPUESTO], la decisión se toma solo con los puntajes humanos.
+**Jueces.** Validadores deterministas para seguridad. Para calidad, un modelo juez fijo (modelo y versión registrados, temperatura 0) que recibe el contexto, la salida y la rúbrica, sin saber qué versión del prompt generó la salida y con el orden al azar. Calibración humana: Daphne Loewenwarter puntúa a ciegas 12 salidas por versión [SUPUESTO]; el script le muestra las salidas mezcladas y sin indicar la versión. No hace falta una segunda persona. Se recomienda sumar a alguien que no conozca los prompts solo si el juez y Daphne coinciden en menos del 70 % de las salidas, porque Daphne conoce la estructura de la versión candidata y podría reconocerla; en ese caso se promedian los puntajes humanos. Si el juez y la puntuación humana coinciden dentro de ±1 punto en menos del 70 % de las salidas [SUPUESTO], la decisión se toma solo con los puntajes humanos.
 
 **Protocolo.** Mismo modelo, temperatura, `max_tokens` y casos para ambas versiones; 3 ejecuciones por caso y versión [SUPUESTO] para estimar la variación; comparación pareada caso a caso con el promedio de las 3 ejecuciones. El costo total se estima antes de ejecutar y queda acotado por `LLM_BUDGET_EVAL_USD` (§6.3). `scripts/evaluar_explicacion.py` ejecuta todo con un solo comando.
 
@@ -1389,7 +1393,7 @@ La rúbrica (`evals/rubrica_explicacion_v1.md`) describe qué corresponde a 1, 3
 | Leer el pasado como pronóstico | Rangos y conteos en vez de promedios o probabilidades, textos obligatorios, regla 12 del prompt y frases de V-04; A59 y A60 |
 | Atribuir la historia real a las alternativas ficticias | Panel separado de las tarjetas y textos obligatorios; A59 |
 | Identificar o comparar productos y administradoras reales | Solo agregados por categoría; nombres y RUN fuera de la interfaz y de la API; lista `marcas_v1.txt` en V-04; A59 y A60 |
-| Datos de origen no verificados o incompletos | Valores cuota extraídos de sistemas bancarios internos: el panel no se publica hasta tener autorización de uso o cotejo con la CMF (`HISTORICO_ENABLED`, §7.7); UF verificada por muestreo; la base vigente está completa, y el script declara vacíos sin interpolarlos si apareciera alguno en una actualización; checksums en `/ready`; A57 y A58 |
+| Datos de origen no verificados o incompletos | Valores cuota cotejados con la CMF (27 de 27) y UF verificada por muestreo; se cita la fuente pública; el interruptor `HISTORICO_ENABLED` permite retirar el panel si hiciera falta (§7.7); la base vigente está completa, y el script declara vacíos sin interpolarlos si apareciera alguno en una actualización; checksums en `/ready`; A57 y A58 |
 | Series no homogéneas entre administradoras | Agregación por rango y mediana, sin rankings, y texto obligatorio sobre las series |
 | Datos reales desactualizados | v0 sin fuentes reales; futura integración con vigencia definida por campo |
 | Inyección de prompt | Mensajes como datos; allowlist de dos herramientas; políticas fuera del prompt; estado decidido por el servidor |
@@ -1430,7 +1434,7 @@ No es una conclusión jurídica; son materias que el grupo DEBE revisar antes de
 
 - **Ley 21.521 (Ley Fintec)**, que regula la asesoría de inversión como servicio sujeto a inscripción y autorización ante la CMF, y la **NCG 502** (enero de 2024), con sus modificaciones, entre ellas la **NCG 559** (febrero de 2026). La CMF publicó criterios sobre cuándo la difusión de contenidos constituye asesoría de inversión (preguntas frecuentes de la NCG 502, julio de 2024).
 - **Ley 19.628 modificada por la Ley 21.719** (§8.4).
-- **Datos de fondos reales** (§7.7): licencia de uso de la fuente de los valores cuota y si mostrar fondos reales identificados según el perfil de una persona podría constituir asesoría de inversión. La opción B, aprobada, evita mostrar fondos identificados. Como los datos se extrajeron de sistemas del banco donde trabaja un integrante, aunque los valores cuota sean públicos conviene contar con la autorización del empleador o citar la fuente pública de la CMF (pregunta 12); esto condiciona la publicación del panel.
+- **Datos de fondos reales** (§7.7): licencia de uso de la fuente de los valores cuota y si mostrar fondos reales identificados según el perfil de una persona podría constituir asesoría de inversión. La opción B, aprobada, evita mostrar fondos identificados. Los datos se extrajeron de sistemas del banco donde trabaja un integrante, pero se cotejaron con la información pública de la CMF, que se cita como fuente; así el panel no depende de la extracción interna.
 - Encuadre del servicio, metodología de perfilado validada, catálogo verificable, seguridad y operación financiera.
 
 Estas son condiciones de evolución del producto, no funcionalidades completadas por el prototipo.
@@ -1451,7 +1455,7 @@ Material del curso y del grupo:
 - Revisión de un integrante del Grupo 2 sobre la v1.1 (04-11-2026): brecha con costo, moneda y aportes en $0; procedencia de supuestos; riesgos por separado; límite de la UF frente a gastos en otra moneda; liquidez; comparaciones redundantes; cobertura de pruebas; priorización para el taller.
 - Observaciones de una revisora externa al grupo sobre la v1.3 (04-11-2026): nombre de la tasa y explicación con IA generativa en la primera versión.
 - Observaciones del profesor Ahmat sobre la v1.0 (06-11-2026): "bien alineado, ajustes puntuales"; destaca el perfilado determinista, el catálogo ficticio, las herramientas tipadas, el contrato JSON con respaldo y los criterios de aceptación; pide IA encendida con límite de gasto, golden set con mejora medida, modelo de ingresos y kind fuera del camino crítico.
-- `Basedato_AGF_PR_VC_test.csv`, base de valores cuota preparada por Keith Watt (versión 2, completa, recibida el 06-11-2026; SHA-256 en §7.7): fondos mutuos de 3 administradoras chilenas con valores diarios del 01-11-2019 al 31-10-2026; base del Anexo D y de §7.7. Fuente: sistemas del banco donde trabaja Keith; autorización de uso o cotejo con la CMF pendiente.
+- `Basedato_AGF_PR_VC_test.csv`, base de valores cuota preparada por Keith Watt (versión 2, completa, recibida el 06-11-2026; SHA-256 en §7.7): fondos mutuos de 3 administradoras chilenas con valores diarios del 01-11-2019 al 31-10-2026; base del Anexo D y de §7.7. Fuente: sistemas del banco donde trabaja Keith; cotejada con la CMF el 07-11-2026 (27 de 27 coinciden).
 
 Fuentes externas (consultadas el 21-10-2026, el 04-11-2026 y el 06-11-2026):
 
@@ -1464,6 +1468,7 @@ Fuentes externas (consultadas el 21-10-2026, el 04-11-2026 y el 06-11-2026):
 - CMF, criterios sobre difusión de contenidos y asesoría de inversión: https://cmfchile.cl/portal/prensa/615/articles-82812_doc_pdf.pdf
 - BCN, ficha de la Ley 21.719: https://www.bcn.cl/balance-legislativo/detalle/ficha_LEY_21719_2024-12-13
 - Cuatrecasas, proyecto que propone postergar la Ley 21.719: https://www.cuatrecasas.com/es/latam/art/proyecto-que-modifica-ley-proteccion-datos-personales
+- CMF, "Cartola diaria por fondo" de fondos mutuos (cotejo del 07-11-2026): https://www.cmfchile.cl/institucional/estadisticas/fondos_cartola_diaria.php
 - calculadora-uf.cl, verificación por muestreo de la UF: https://www.calculadora-uf.cl/UF_Noviembre_2019 , https://www.calculadora-uf.cl/UF_Junio_2021 , https://www.calculadora-uf.cl/UF_Diciembre_2022 y https://www.calculadora-uf.cl/UF_Octubre_2023
 - Rankia, UF del 30-10-2026: https://www.rankia.cl/noticias/fiscalidad/7531547-valor-uf-hoy-30-octubre-2026-41-242-32
 - SII, valores de la UF por año (2019 a 2026), base de `uf_fin_de_mes_v1.csv`: https://www.sii.cl/valores_y_fechas/uf/uf2019.htm , …/uf2020.htm , …/uf2021.htm , …/uf2022.htm , …/uf2023.htm , …/uf2024.htm , …/uf2025.htm y …/uf2026.htm
@@ -1483,10 +1488,10 @@ No bloquean la redacción ni las pruebas locales con fixtures. Registrar las res
 9. ¿Se mantendrá la sesión efímera o se financiará una fase posterior con cuentas persistentes?
 10. **Resuelta (06-11-2026):** el grupo aprobó la opción B para los valores cuota corregidos de Keith (versión 2, completa): panel educativo agregado por categoría, sin marcas (§7.7).
 11. **Resuelta (06-11-2026):** el profesor pidió IA encendida con límite de gasto, golden set con mejora medida, modelo de ingresos y kind fuera del camino crítico; todo quedó incorporado en la v1.7.
-12. Para Keith. La fuente ya está informada: los sistemas del banco donde trabaja. Falta: ¿el banco autoriza usar la extracción en este proyecto, o el grupo prefiere cotejar una muestra con la información pública de la CMF (recomendado)? ¿En qué fecha se extrajo? ¿El sufijo `_test` indica datos reales o de prueba? ¿Por qué series APV en dos administradoras y B o B1 en la tercera? La primera respuesta es condición para publicar el panel histórico (§7.7).
+12. **Resuelta (07-11-2026):** el cotejo con la CMF dio 27 de 27 coincidencias, confirma que los datos son reales y permite citar la CMF como fuente. Las consultas que quedaban para Keith (fecha exacta de extracción, sufijo `_test` y elección de series) son opcionales: no cambian ningún cálculo, requisito ni texto obligatorio, porque la mezcla de series ya está declarada como limitación (§7.7).
 13. **Resuelta (06-11-2026):** licencia educativa institucional, con licencia anual por tramos de estudiantes y una modalidad por curso para el piloto; los montos se fijan con el costo medido (§1.1).
-14. ¿Qué dos integrantes harán la calibración humana del golden set de la explicación (§11.3)?
-15. ¿En qué institución y curso se hará el piloto, quién lo contacta y quién redacta la guía docente?
+14. **Resuelta (07-11-2026):** la calibración humana del golden set la hace Daphne Loewenwarter, a ciegas (§11.3).
+15. **Resuelta (07-11-2026):** el grupo no tiene contacto con instituciones. El piloto institucional queda como plan, y para el Proyecto Final se hace una validación interna (§1.1); la guía docente se presenta como borrador anexo a la ficha de negocio.
 
 **Orden final al agente:** presenta primero el plan. Tras la aprobación ejecuta solo el primer hito autorizado, muestra evidencias y pide revisión del resultado antes de cruzar la siguiente puerta de calidad. Si un requisito es incompatible, plantea el conflicto y una alternativa concreta; no lo omitas silenciosamente.
 
@@ -1544,6 +1549,16 @@ Los valores entre llaves los completa el servidor. El disclaimer se agrega siemp
 | `error` | "No pude completar esta respuesta. Tu comparación sigue disponible; intenta nuevamente en unos minutos." |
 
 ## Anexo C — Registro de cambios
+
+### v1.9 → v1.10, cerrada (07-11-2026, cotejo con la CMF y preguntas resueltas)
+
+| N.º | Sección | Hallazgo o decisión | Cambio en v1.10 |
+|---|---|---|---|
+| C91 | Plan, §7.7, §12, Anexo D | Cotejo de los valores cuota con la cartola diaria pública de la CMF en tres fechas: 27 de 27 coinciden | Requisito (1) de publicación cumplido por la vía (b); se cita la CMF como fuente; `HISTORICO_ENABLED=true` en la URL publicada; nuevo anexo D.8 con la tabla del cotejo; moneda confirmada |
+| C92 | §11.3, preguntas | Daphne Loewenwarter hará la calibración humana | Pregunta 14 resuelta; calibración a ciegas con una persona, ampliable a dos |
+| C93 | §1.1, preguntas | El grupo no tiene contacto con instituciones | Pregunta 15 resuelta: piloto institucional como plan, validación interna para el Proyecto Final y guía docente como borrador anexo |
+| C94 | Preguntas | La pregunta 12 ya no condiciona la publicación | Marcada como resuelta en lo esencial; quedan consultas a Keith que no bloquean |
+| C95 | §1.1, §11.3, preguntas | El grupo puede reunir 3 a 5 personas para la validación; Daphne hará sola la calibración humana; lo pendiente de Keith no afecta | Validación interna con 3 a 5 personas, informada como conteos y con criterios ajustados; regla para sumar una segunda persona solo si hay desacuerdo con el juez; pregunta 12 cerrada |
 
 ### v1.8 → v1.9, cerrada (06-11-2026, modelo de ingresos)
 
@@ -1747,10 +1762,26 @@ Los indicadores por categoría están en la tabla de referencia de §7.7. Evoluc
 
 - Un solo período de siete años, con una pandemia y un alza de inflación; las ventanas se superponen y no son probabilidades.
 - Nueve fondos de tres administradoras: no representan el mercado ni a todas las administradoras. Solo incluye fondos que existieron durante todo el período.
-- Datos extraídos de sistemas del banco donde trabaja Keith; autorización de uso o cotejo con la CMF, y fecha exacta de extracción, por confirmar; el archivo se llama `_test`.
+- Datos extraídos de sistemas del banco donde trabaja Keith y cotejados con la CMF en 3 fechas (D.8); fecha exacta de extracción no informada. El cotejo es una muestra: no revisa cada día de la serie.
 - Series no homogéneas; no se modelan impuestos ni beneficios tributarios del APV.
 - UF transcrita de las tablas del SII y verificada por muestreo (§7.7); se usa la UF de fin de mes.
 
 ### D.7 Reproducción
 
 Con los dos archivos de fuente de §7.7 (verificados por SHA-256), el procedimiento de §7.7 reproduce todos los valores de este anexo y de la tabla de referencia; A58 lo verifica en CI.
+
+### D.8 Cotejo con la CMF (07-11-2026)
+
+Fuente: herramienta pública "Cartola diaria por fondo" de la CMF, consulta de todos los fondos en cada fecha. Los 9 RUN existen en el registro de la CMF con los fondos indicados. La base de Keith informa el valor cuota de la CMF redondeado a dos decimales, y **los 27 valores coinciden** (diferencia máxima: 0,005 pesos, por el redondeo). La CMF informa moneda `$$` (pesos) y no registra factor de reparto ni factor de ajuste para estos fondos en esas fechas.
+
+| RUN | Serie | Clasificación | 01-11-2019: base / CMF | 31-12-2022: base / CMF | 31-10-2026: base / CMF |
+|---|---|---|---|---|---|
+| 8377 | B1 | Conservador | 2.215,09 / 2.215,0931 | 2.454,22 / 2.454,2171 | 3.298,66 / 3.298,6645 |
+| 9043 | B | Moderado | 4.073,32 / 4.073,3219 | 4.577,62 / 4.577,6224 | 6.873,81 / 6.873,8111 |
+| 8448 | B | Agresivo | 1.862,89 / 1.862,8930 | 2.154,58 / 2.154,5847 | 3.815,86 / 3.815,8560 |
+| 8638 | APV | Conservador | 1.990,62 / 1.990,6213 | 2.261,93 / 2.261,9265 | 3.122,47 / 3.122,4671 |
+| 8639 | APV | Moderado | 1.945,02 / 1.945,0182 | 2.164,82 / 2.164,8192 | 3.354,13 / 3.354,1347 |
+| 8640 | APV | Agresivo | 2.217,69 / 2.217,6872 | 2.426,41 / 2.426,4126 | 4.360,53 / 4.360,5297 |
+| 8910 | APV | Conservador | 1.334,36 / 1.334,3552 | 1.594,35 / 1.594,3472 | 2.195,67 / 2.195,6698 |
+| 8911 | APV | Moderado | 1.672,62 / 1.672,6228 | 1.975,98 / 1.975,9791 | 3.005,72 / 3.005,7199 |
+| 8908 | APV | Agresivo | 2.042,57 / 2.042,5675 | 2.572,98 / 2.572,9814 | 4.903,39 / 4.903,3930 |
