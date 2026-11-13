@@ -2,7 +2,7 @@
 
 | Campo | Valor |
 |---|---|
-| Versión | **1.12, cerrada** (reemplaza la 1.11; historial completo en el Anexo C). Registra la decisión del grupo sobre la pregunta 16: la regla de §11.3 suma una vía de adopción por robustez, y se define la candidata 1.7, que corrige `next_step` en la tarea de explicación de la 1.5. El resultado del golden set de la 1.6 no cambia (Anexo E). Las preguntas de §12 que siguen abiertas son ratificaciones y no reabren la especificación |
+| Versión | **1.13, cerrada** (reemplaza la 1.12; historial completo en el Anexo C). Registra la decisión del grupo de reutilizar, en la segunda comparación del golden set (1.5 frente a 1.7), la calibración humana de la primera, porque el juez, la rúbrica y el modelo no cambiaron; con calibración reutilizada decide el juez y solo vale la vía de robustez. Las preguntas de §12 que siguen abiertas son ratificaciones y no reabren la especificación |
 | Fecha | 12-11-2026 |
 | Entrega | Grupo 2 · UAI Advanced · clase 7 |
 | Integrantes | Diego Silva, Keith Watt, Daphne Loewenwarter [confirmar] |
@@ -11,7 +11,7 @@
 | Suite de aceptación vigente | A01–A64 (§11); su evolución desde los criterios A01–A22 de la v1.0 está en §11.2 |
 | Fuentes de diseño | Este SPEC; diagramas de flujo de usuario (`Flijo_1.jpeg`) y de componentes (`Flujo_2.jpeg`) del Grupo 2; caso de prueba "Emiliana" (§11.1); revisión de un integrante del grupo sobre la v1.1; observaciones de una revisora externa al grupo sobre la v1.3; base de valores cuota preparada por Keith Watt, versión 2 (Anexo D); observaciones del profesor Ahmat sobre la v1.0 (06-11-2026); resultados del golden set de la explicación, con la puntuación humana de Keith Watt y Diego Silva (08 a 12-11-2026, Anexo E) |
 | Estado | Especificación y prompt maestro para un agente de código. No es software implementado, ni validación regulatoria, ni opinión legal. |
-| Cambios | Anexo C (v1.0 → v1.1, v1.1 → v1.2, v1.2 → v1.3, v1.3 → v1.4, v1.4 → v1.5, v1.5 → v1.6, v1.6 → v1.7, v1.7 → v1.8, v1.8 → v1.9, v1.9 → v1.10, v1.10 → v1.11 y v1.11 → v1.12) |
+| Cambios | Anexo C (v1.0 → v1.1, v1.1 → v1.2, v1.2 → v1.3, v1.3 → v1.4, v1.4 → v1.5, v1.5 → v1.6, v1.6 → v1.7, v1.7 → v1.8, v1.8 → v1.9, v1.9 → v1.10, v1.10 → v1.11, v1.11 → v1.12 y v1.12 → v1.13) |
 
 ## Instrucción de uso para el agente de código
 
@@ -76,14 +76,14 @@ Si el tiempo no alcanza, se entrega P0 completo antes de iniciar P1. La IA gener
 
 ### Pendientes externos y cierre de la versión
 
-La v1.4 incorporó los dos ajustes priorizados (nombre de la tasa y explicación con IA generativa). La v1.5 agregó el análisis de la base de valores cuota y una propuesta concreta para usarla, y la v1.6 lo actualizó con la versión 2 de la base, que completa los meses faltantes. La v1.7 incorporó las observaciones del profesor; la v1.8, la aprobación de la opción B para los valores cuota; la v1.9, el modelo de ingresos elegido; la v1.10, el cotejo con la CMF; la v1.11, el resultado del golden set de la explicación; y la v1.12, la nueva vía de adopción por robustez y la candidata 1.7. Estado de los insumos:
+La v1.4 incorporó los dos ajustes priorizados (nombre de la tasa y explicación con IA generativa). La v1.5 agregó el análisis de la base de valores cuota y una propuesta concreta para usarla, y la v1.6 lo actualizó con la versión 2 de la base, que completa los meses faltantes. La v1.7 incorporó las observaciones del profesor; la v1.8, la aprobación de la opción B para los valores cuota; la v1.9, el modelo de ingresos elegido; la v1.10, el cotejo con la CMF; la v1.11, el resultado del golden set de la explicación; la v1.12, la nueva vía de adopción por robustez y la candidata 1.7; y la v1.13, la reutilización de la calibración humana en la segunda comparación. Estado de los insumos:
 
 | Insumo | Responsable | Qué permite decidir | Estado |
 |---|---|---|---|
 | Datos de valores cuota | Keith Watt | Si el catálogo sigue completamente simulado o incorpora datos históricos reales, y con qué fin | **Recibida completa el 06-11-2026** (`Basedato_AGF_PR_VC_test.csv`, versión 2: 9 fondos × 2.557 días, sin vacíos). Todos los indicadores de §7.7 y del Anexo D están calculados con ella. **El grupo aprobó la opción B el 06-11-2026.** Fuente: sistemas del banco donde trabaja Keith. **Cotejada con la CMF el 07-11-2026: 27 de 27 valores coinciden** (Anexo D.8); se cita la CMF como fuente pública y el panel puede publicarse |
 | Observaciones del profesor Ahmat | Profesor del curso | Alcance de la entrega final y requisitos del curso | **Recibidas el 06-11-2026**, sobre la v1.0: "bien alineado, ajustes puntuales". Pide IA encendida en la URL publicada con límite de gasto, un golden set de la función de IA con mejora medida entre versiones del prompt, el modelo de ingresos y sacar el laboratorio Kubernetes del camino crítico. Incorporadas en la v1.7 (Anexo C) |
 | Entregables del taller (ficha de negocio y video demo) | Grupo | Fuera de este SPEC | Se trabajan el viernes 06-11-2026 |
-| Golden set de la explicación (§11.3) | Daphne Loewenwarter (protocolo y revisión de alertas); Keith Watt y Diego Silva (puntuación humana) | Si la versión 1.6 del prompt reemplaza a la 1.5 | **Ejecutado del 08 al 12-11-2026** (Anexo E): se mantiene la 1.5. La 1.6 mejora la robustez y el costo, pero su calidad sube 0,28 puntos y la regla exige 0,30. Candidata 1.7 definida el 12-11-2026, pendiente de evaluar |
+| Golden set de la explicación (§11.3) | Daphne Loewenwarter (protocolo y revisión de alertas); Keith Watt y Diego Silva (puntuación humana) | Si la versión 1.6 del prompt reemplaza a la 1.5 | **Ejecutado del 08 al 12-11-2026** (Anexo E): se mantiene la 1.5. La 1.6 mejora la robustez y el costo, pero su calidad sube 0,28 puntos y la regla exige 0,30. Candidata 1.7 definida el 12-11-2026; segunda comparación en curso, con la calibración humana de la primera reutilizada |
 
 **Lista de verificación aplicada a la base de valores cuota** (detalle en el Anexo D):
 
@@ -101,7 +101,7 @@ La v1.4 incorporó los dos ajustes priorizados (nombre de la tasa y explicación
 
 Opciones evaluadas: (A) solo material educativo sobre fluctuación histórica, fuera de la comparación; (B) agregados por categoría, sin marcas y sin atribuirlos a una alternativa ficticia; (C) productos reales en el catálogo, que exige P2 y revisión regulatoria. **Decisión del grupo (06-11-2026): opción B** (§7.7), porque usa los datos con el máximo valor educativo, sin identificar productos ni administradoras ante la persona y sin tocar la elegibilidad. En cualquier opción, las rentabilidades pasadas se rotulan como históricas, con fuente y fecha; nunca se proyectan, y el LLM no las usa para predecir. La regla de no fabricar series sigue vigente.
 
-**La v1.12 queda cerrada** como especificación de referencia para el Proyecto Final. Las preguntas abiertas de §12 se ratifican antes de publicar.
+**La v1.13 queda cerrada** como especificación de referencia para el Proyecto Final. Las preguntas abiertas de §12 se ratifican antes de publicar.
 
 ## 1. Problema
 
@@ -1344,6 +1344,7 @@ La suite que manda es siempre la de la versión vigente de este SPEC. Los númer
 | 1.10 (cerrada) | A01–A64 | Sin cambios de criterios; el panel histórico pasa a publicarse (A59 se ejecuta con `HISTORICO_ENABLED=true` en la URL publicada) |
 | 1.11 (cerrada) | A01–A64 | Sin cambios de criterios; A63 se ejecutó por primera vez con una herramienta en claude.ai (Anexo E) y se repite con el modelo de producción si es otro |
 | 1.12 (cerrada) | A01–A64 | A63 incluye la comparación de la 1.5 con la candidata 1.7 y la regla de decisión con dos vías (§11.3) |
+| 1.13 (cerrada) | A01–A64 | Sin cambios de criterios; la segunda comparación de A63 reutiliza la calibración humana de la primera (§11.3) |
 
 ### 11.3 Golden set de la explicación generativa y mejora medida entre versiones del prompt
 
@@ -1377,6 +1378,8 @@ La rúbrica (`evals/rubrica_explicacion_v1.md`) describe qué corresponde a 1, 3
 
 **Jueces.** Validadores deterministas para seguridad. Para calidad, un modelo juez fijo (modelo y versión registrados, temperatura 0) que recibe el contexto, la salida y la rúbrica, sin saber qué versión del prompt generó la salida y con el orden al azar. Calibración humana: dos integrantes que no redactaron los prompts, Keith Watt y Diego Silva, puntúan por separado y a ciegas las mismas 24 salidas (12 casos × 2 versiones, ejecución 1), mezcladas, sin indicar la versión y sin ver al juez; un asistente de chat solo les muestra las salidas y anota sus notas. Se promedian sus puntajes y se informa el acuerdo entre ambos. Daphne Loewenwarter fija el protocolo y revisa las alertas de seguridad, del juez o humanas; su decisión queda en el informe. Si el juez y el promedio humano coinciden dentro de ±1 punto en menos del 70 % de las salidas [SUPUESTO], la decisión se toma solo con los puntajes humanos.
 
+**Reutilización de la calibración** (12-11-2026, decisión del grupo). Una comparación puede reutilizar la calibración humana de una anterior, sin puntuación humana nueva, si se cumplen tres condiciones: (a) el juez (modelo, nivel y prompt), la rúbrica y el modelo que genera no cambiaron; (b) la candidata no reescribe ampliamente la tarea; y (c) en la calibración reutilizada, el juez y el promedio humano coincidieron en al menos 70 % de las salidas. Con calibración reutilizada decide el juez, solo vale la vía de robustez (3b) y el informe lo declara; si la candidata cumple solo la vía de calidad (3a), adoptarla exige una puntuación humana nueva. Daphne Loewenwarter sigue revisando las alertas de seguridad del juez.
+
 **Protocolo.** Mismo modelo, temperatura, `max_tokens` y casos para ambas versiones; 3 ejecuciones por caso y versión [SUPUESTO] para estimar la variación; comparación pareada caso a caso con el promedio de las 3 ejecuciones. El costo total se estima antes de ejecutar y queda acotado por `LLM_BUDGET_EVAL_USD` (§6.3). `scripts/evaluar_explicacion.py` ejecuta todo con un solo comando. La primera ejecución usó una herramienta publicada en claude.ai (artefacto «Golden set de Brújula») que aplica este protocolo con Claude como generador y juez; no fija la temperatura, envía el prompt de sistema al comienzo del mensaje y estima el costo por el largo del texto (Anexo E.1).
 
 **Regla de decisión** (vía de robustez agregada el 12-11-2026, pregunta 16). La candidata reemplaza a la vigente solo si: (1) cumple los umbrales de seguridad; (2) su validez sin reparación y su tasa de plantilla no empeoran; (4) su costo medio por explicación no sube más de 20 % [SUPUESTO]; y (3) cumple una de estas dos vías:
@@ -1384,11 +1387,11 @@ La rúbrica (`evals/rubrica_explicacion_v1.md`) describe qué corresponde a 1, 3
 - **(3a) Vía de calidad:** su calidad media sube al menos 0,3 puntos y gana en al menos 60 % de los casos [SUPUESTO ambos].
 - **(3b) Vía de robustez:** su calidad media no baja más de 0,1 puntos y su robustez mejora claramente: la validez sin reparación sube al menos 10 puntos porcentuales o la tasa de plantilla baja al menos 5 puntos porcentuales [SUPUESTO los tres umbrales].
 
-La calidad se mide como en la vía de calidad: con el juez, o solo con los puntajes humanos si el acuerdo es menor que 70 %. El informe dice qué vía se aplicó. Si no cumple, se mantiene la vigente y el resultado igual se registra. La vía de robustez rige desde la segunda comparación; el resultado de la 1.6 se decidió con la regla anterior y no cambia.
+La calidad se mide como en la vía de calidad: con el juez, o solo con los puntajes humanos si el acuerdo es menor que 70 %. Con calibración reutilizada solo vale la vía de robustez (ver arriba). El informe dice qué vía se aplicó. Si no cumple, se mantiene la vigente y el resultado igual se registra. La vía de robustez rige desde la segunda comparación; el resultado de la 1.6 se decidió con la regla anterior y no cambia.
 
 **Primera comparación (Proyecto Final).** Vigente: tarea de explicación del prompt 1.5. Candidata: tarea de explicación 1.6 (§9.1). Los resultados se guardan en `evals/resultados/<fecha>_<modelo>_explicacion.json`, se resumen en `evals/informe_explicacion.md` (modelo y fecha; tabla por métrica con vigente, candidata y diferencia; casos en que la candidata empeora, con su salida; costo total; decisión) y se registran en §9.6. **Resultado (12-11-2026): se mantiene la 1.5** (Anexo E); archivos `evals/resultados/2026-11-12_claude_explicacion.json` y `evals/informe_explicacion.md`.
 
-**Segunda comparación.** Vigente: tarea de explicación 1.5. Candidata: tarea 1.7 (§9.1). Mismos 24 casos, protocolo y modelo que la primera, con una nueva puntuación humana a ciegas de 12 casos × 2 versiones; se registra en §9.6.
+**Segunda comparación.** Vigente: tarea de explicación 1.5. Candidata: tarea 1.7 (§9.1). Mismos 24 casos, protocolo, juez y modelo que la primera, en una página propia de la herramienta («Golden set Brújula 1.7»), con la 1.5 generada de nuevo. Sin puntuación humana nueva: reutiliza la calibración de la primera comparación (el juez coincidió con el promedio de Keith Watt y Diego Silva en 24 de 24 salidas), así que decide el juez y solo vale la vía de robustez. Se registra en §9.6.
 
 ## 12. Riesgos, guardrails y escalada a humano
 
@@ -1571,6 +1574,14 @@ Los valores entre llaves los completa el servidor. El disclaimer se agrega siemp
 | `error` | "No pude completar esta respuesta. Tu comparación sigue disponible; intenta nuevamente en unos minutos." |
 
 ## Anexo C — Registro de cambios
+
+### v1.12 → v1.13, cerrada (12-11-2026, reutilización de la calibración humana)
+
+| N.º | Sección | Decisión | Cambio en v1.13 |
+|---|---|---|---|
+| C109 | §11.3 | El grupo decidió no repetir la puntuación humana en la segunda comparación | Regla de reutilización de la calibración: juez, rúbrica y modelo sin cambios, candidata sin reescritura amplia y acuerdo previo de al menos 70 %; con calibración reutilizada decide el juez y solo vale la vía de robustez |
+| C110 | §11.3, §11.2 | La segunda comparación (1.5 frente a 1.7) cumple las tres condiciones | Segunda comparación sin puntuación humana nueva, en una página propia de la herramienta, con la 1.5 generada de nuevo |
+| C111 | Encabezado, plan | Cierre de la versión 1.13 | Encabezado y pendientes externos actualizados |
 
 ### v1.11 → v1.12, cerrada (12-11-2026, pregunta 16 y candidata 1.7)
 
