@@ -10,7 +10,7 @@ El SPEC pasa a trabajarse en un repositorio con control de versiones, revisiones
 
 ## Decisión
 
-Repositorio público `Brujula`, de Diego Silva. La base de valores cuota se publica porque es información pública de la CMF (cotejo de 27 de 27 valores). Las notas de la puntuación humana del golden set se publican con los nombres de Keith Watt y Diego Silva. Licencia: @@LICENCIA_ADR@@
+Repositorio público `dompani/Brujula`. El grupo había previsto que quedara en la cuenta de Diego Silva; el 13-11-2026 quedó en la cuenta de Daphne Loewenwarter (`dompani`), con Diego Silva y Keith Watt como colaboradores. La base de valores cuota se publica porque es información pública de la CMF (cotejo de 27 de 27 valores). Las notas de la puntuación humana del golden set se publican con los nombres de Keith Watt y Diego Silva. Sin licencia: el repositorio es público para consulta, pero el grupo no otorga permiso de reutilización.
 
 ## Consecuencias
 

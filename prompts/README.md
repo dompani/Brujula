@@ -2,10 +2,11 @@
 
 | Archivo | Versión | Estado | Referencia |
 |---|---|---|---|
-| `system_brujula_v1_5.txt` | 1.5 | Vigente | SPEC §9.1 |
+| `system_brujula_v1_7.txt` | 1.7 | **Vigente desde el 12-11-2026** (adoptada por la vía de robustez) | SPEC §9.1, §9.6 y Anexo E.8 |
+| `system_brujula_v1_5.txt` | 1.5 | Reemplazada por la 1.7 | SPEC §9.6 |
+| `tarea_explicacion_v1_7.txt` | 1.7 | Tarea de explicación de la 1.7; ya incluida en `system_brujula_v1_7.txt` | SPEC §9.1 |
 | `tarea_explicacion_v1_6.txt` y `ejemplos_explicacion_v1_6.json` | 1.6 | Evaluada el 12-11-2026; no adoptada | SPEC §9.1, §9.6 y Anexo E |
-| `tarea_explicacion_v1_7.txt` | 1.7 | Candidata; segunda comparación del golden set | SPEC §9.1 y §11.3 |
 
-Las versiones candidatas cambian solo la línea «Explicación de la comparación» de la sección TAREAS del prompt de sistema. En la evaluación de la 1.6, la línea SALIDA también decía «Cada explicación: máximo 300 caracteres; en la explicación de la comparación, máximo 450», y los dos ejemplos se agregaron al final del prompt. La 1.7 no cambia la línea SALIDA ni usa ejemplos.
+La 1.7 es la 1.5 con una sola frase nueva en la tarea de explicación: «Usa tipo "personalizada" y next_step "ver_comparacion"». La 1.6 cambiaba la tarea completa, la línea SALIDA («Cada explicación: máximo 300 caracteres; en la explicación de la comparación, máximo 450») y agregaba dos ejemplos al final del prompt.
 
-Cada cambio de prompt pasa por el golden set de §11.3 antes de reemplazar a la vigente.
+Cada cambio de prompt es una versión candidata y pasa por el golden set de §11.3 antes de reemplazar a la vigente.

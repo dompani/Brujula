@@ -2,6 +2,16 @@
 
 Cada versión cerrada tiene una etiqueta `spec-vX.Y` en git. Los números C identifican cada cambio y no se reutilizan.
 
+## v1.13 → v1.14, cerrada (12-11-2026, la 1.7 reemplaza a la 1.5 y paso al repositorio)
+
+| N.º | Sección | Hallazgo o decisión | Cambio en v1.14 |
+|---|---|---|---|
+| C112 | §9.1, §9.6, §11.3, Anexo E | Segunda comparación del golden set (calibración reutilizada): la 1.7 cumple seguridad, robustez (95,8 % frente a 2,8 % de validez sin reparación; plantilla 0 % frente a 4,2 %), la vía de robustez (calidad +0,03) y costo (−50 %) | La 1.7 reemplaza a la 1.5; resultado en §9.6, §11.3 y el nuevo Anexo E.8 |
+| C113 | §9.1, §6.3, §6.4 | Prompt vigente | §9.1 muestra el texto 1.7 (`prompts/system_brujula_v1_7.txt`); la 1.5 y las candidatas quedan en `prompts/` |
+| C114 | Encabezado, instrucción de uso, §6.4, Anexo C | El grupo trabaja el SPEC en el repositorio público `dompani/Brujula`, de Daphne Loewenwarter, con Diego Silva y Keith Watt como colaboradores | `SPEC.md` maestro; el Anexo C pasa a `CHANGELOG.md`; versiones como etiquetas `spec-vX.Y`; lista de lo que el repositorio ya trae |
+| C115 | §11.3, Anexo E | Dos comparaciones con resultados separados | Rutas `evals/resultados/2026-11-12_claude_explicacion_1_6.json` y `_1_7.json`; informes juntos en `evals/informe_explicacion.md` |
+| C116 | Encabezado, plan, §11.2 | Cierre de la versión 1.14 | Encabezado, pendientes externos, hito 3 y evolución de la suite actualizados |
+
 ## v1.12 → v1.13, cerrada (12-11-2026, reutilización de la calibración humana)
 
 | N.º | Sección | Decisión | Cambio en v1.13 |

@@ -9,8 +9,8 @@ Grupo 2 del curso Advanced Prompt Engineering (UAI, 2026): Diego Silva, Keith Wa
 ## Estado
 
 - **`SPEC.md` es la única fuente de verdad.** La app todavía no está implementada: el primer paso es el hito 1 del SPEC, en el que el agente de código entrega un plan sin escribir código (ver `AGENTS.md`).
-- **Versiones.** Cada versión cerrada del SPEC tiene una etiqueta `spec-vX.Y`; el historial está en `CHANGELOG.md`. Las versiones v1.0 a v1.13 están en el historial de git, una por commit.
-- **Prompt de la explicación.** Versión vigente y resultados del golden set en §9.6 del SPEC y en `evals/informe_explicacion.md`.
+- **Versiones.** Cada versión cerrada del SPEC tiene una etiqueta `spec-vX.Y`; el historial está en `CHANGELOG.md`. Las versiones v1.0 a v1.14 están en el historial de git, cada una con su etiqueta.
+- **Prompt de la explicación.** Vigente: 1.7 (`prompts/system_brujula_v1_7.txt`), adoptada el 12-11-2026 tras el golden set. Resultados en §9.6 y Anexo E del SPEC y en `evals/informe_explicacion.md`.
 
 ## Contenido
 
@@ -67,7 +67,7 @@ Los valores cuota son información pública de la Comisión para el Mercado Fina
 
 ## Licencia
 
-@@LICENCIA@@
+Este repositorio no tiene licencia, por decisión del grupo (12-11-2026). Es público para consulta, pero sus autores no otorgan permiso para copiar, modificar ni redistribuir su contenido. Los términos de servicio de GitHub permiten ver los repositorios públicos y hacer fork dentro de GitHub. Los datos de `data/fuentes/` son información pública de la CMF y del SII y conservan las condiciones de su origen.
 
 ## Uso de IA
 

@@ -80,6 +80,7 @@ test("los prompts del repositorio son los que usó la herramienta", () => {
   assert.equal(sistema(L17, "v15").trim(), leer("prompts/system_brujula_v1_5.txt").trim());
   const t17 = leer("prompts/tarea_explicacion_v1_7.txt").trim();
   assert.ok(sistema(L17, "v17").includes(t17));
+  assert.equal(sistema(L17, "v17").trim(), leer("prompts/system_brujula_v1_7.txt").trim());
 });
 
 test("los 24 casos tienen las selecciones de §7.4", () => {

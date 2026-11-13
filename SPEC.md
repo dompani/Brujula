@@ -2,16 +2,17 @@
 
 | Campo | Valor |
 |---|---|
-| Versión | **1.13, cerrada** (reemplaza la 1.12; historial completo en el Anexo C). Registra la decisión del grupo de reutilizar, en la segunda comparación del golden set (1.5 frente a 1.7), la calibración humana de la primera, porque el juez, la rúbrica y el modelo no cambiaron; con calibración reutilizada decide el juez y solo vale la vía de robustez. Las preguntas de §12 que siguen abiertas son ratificaciones y no reabren la especificación |
+| Versión | **1.14, cerrada** (reemplaza la 1.13; historial completo en `CHANGELOG.md`). Registra el resultado de la segunda comparación del golden set: la versión 1.7 del prompt reemplaza a la 1.5 por la vía de robustez (Anexo E.8). Es la primera versión mantenida como `SPEC.md` en el repositorio público Brujula: el Anexo C pasa a `CHANGELOG.md` y cada versión cerrada es una etiqueta `spec-vX.Y`. Las preguntas de §12 que siguen abiertas son ratificaciones y no reabren la especificación |
 | Fecha | 12-11-2026 |
+| Repositorio | `https://github.com/dompani/Brujula` (público, en la cuenta de Daphne Loewenwarter, con Diego Silva y Keith Watt como colaboradores). Versiones v1.0 a v1.14 como etiquetas `spec-v1.0` a `spec-v1.14`; los archivos que este SPEC describe (prompts, catálogo, golden set, fuentes y decisiones) están en el repositorio |
 | Entrega | Grupo 2 · UAI Advanced · clase 7 |
 | Integrantes | Diego Silva, Keith Watt, Daphne Loewenwarter [confirmar] |
 | Nombre de trabajo | **Brújula Inversiones** [SUPUESTO editable por el grupo] |
-| Versiones internas | `questionnaire_version=1.3` · `policy_version=1.4` · `prompt_version=1.5` vigente; `1.6` evaluada y no adoptada (§9.6, Anexo E); `1.7` candidata (§9.1) · `source_id=CATALOGO_DEMO_V3` · `historical_id=HISTORICO_CATEGORIAS_V1` (opción B aprobada, §7.7) |
+| Versiones internas | `questionnaire_version=1.3` · `policy_version=1.4` · `prompt_version=1.7` vigente desde el 12-11-2026 (§9.1); `1.6` evaluada y no adoptada (§9.6, Anexo E) · `source_id=CATALOGO_DEMO_V3` · `historical_id=HISTORICO_CATEGORIAS_V1` (opción B aprobada, §7.7) |
 | Suite de aceptación vigente | A01–A64 (§11); su evolución desde los criterios A01–A22 de la v1.0 está en §11.2 |
 | Fuentes de diseño | Este SPEC; diagramas de flujo de usuario (`Flijo_1.jpeg`) y de componentes (`Flujo_2.jpeg`) del Grupo 2; caso de prueba "Emiliana" (§11.1); revisión de un integrante del grupo sobre la v1.1; observaciones de una revisora externa al grupo sobre la v1.3; base de valores cuota preparada por Keith Watt, versión 2 (Anexo D); observaciones del profesor Ahmat sobre la v1.0 (06-11-2026); resultados del golden set de la explicación, con la puntuación humana de Keith Watt y Diego Silva (08 a 12-11-2026, Anexo E) |
 | Estado | Especificación y prompt maestro para un agente de código. No es software implementado, ni validación regulatoria, ni opinión legal. |
-| Cambios | Anexo C (v1.0 → v1.1, v1.1 → v1.2, v1.2 → v1.3, v1.3 → v1.4, v1.4 → v1.5, v1.5 → v1.6, v1.6 → v1.7, v1.7 → v1.8, v1.8 → v1.9, v1.9 → v1.10, v1.10 → v1.11, v1.11 → v1.12 y v1.12 → v1.13) |
+| Cambios | `CHANGELOG.md` (hasta la v1.13 fue el Anexo C) |
 
 ## Instrucción de uso para el agente de código
 
@@ -40,7 +41,7 @@ Si un criterio de §11 contradice una regla, NO DEBES modificar la prueba ni la 
 
 Las seis reglas identificadas en el material son: especificar antes de generar; un artefacto por fase; corregir la especificación cuando el problema provenga de ella; recortar a v0; verificar cada salto; versionar todo. No confundirlas con los seis componentes del agente: modelo, instrucciones, herramientas, memoria, bucle y guardrails (§6.3).
 
-Esta entrega integra en **un solo Markdown** la especificación y las reglas operativas. Durante la implementación, el agente podrá derivar `AGENTS.md` o `CLAUDE.md`, prompts y código a partir de este archivo; esos archivos posteriores no forman parte de la entrega actual.
+Esta entrega integra en **un solo Markdown** la especificación y las reglas operativas. Desde la v1.14, este archivo es `SPEC.md` en el repositorio Brujula, que ya incluye `AGENTS.md` y `CLAUDE.md` con estas reglas, los prompts, el catálogo, el golden set, las fuentes de datos y las decisiones del grupo. El código de la app lo genera el agente a partir de este archivo.
 
 ### Plan de ejecución en seis hitos
 
@@ -48,7 +49,7 @@ Esta entrega integra en **un solo Markdown** la especificación y las reglas ope
 |---|---|---|---|
 | 1. Comprender y planificar | Revisar este SPEC, supuestos y alcance; proponer arquitectura y plan | — | Plan aprobado por el grupo; contradicciones resueltas o registradas |
 | 2. Construir el núcleo | Dominio puro, en el orden de las prioridades: primero meta, brecha y simulación; luego perfil, ficha, catálogo, filtros y selección | A02–A10, A16, A17, A23–A26, A34, A35, A37–A39, A42–A47, A49–A51, A54, A57, A58 | Reporte de pytest; cobertura ≥ 90 % en `app/dominio/` [SUPUESTO]; cero llamadas de red |
-| 3. Integrar experiencia y agente | API, sesión, seguridad, persistencia, UI, calculadora, simulador, explicación generativa de la comparación, panel histórico (§7.7), orquestador con cliente falso y control de salida | A01, A11–A15, A18, A19, A27–A33, A36, A40, A41, A48, A52, A53, A55, A56, A61–A63, A59, A60; golden set con cliente falso | Prueba de navegador del flujo §5.2, incluido el caso Emiliana, en 360, 768 y 1280 px; modo demo sin clave; informe del golden set de la explicación con la decisión entre versiones del prompt (§11.3): la primera comparación, 1.5 frente a 1.6, se ejecutó del 08 al 12-11-2026 con una herramienta en claude.ai (Anexo E) y se repite con el modelo de producción, con clave aprobada (§8.5), si es otro; la segunda compara la candidata 1.7 con la 1.5 (§9.1) |
+| 3. Integrar experiencia y agente | API, sesión, seguridad, persistencia, UI, calculadora, simulador, explicación generativa de la comparación, panel histórico (§7.7), orquestador con cliente falso y control de salida | A01, A11–A15, A18, A19, A27–A33, A36, A40, A41, A48, A52, A53, A55, A56, A61–A63, A59, A60; golden set con cliente falso | Prueba de navegador del flujo §5.2, incluido el caso Emiliana, en 360, 768 y 1280 px; modo demo sin clave; informe del golden set de la explicación con la decisión entre versiones del prompt (§11.3): la primera comparación, 1.5 frente a 1.6, se ejecutó del 08 al 12-11-2026 con una herramienta en claude.ai (Anexo E) y se repite con el modelo de producción, con clave aprobada (§8.5), si es otro; la segunda, 1.5 frente a 1.7, adoptó la 1.7 por la vía de robustez (Anexo E.8) |
 | 4. Empaquetar y probar | Docker, Compose, migraciones y salud; dos instancias de la app sobre la misma base | A29 y A33 repetidas con dos instancias | Contenedor saludable; evidencia de dos instancias que comparten sesión, límites y presupuesto |
 | 5. Versionar y verificar | Repositorio, CI, construcción de imagen y escaneo de secretos | A21 | CI en verde en un commit identificado; reporte del escaneo de secretos |
 | 6. Publicar e iterar | Despliegue autorizado, prueba de humo, cambio posterior y reversión | A22, A64 | URL HTTPS; `/health` con SHA y `llm.modo=real`; IA encendida con límite de gasto activo; respaldo por plantilla comprobado; panel histórico visible solo si se cumplió su condición de publicación (§7.7); cambio verificable; reversión ensayada |
@@ -76,14 +77,14 @@ Si el tiempo no alcanza, se entrega P0 completo antes de iniciar P1. La IA gener
 
 ### Pendientes externos y cierre de la versión
 
-La v1.4 incorporó los dos ajustes priorizados (nombre de la tasa y explicación con IA generativa). La v1.5 agregó el análisis de la base de valores cuota y una propuesta concreta para usarla, y la v1.6 lo actualizó con la versión 2 de la base, que completa los meses faltantes. La v1.7 incorporó las observaciones del profesor; la v1.8, la aprobación de la opción B para los valores cuota; la v1.9, el modelo de ingresos elegido; la v1.10, el cotejo con la CMF; la v1.11, el resultado del golden set de la explicación; la v1.12, la nueva vía de adopción por robustez y la candidata 1.7; y la v1.13, la reutilización de la calibración humana en la segunda comparación. Estado de los insumos:
+La v1.4 incorporó los dos ajustes priorizados (nombre de la tasa y explicación con IA generativa). La v1.5 agregó el análisis de la base de valores cuota y una propuesta concreta para usarla, y la v1.6 lo actualizó con la versión 2 de la base, que completa los meses faltantes. La v1.7 incorporó las observaciones del profesor; la v1.8, la aprobación de la opción B para los valores cuota; la v1.9, el modelo de ingresos elegido; la v1.10, el cotejo con la CMF; la v1.11, el resultado del golden set de la explicación; la v1.12, la nueva vía de adopción por robustez y la candidata 1.7; la v1.13, la reutilización de la calibración humana en la segunda comparación; y la v1.14, el resultado de esa comparación y el paso al repositorio. Estado de los insumos:
 
 | Insumo | Responsable | Qué permite decidir | Estado |
 |---|---|---|---|
 | Datos de valores cuota | Keith Watt | Si el catálogo sigue completamente simulado o incorpora datos históricos reales, y con qué fin | **Recibida completa el 06-11-2026** (`Basedato_AGF_PR_VC_test.csv`, versión 2: 9 fondos × 2.557 días, sin vacíos). Todos los indicadores de §7.7 y del Anexo D están calculados con ella. **El grupo aprobó la opción B el 06-11-2026.** Fuente: sistemas del banco donde trabaja Keith. **Cotejada con la CMF el 07-11-2026: 27 de 27 valores coinciden** (Anexo D.8); se cita la CMF como fuente pública y el panel puede publicarse |
 | Observaciones del profesor Ahmat | Profesor del curso | Alcance de la entrega final y requisitos del curso | **Recibidas el 06-11-2026**, sobre la v1.0: "bien alineado, ajustes puntuales". Pide IA encendida en la URL publicada con límite de gasto, un golden set de la función de IA con mejora medida entre versiones del prompt, el modelo de ingresos y sacar el laboratorio Kubernetes del camino crítico. Incorporadas en la v1.7 (Anexo C) |
 | Entregables del taller (ficha de negocio y video demo) | Grupo | Fuera de este SPEC | Se trabajan el viernes 06-11-2026 |
-| Golden set de la explicación (§11.3) | Daphne Loewenwarter (protocolo y revisión de alertas); Keith Watt y Diego Silva (puntuación humana) | Si la versión 1.6 del prompt reemplaza a la 1.5 | **Ejecutado del 08 al 12-11-2026** (Anexo E): se mantiene la 1.5. La 1.6 mejora la robustez y el costo, pero su calidad sube 0,28 puntos y la regla exige 0,30. Candidata 1.7 definida el 12-11-2026; segunda comparación en curso, con la calibración humana de la primera reutilizada |
+| Golden set de la explicación (§11.3) | Daphne Loewenwarter (protocolo y revisión de alertas); Keith Watt y Diego Silva (puntuación humana) | Si la versión 1.6 del prompt reemplaza a la 1.5 | **Ejecutado del 08 al 12-11-2026** (Anexo E): se mantiene la 1.5. La 1.6 mejora la robustez y el costo, pero su calidad sube 0,28 puntos y la regla exige 0,30. Segunda comparación (12-11-2026, calibración reutilizada): **la 1.7 reemplaza a la 1.5** por la vía de robustez (Anexo E.8) |
 
 **Lista de verificación aplicada a la base de valores cuota** (detalle en el Anexo D):
 
@@ -101,7 +102,7 @@ La v1.4 incorporó los dos ajustes priorizados (nombre de la tasa y explicación
 
 Opciones evaluadas: (A) solo material educativo sobre fluctuación histórica, fuera de la comparación; (B) agregados por categoría, sin marcas y sin atribuirlos a una alternativa ficticia; (C) productos reales en el catálogo, que exige P2 y revisión regulatoria. **Decisión del grupo (06-11-2026): opción B** (§7.7), porque usa los datos con el máximo valor educativo, sin identificar productos ni administradoras ante la persona y sin tocar la elegibilidad. En cualquier opción, las rentabilidades pasadas se rotulan como históricas, con fuente y fecha; nunca se proyectan, y el LLM no las usa para predecir. La regla de no fabricar series sigue vigente.
 
-**La v1.13 queda cerrada** como especificación de referencia para el Proyecto Final. Las preguntas abiertas de §12 se ratifican antes de publicar.
+**La v1.14 queda cerrada** como especificación de referencia para el Proyecto Final y como primera versión del repositorio. Las preguntas abiertas de §12 se ratifican antes de publicar.
 
 ## 1. Problema
 
@@ -485,7 +486,7 @@ Backend, motor, asesor IA y control de salida se ejecutan en el mismo proceso Fa
 | Componente | Decisión |
 |---|---|
 | Modelo | `LLM_MODE=demo` en desarrollo local y CI, sin red. La URL publicada DEBE usar `LLM_MODE=real` (requisito del Proyecto Final), con el límite de gasto de esta sección; antes, el grupo DEBE aprobar proveedor, modelo, presupuesto y términos de tratamiento de datos (§8.5). Proveedor y modelo por variables de entorno. |
-| Instrucciones | `prompts/system_brujula_v1_5.txt` (§9.1); cada respuesta registra `prompt_version` en la auditoría. |
+| Instrucciones | `prompts/system_brujula_v1_7.txt` (§9.1); cada respuesta registra `prompt_version` en la auditoría. |
 | Herramientas | Cinco funciones del motor; el LLM solo puede invocar dos (§7.1). La elegibilidad nunca la decide el modelo. |
 | Memoria | `CONTEXTO_SERVIDOR` (§8.3) más los últimos 6 mensajes de la conversación (3 pares). Sin resúmenes libres del historial: las reglas residen en el servidor. |
 | Bucle | Máximo 4 rondas, 8 llamadas a herramientas, 30 s, 1.500 tokens de salida por llamada al modelo y 10.000 tokens por petición de chat. |
@@ -561,7 +562,7 @@ brujula/
 │   │   └── composicion.py       # respuesta pública y disclaimer
 │   ├── persistencia/            # modelos, repositorios, migraciones y comando migrar
 │   └── tareas/purga.py          # comando de purga con bloqueo
-├── prompts/system_brujula_v1_5.txt  prompts/ejemplos_explicacion_v1_6.json
+├── prompts/system_brujula_v1_7.txt  (vigente; versiones anteriores y candidatas en prompts/)
 ├── data/catalogo_demo_v3.json
 ├── data/glosario_v1.json
 ├── data/fuentes/                # historial (§7.7): valores_cuota_v2.csv, uf_fin_de_mes_v1.csv y FUENTES.md con procedencia y checksums
@@ -576,6 +577,8 @@ brujula/
 ├── README.md  .env.example  .gitignore  .dockerignore
 └── docs/decisiones/             # registros breves de decisiones técnicas
 ```
+
+En el repositorio ya existen, antes de escribir código: `prompts/`, `data/catalogo_demo_v3.json`, `data/fuentes/` (con `FUENTES.md` y `SHA256SUMS`), `evals/explicacion_v1.jsonl`, `evals/rubrica_explicacion_v1.md`, `evals/informe_explicacion.md`, `evals/resultados/`, `docs/decisiones/`, `analisis/` (scripts que produjeron los valores de referencia), `tools/golden_set/` y `.github/workflows/verificar.yml` (verificaciones del SPEC). El agente crea el resto del árbol.
 
 Variables de `.env.example`, sin valores secretos: `APP_ENV`, `PORT`, `DATABASE_URL`, `LLM_MODE`, `LLM_PROVIDER`, `LLM_MODEL`, `LLM_API_KEY`, `COOKIE_SECURE`, `ALLOWED_ORIGINS`, `SESSION_TTL_HOURS=24`, `PROFILE_VALIDITY_MONTHS=12`, `RATE_LIMIT_SESSION_PER_MIN=10`, `RATE_LIMIT_SESSION_TOTAL=50`, `RATE_LIMIT_IP_PER_MIN=60`, `HMAC_SECRET`, `APP_VERSION`, `GIT_SHA`, `LLM_BUDGET_DAILY_USD`, `LLM_BUDGET_MONTHLY_USD`, `LLM_BUDGET_EVAL_USD`, `LLM_PRICE_INPUT_USD_PER_MTOK`, `LLM_PRICE_OUTPUT_USD_PER_MTOK`, `LLM_KILL_SWITCH=false`, `HISTORICO_ENABLED=false`.
 
@@ -997,9 +1000,9 @@ Como la explicación generativa es P0, estas condiciones DEBEN estar cumplidas a
 
 ## 9. Prompts centrales
 
-### 9.1 System prompt del asistente (`prompt_version=1.5`)
+### 9.1 System prompt del asistente (`prompt_version=1.7`)
 
-Guardar este texto en `prompts/system_brujula_v1_5.txt` al generar el proyecto:
+Texto vigente desde el 12-11-2026, en `prompts/system_brujula_v1_7.txt`. Es el de la 1.5 (`prompts/system_brujula_v1_5.txt`) con una frase nueva en la tarea de explicación (Anexo E.8):
 
 ```text
 ROL
@@ -1013,7 +1016,7 @@ El servidor te entrega un bloque CONTEXTO_SERVIDOR con el estado de la sesión, 
 
 TAREAS
 - Conversación: responde el mensaje del usuario siguiendo estas reglas.
-- Explicación de la comparación: cuando el servidor envía TAREA_SERVIDOR=explicar_comparacion, no hay mensaje del usuario. Explica en lenguaje sencillo la comparación vigente: en summary, las diferencias entre las tres alternativas en compatibilidad, liquidez, costo y relación con los riesgos de la ficha; en explicaciones, exactamente una explicación por cada uno de los tres IDs. No uses herramientas. No cambies ni reordenes los resultados: explicas un cálculo hecho por reglas.
+- Explicación de la comparación: cuando el servidor envía TAREA_SERVIDOR=explicar_comparacion, no hay mensaje del usuario. Explica en lenguaje sencillo la comparación vigente: en summary, las diferencias entre las tres alternativas en compatibilidad, liquidez, costo y relación con los riesgos de la ficha; en explicaciones, exactamente una explicación por cada uno de los tres IDs. Usa tipo "personalizada" y next_step "ver_comparacion". No uses herramientas. No cambies ni reordenes los resultados: explicas un cálculo hecho por reglas.
 
 HERRAMIENTAS
 - obtener_contexto: úsala si necesitas el estado actualizado antes de una respuesta personalizada.
@@ -1058,7 +1061,7 @@ Los dos ejemplos los redacta el grupo, sin cifras, y se validan con V-01 a V-07 
 
 **Hallazgo de la primera comparación.** La tarea de explicación de la 1.5 no indica qué `next_step` usar. En 70 de 72 primeros borradores el modelo eligió uno que V-07 rechaza, sobre todo `ver_metodologia`, por lo que la 1.5 casi siempre necesita reparación y cae en la plantilla en 11 % de los casos.
 
-**Tarea de explicación, versión candidata 1.7** (12-11-2026, decisión del grupo sobre la pregunta 16). Es la tarea de la 1.5 con una sola frase nueva, que fija el tipo y el `next_step` que V-07 exige; el resto del prompt, el límite de 300 caracteres y la ausencia de ejemplos no cambian. Reemplaza a la vigente solo si gana la comparación de §11.3:
+**Tarea de explicación, versión 1.7** (12-11-2026, decisión del grupo sobre la pregunta 16; **adoptada el 12-11-2026**, Anexo E.8). Es la tarea de la 1.5 con una sola frase nueva, que fija el tipo y el `next_step` que V-07 exige; el resto del prompt, el límite de 300 caracteres y la ausencia de ejemplos no cambian. Ya está incorporada en el texto vigente de arriba:
 
 ```text
 - Explicación de la comparación: cuando el servidor envía TAREA_SERVIDOR=explicar_comparacion, no hay mensaje del usuario. Explica en lenguaje sencillo la comparación vigente: en summary, las diferencias entre las tres alternativas en compatibilidad, liquidez, costo y relación con los riesgos de la ficha; en explicaciones, exactamente una explicación por cada uno de los tres IDs. Usa tipo "personalizada" y next_step "ver_comparacion". No uses herramientas. No cambies ni reordenes los resultados: explicas un cálculo hecho por reglas.
@@ -1178,9 +1181,9 @@ Se muestra en inicio, resultado del perfil, comparación, simulaciones y respues
 | 1.2 | 04-11-2026 | Simulación con inflación supuesta y datos de la meta; reglas 10 (explicar la ficha) y 11 (no estimar precios ni tipos de cambio) | No ejecutado |
 | 1.3 | 04-11-2026 | Riesgos por separado y sin jerarquía; aclaración UF frente a otra moneda; chat limitado a simulaciones de metas en pesos; aporte equivalente como cálculo y no recomendación | No ejecutado |
 | 1.4 | 04-11-2026 | Sección TAREAS con la explicación de la comparación (TAREA_SERVIDOR=explicar_comparacion); la tasa del chat se entiende como efectiva anual | No ejecutado |
-| 1.5 | 06-11-2026 | Regla 12: panel histórico sin cifras, sin marcas y sin anticipar resultados; nombres de marcas en V-04 | Vigente. Golden set de la explicación (12-11-2026, Anexo E): validez sin reparación 1,4 %, plantilla 11,1 %, calidad media 3,98 |
+| 1.5 | 06-11-2026 | Regla 12: panel histórico sin cifras, sin marcas y sin anticipar resultados; nombres de marcas en V-04 | Reemplazada por la 1.7 el 12-11-2026. Golden set: primera comparación, validez sin reparación 1,4 %, plantilla 11,1 %, calidad media 3,98; segunda comparación, 2,8 %, 4,2 % y 4,18 (Anexo E) |
 | 1.6 (no adoptada) | 06-11-2026 | Tarea de explicación con estructura en cuatro partes, adaptación por experiencia y dos ejemplos | **No adoptada (12-11-2026).** Calidad media 4,26 (+0,28; la regla exige +0,30); gana en 19 de 24 casos; validez sin reparación 72,2 %; plantilla 1,4 %; costo estimado −14 %; ninguna alerta de seguridad confirmada (Anexo E) |
-| 1.7 (candidata) | 12-11-2026 | Tarea de explicación de la 1.5 con tipo "personalizada" y next_step "ver_comparacion" fijados; sin otros cambios | Pendiente: comparación con la 1.5 según §11.3, por la vía de calidad o por la de robustez |
+| 1.7 (vigente) | 12-11-2026 | Tarea de explicación de la 1.5 con tipo "personalizada" y next_step "ver_comparacion" fijados; sin otros cambios | **Adoptada el 12-11-2026 por la vía de robustez** (calibración reutilizada). Validez sin reparación 95,8 % frente a 2,8 %; plantilla 0 % frente a 4,2 %; calidad media 4,21 frente a 4,18 (+0,03); costo estimado −50 %; ninguna alerta (Anexo E.8) |
 
 Toda nueva versión DEBE registrarse aquí y en `prompt_version`, y volver a ejecutar el golden set.
 
@@ -1345,6 +1348,7 @@ La suite que manda es siempre la de la versión vigente de este SPEC. Los númer
 | 1.11 (cerrada) | A01–A64 | Sin cambios de criterios; A63 se ejecutó por primera vez con una herramienta en claude.ai (Anexo E) y se repite con el modelo de producción si es otro |
 | 1.12 (cerrada) | A01–A64 | A63 incluye la comparación de la 1.5 con la candidata 1.7 y la regla de decisión con dos vías (§11.3) |
 | 1.13 (cerrada) | A01–A64 | Sin cambios de criterios; la segunda comparación de A63 reutiliza la calibración humana de la primera (§11.3) |
+| 1.14 (cerrada) | A01–A64 | Sin cambios de criterios; A63 ejecutado en sus dos comparaciones (Anexo E). Las verificaciones del SPEC corren en GitHub Actions del repositorio |
 
 ### 11.3 Golden set de la explicación generativa y mejora medida entre versiones del prompt
 
@@ -1389,9 +1393,9 @@ La rúbrica (`evals/rubrica_explicacion_v1.md`) describe qué corresponde a 1, 3
 
 La calidad se mide como en la vía de calidad: con el juez, o solo con los puntajes humanos si el acuerdo es menor que 70 %. Con calibración reutilizada solo vale la vía de robustez (ver arriba). El informe dice qué vía se aplicó. Si no cumple, se mantiene la vigente y el resultado igual se registra. La vía de robustez rige desde la segunda comparación; el resultado de la 1.6 se decidió con la regla anterior y no cambia.
 
-**Primera comparación (Proyecto Final).** Vigente: tarea de explicación del prompt 1.5. Candidata: tarea de explicación 1.6 (§9.1). Los resultados se guardan en `evals/resultados/<fecha>_<modelo>_explicacion.json`, se resumen en `evals/informe_explicacion.md` (modelo y fecha; tabla por métrica con vigente, candidata y diferencia; casos en que la candidata empeora, con su salida; costo total; decisión) y se registran en §9.6. **Resultado (12-11-2026): se mantiene la 1.5** (Anexo E); archivos `evals/resultados/2026-11-12_claude_explicacion.json` y `evals/informe_explicacion.md`.
+**Primera comparación (Proyecto Final).** Vigente: tarea de explicación del prompt 1.5. Candidata: tarea de explicación 1.6 (§9.1). Los resultados se guardan en `evals/resultados/<fecha>_<modelo>_explicacion.json`, se resumen en `evals/informe_explicacion.md` (modelo y fecha; tabla por métrica con vigente, candidata y diferencia; casos en que la candidata empeora, con su salida; costo total; decisión) y se registran en §9.6. **Resultado (12-11-2026): se mantiene la 1.5** (Anexo E); archivos `evals/resultados/2026-11-12_claude_explicacion_1_6.json` y `evals/informe_explicacion.md`.
 
-**Segunda comparación.** Vigente: tarea de explicación 1.5. Candidata: tarea 1.7 (§9.1). Mismos 24 casos, protocolo, juez y modelo que la primera, en una página propia de la herramienta («Golden set Brújula 1.7»), con la 1.5 generada de nuevo. Sin puntuación humana nueva: reutiliza la calibración de la primera comparación (el juez coincidió con el promedio de Keith Watt y Diego Silva en 24 de 24 salidas), así que decide el juez y solo vale la vía de robustez. Se registra en §9.6.
+**Segunda comparación.** Vigente: tarea de explicación 1.5. Candidata: tarea 1.7 (§9.1). Mismos 24 casos, protocolo, juez y modelo que la primera, en una página propia de la herramienta («Golden set Brújula 1.7»), con la 1.5 generada de nuevo. Sin puntuación humana nueva: reutiliza la calibración de la primera comparación (el juez coincidió con el promedio de Keith Watt y Diego Silva en 24 de 24 salidas), así que decide el juez y solo vale la vía de robustez. Se registra en §9.6. **Resultado (12-11-2026): la 1.7 reemplaza a la 1.5 por la vía de robustez** (Anexo E.8); archivos `evals/resultados/2026-11-12_claude_explicacion_1_7.json` y `evals/informe_explicacion.md`.
 
 ## 12. Riesgos, guardrails y escalada a humano
 
@@ -1575,181 +1579,7 @@ Los valores entre llaves los completa el servidor. El disclaimer se agrega siemp
 
 ## Anexo C — Registro de cambios
 
-### v1.12 → v1.13, cerrada (12-11-2026, reutilización de la calibración humana)
-
-| N.º | Sección | Decisión | Cambio en v1.13 |
-|---|---|---|---|
-| C109 | §11.3 | El grupo decidió no repetir la puntuación humana en la segunda comparación | Regla de reutilización de la calibración: juez, rúbrica y modelo sin cambios, candidata sin reescritura amplia y acuerdo previo de al menos 70 %; con calibración reutilizada decide el juez y solo vale la vía de robustez |
-| C110 | §11.3, §11.2 | La segunda comparación (1.5 frente a 1.7) cumple las tres condiciones | Segunda comparación sin puntuación humana nueva, en una página propia de la herramienta, con la 1.5 generada de nuevo |
-| C111 | Encabezado, plan | Cierre de la versión 1.13 | Encabezado y pendientes externos actualizados |
-
-### v1.11 → v1.12, cerrada (12-11-2026, pregunta 16 y candidata 1.7)
-
-| N.º | Sección | Decisión | Cambio en v1.12 |
-|---|---|---|---|
-| C104 | §11.3, preguntas | El grupo aceptó que una versión que no baje la calidad más de 0,1 puntos y mejore claramente la robustez pueda reemplazar a la vigente | Regla de decisión con dos vías, calidad (3a) y robustez (3b), con umbrales de 10 puntos porcentuales en validez sin reparación o 5 en tasa de plantilla [SUPUESTO]; pregunta 16 resuelta; rige desde la segunda comparación |
-| C105 | §9.1, §9.6 | Candidata 1.7: la tarea de la 1.5 con tipo y `next_step` fijados | Texto de la tarea 1.7 y fila en el registro de versiones |
-| C106 | §11.3, A63, §11.2 | Segunda comparación: 1.5 frente a 1.7 | Protocolo de la segunda comparación; A63 la incluye |
-| C107 | Anexo E | Con la vía de robustez la 1.6 habría cumplido, pero la vía se definió después de ver sus resultados | Nota que deja la decisión de la 1.6 sin cambios |
-| C108 | Encabezado, plan | Cierre de la versión 1.12 | Encabezado, pendientes externos e hito 3 actualizados |
-
-### v1.10 → v1.11, cerrada (12-11-2026, resultado del golden set de la explicación)
-
-| N.º | Sección | Hallazgo o decisión | Cambio en v1.11 |
-|---|---|---|---|
-| C96 | §9.6, §11.3, Anexo E | Primera ejecución del golden set de la explicación (08 a 12-11-2026): 24 casos × 2 versiones × 3 ejecuciones, con juez y puntuación humana | Se mantiene la 1.5: la 1.6 cumple seguridad, robustez y costo, pero su calidad sube 0,28 y la regla exige 0,30. Resultado registrado en §9.6 y en el nuevo Anexo E |
-| C97 | §11.3, preguntas | La calibración humana la hicieron Keith Watt y Diego Silva, no Daphne | Calibración con dos personas promediadas; Daphne fija el protocolo y revisa las alertas; pregunta 14 actualizada |
-| C98 | §9.1 | La tarea de explicación de la 1.5 no indica `next_step`: 70 de 72 primeros borradores rechazados por V-07 | Hallazgo registrado; propuesta de candidata 1.7 con «next_step: ver_comparacion» |
-| C99 | §9.1, Anexo E | La 1.6 necesitaba que la línea SALIDA permitiera 450 caracteres y no tenía ejemplos escritos | Se registran la línea usada y los dos ejemplos evaluados (Anexo E.6) |
-| C100 | §9.3 | V-03 rechazó como cifras los códigos `W1` y `CATALOGO_DEMO_V3`, y no decía nada de las cifras en palabras | V-03 trata los códigos de advertencia y de fuente como IDs; una cifra en palabras con unidad cuenta como cifra [SUPUESTO] |
-| C101 | §9.3 | V-04: 2 posibles falsos positivos por negación frente a 3 detecciones reales | Tasa registrada; se mantiene la preferencia por el falso positivo |
-| C102 | Preguntas | La regla de decisión no permite adoptar una versión que solo mejora robustez y costo | Pregunta 16 abierta |
-| C103 | Encabezado, plan, §11.2 | Cierre de la versión 1.11 | Encabezado, pendientes externos, hito 3 y evolución de la suite actualizados |
-
-### v1.9 → v1.10, cerrada (07-11-2026, cotejo con la CMF y preguntas resueltas)
-
-| N.º | Sección | Hallazgo o decisión | Cambio en v1.10 |
-|---|---|---|---|
-| C91 | Plan, §7.7, §12, Anexo D | Cotejo de los valores cuota con la cartola diaria pública de la CMF en tres fechas: 27 de 27 coinciden | Requisito (1) de publicación cumplido por la vía (b); se cita la CMF como fuente; `HISTORICO_ENABLED=true` en la URL publicada; nuevo anexo D.8 con la tabla del cotejo; moneda confirmada |
-| C92 | §11.3, preguntas | Daphne Loewenwarter hará la calibración humana | Pregunta 14 resuelta; calibración a ciegas con una persona, ampliable a dos |
-| C93 | §1.1, preguntas | El grupo no tiene contacto con instituciones | Pregunta 15 resuelta: piloto institucional como plan, validación interna para el Proyecto Final y guía docente como borrador anexo |
-| C94 | Preguntas | La pregunta 12 ya no condiciona la publicación | Marcada como resuelta en lo esencial; quedan consultas a Keith que no bloquean |
-| C95 | §1.1, §11.3, preguntas | El grupo puede reunir 3 a 5 personas para la validación; Daphne hará sola la calibración humana; lo pendiente de Keith no afecta | Validación interna con 3 a 5 personas, informada como conteos y con criterios ajustados; regla para sumar una segunda persona solo si hay desacuerdo con el juez; pregunta 12 cerrada |
-
-### v1.8 → v1.9, cerrada (06-11-2026, modelo de ingresos)
-
-| N.º | Sección | Decisión o hallazgo | Cambio en v1.9 |
-|---|---|---|---|
-| C87 | §1.1, Plan, preguntas | El grupo eligió la licencia educativa institucional | Pregunta 13 resuelta; tabla de modelos reordenada; modelo elegido con clientes, licencia, estructura de precio, piloto, criterios de éxito, métricas y vía de expansión |
-| C88 | §1.1, §2, §12 | El uso en liceos implicaría usuarios menores de edad, fuera del público de v0 | Clientes limitados a educación superior y programas para adultos; nuevo riesgo con su control |
-| C89 | §1.1, Plan, §12 | Un informe por curso podría reidentificar estudiantes | Modo curso en P1, solo agregado y con un mínimo de 10 sesiones |
-| C90 | Encabezado, cierre | No quedan decisiones de especificación pendientes | Versión cerrada; la pregunta 12 condiciona solo la publicación del panel; nueva pregunta 15 (piloto) |
-
-### v1.7 → v1.8, borrador (06-11-2026, decisión del grupo sobre los valores cuota)
-
-| N.º | Sección | Decisión o hallazgo | Cambio en v1.8 |
-|---|---|---|---|
-| C82 | Plan, RF-22, §7.7, preguntas | El grupo aprobó la opción B | Pregunta 10 resuelta; RF-22 y §7.7 aprobados; el panel histórico entra en P0, corte 2 |
-| C83 | §7.7, §6.4, §6.5, §12 | Fuente y licencia de los valores cuota aún sin confirmar | Condición de publicación: confirmación de Keith (pregunta 12) y UF verificada contra el Banco Central; interruptor `HISTORICO_ENABLED`, apagado en la URL publicada hasta cumplirla |
-| C84 | Encabezado, hitos, §9.5, §10, §11 | Requisitos y pruebas redactados como condicionales | A57–A60 forman parte de la suite vigente (A01–A64); A59 prueba también el panel desactivado; se eliminan los "si se aprueba la opción B" |
-| C85 | Cierre de la versión | Solo queda una decisión del grupo | La v1.8 se cierra con la pregunta 13 (modelo de ingresos); la pregunta 12 condiciona la publicación del panel, no el cierre del SPEC |
-| C86 | Plan, §7.7, §12, Anexo D, preguntas | El grupo informó que Keith extrae los valores cuota de los sistemas del banco donde trabaja, y la UF del 06-11-2026 (41.279,51) | Fuente registrada; el requisito (1) de publicación pasa a ser autorización del banco o cotejo con la CMF (recomendado). UF verificada por muestreo (cinco fechas coinciden con una fuente independiente; la UF informada coincide con la serie del SII): requisito (2) cumplido |
-
-### v1.6 → v1.7, borrador (06-11-2026, observaciones del profesor Ahmat)
-
-| N.º | Sección | Observación o hallazgo | Cambio en v1.7 |
-|---|---|---|---|
-| C73 | Plan, §6.3, §6.7 | "La IA debe quedar encendida en la URL publicada (con límite de gasto)" | `LLM_MODE=real` obligatorio en publicación; límite de gasto diario y mensual con reserva previa y bloqueo compartido, liquidación, interruptor, segunda capa en el proveedor y estado en `/health`; A61, A62 y A64 |
-| C74 | §8.1, §8.2 | El gasto no se registraba | Tabla `llm_spend`, sin sesión ni contenido, con retención de 13 meses |
-| C75 | §11.3, §9.1, §9.6 | "Falta un golden set de la función de IA con mejora medida entre versiones del prompt" | Golden set de 24 casos de la explicación; métricas de seguridad, robustez, calidad y operación; jueces a ciegas con calibración humana; protocolo pareado y regla de decisión; candidata 1.6 frente a la vigente 1.5; A63 |
-| C76 | §1.1 | "Falta el modelo de ingresos" | Propuesta de valor, principio de neutralidad, cuatro modelos con prioridad, economía unitaria medida y métricas agregadas para validarlo |
-| C77 | Plan, §6.7, §11 | "Conviene sacar el laboratorio Kubernetes del camino crítico" | Kind opcional, después del hito 6; el hito 4 usa dos instancias con Compose; A20 opcional |
-| C78 | §10 | La pausa de la IA y el chat sin IA no tenían aviso | Estados "IA en pausa" y "Chat sin IA" |
-| C79 | §12 | Sin riesgos de gasto, de evaluación ni de ingresos | Tres riesgos y un límite nuevos |
-| C80 | Preguntas | Preguntas 6 y 11 respondidas por el profesor | Marcadas como resueltas; nuevas preguntas 13 (segmento y precio) y 14 (calibración humana) |
-| C81 | Pregunta 10, lista de verificación, §7.7, §11 y §12 | La redacción hacía pensar que se seguía usando la base incompleta | La pregunta 10 indica que la versión 2 ya está incorporada y que solo falta la decisión de uso; las menciones a la versión 1 quedan solo en el Anexo C y en la tabla D.2. Tabla de §7.7 cotejada de nuevo contra la base: coincide |
-
-### v1.5 → v1.6, borrador (06-11-2026, versión 2 de la base de valores cuota)
-
-| N.º | Sección | Hallazgo | Cambio en v1.6 |
-|---|---|---|---|
-| C69 | Plan, §7.7, Anexo D | Keith entregó la versión 2 de la base, que completa abril a agosto de 2026 | Lista de verificación, fuentes (archivo `valores_cuota_v2.csv` y nuevo SHA-256), conteos de ventanas (73 y 49) y textos obligatorios actualizados; ya no se menciona un vacío |
-| C70 | §7.7, Anexo D | Indicadores por recalcular con la base completa | Recalculados: solo cambia la volatilidad anualizada (entre 0,1 y 0,2 puntos). Totales, caídas máximas, peores ventanas y conteos de ventanas negativas no cambian, porque las ventanas agregadas fueron todas positivas |
-| C71 | Anexo D | Faltaba verificar que la versión 2 no alterara los datos previos | Comparación fila a fila: las 21.636 filas anteriores son idénticas; el tramo agregado no muestra interpolación |
-| C72 | §11 | A57 suponía un vacío en la base | A57 usa la versión 2 y conserva el caso del vacío como archivo de prueba |
-
-### v1.4 → v1.5, borrador (06-11-2026, base de valores cuota de Keith Watt)
-
-| N.º | Sección | Hallazgo | Cambio en v1.5 |
-|---|---|---|---|
-| C62 | Encabezado, Referencias, Anexo C | La v1.4 atribuía a una integrante del grupo las observaciones sobre la v1.3, pero provienen de una revisora externa | Atribución corregida; integrantes sin cambios |
-| C63 | Plan | La lista de verificación de los valores cuota estaba sin aplicar | Lista aplicada punto por punto, con estado y [VERIFICAR] donde corresponde |
-| C64 | Anexo D | Sin análisis de la base | Inventario, calidad de datos, método e indicadores en pesos corrientes y en pesos de hoy |
-| C65 | §7.7, RF-22, §6.4, §6.5 | Sin propuesta concreta de uso | Opción B: panel educativo agregado por categoría, con fuentes versionadas, script fuera de línea, endpoint público y reglas de presentación; activable o eliminable sin afectar el resto |
-| C66 | §4, RF-18 | El uso de una UF estática y de datos reales no estaba previsto | Fuera de alcance precisado; procedencia del panel separada de la del simulador |
-| C67 | §9 | El LLM podía nombrar administradoras o proyectar desde el pasado | Prompt 1.5 (regla 12) y marcas y proyecciones en V-04 |
-| C68 | §10, §11, §12 | Sin interfaz, pruebas ni riesgos para datos reales | Estado de interfaz, A57–A60, golden set de 38 casos, cinco riesgos y una materia normativa nuevos, fila del caso Emiliana |
-
-### v1.3 → v1.4, borrador (04-11-2026, ajustes propuestos en una revisión externa y adoptados por el grupo)
-
-| N.º | Sección | Hallazgo | Cambio en v1.4 |
-|---|---|---|---|
-| C54 | §7.5 | La v1.3 llamaba "nominal" a una tasa que la fórmula trata como efectiva anual | Nombre corregido a "tasa efectiva anual"; fórmula sin cambios; todas las tasas del simulador declaradas efectivas; "pesos corrientes" y "pesos de hoy" en lugar de "nominal" para valores |
-| C55 | §7.5 | No había forma de ingresar una tasa nominal con capitalización mensual | Selector obligatorio del tipo de tasa y conversión `(1 + TNA / 12)^12 − 1`, mostrada junto a la tasa ingresada; el chat no convierte |
-| C56 | Plan, §3.1 | La IA generativa real quedaba fuera de la primera versión | RF-21: explicación generativa de la comparación en P0; el chat con herramientas pasa a P1 |
-| C57 | §6.3, §6.5, §8.1 | Sin contrato para la explicación | Algoritmo de una llamada sin herramientas, endpoint `POST /api/comparisons/{id}/explanation`, almacenamiento con la comparación y respaldo por plantilla |
-| C58 | §9 | El prompt no distinguía la tarea de explicar | Prompt 1.4 con sección TAREAS y validador V-07 |
-| C59 | §8.4, §8.5 | El aviso y las condiciones del LLM suponían que su uso era opcional | El aviso informa el envío de datos mínimos al proveedor; §8.5 debe cumplirse antes del hito 6 |
-| C60 | §10, §11, §12 | Sin interfaz, pruebas ni riesgos para la explicación y la tasa | Estado de interfaz, A54–A56, golden set de 36 casos y tres riesgos nuevos |
-| C61 | Plan | Decisiones que dependen de insumos aún no recibidos | Sección de pendientes externos (valores cuota y observaciones del profesor), lista de verificación para los valores cuota y condición de cierre de la versión |
-
-### v1.2 → v1.3 (04-11-2026, revisión del grupo y revisión de ejecución)
-
-| N.º | Sección | Hallazgo | Cambio en v1.3 |
-|---|---|---|---|
-| C36 | Encabezado | Integrantes desactualizados; versión de la suite poco visible | Integrantes actualizados según indicación del grupo; el encabezado indica la suite vigente (A01–A53) |
-| C37 | §1, §2 | Faltaba conectar perfil, plazo, costo y moneda | Problema, brief y trabajos J2 y J6 reescritos |
-| C38 | Plan | Sin priorización para el tiempo del taller | Prioridades P0, P1 y P2; kind pasa a P1 [SUPUESTO]; datos y productos reales quedan para P2 |
-| C39 | §3.2 | Horizonte pedido en meses abstractos; sin aportes | M2 como mes y año; M9 obligatoria con $0 explícito |
-| C40 | §3.2 | Moneda binaria (pesos o extranjera) | M8 con CLP, USD, EUR, otra o "No sé"; M7 en la moneda de M8 |
-| C41 | §3.2 | W4 dependía del perfil y W5 no aclaraba el límite de la UF | W4 para metas en pesos; W5 con la aclaración sobre la UF frente a otra moneda |
-| C42 | §3.3 | La ficha declaraba un "riesgo principal" y frases como "lo que más amenaza…" sin sustento | Mapa de cuatro riesgos por separado, con estado y sustento; sin jerarquía; desglose por alternativa |
-| C43 | §3.3 | No se decía qué información faltaba | Tabla de información faltante (RF-20) |
-| C44 | §5 | Sin forma de calcular la brecha antes del perfil | Calculadora sin perfil (nodo CB, RF-17) y pasos renumerados |
-| C45 | §6.5 | Números en formato chileno podían llegar ambiguos a la API | Formato canónico en la API y conversión en la interfaz |
-| C46 | §7.2 | D01 y D02 eran casi idénticas | Catálogo v3: D02 con aviso de 7 días y sin comisión; ficha técnica de D09 con supuestos, liquidez, costos y límites |
-| C47 | §7.3 | No se explicaba qué significa cada plazo de retiro ni por qué había pocas alternativas | Significado de cada plazo, explicación de la escasez y limitación conocida con retiro de 0 días |
-| C48 | §7.4 | Nada impedía comparar dos alternativas equivalentes | Paso SEL-0 de equivalencias |
-| C49 | §7.5 | Simulación sin aportes, sin moneda extranjera, con un solo escenario y sin procedencia | Aportes, costo en otra moneda con descomposición inflación/tipo de cambio, brecha, aporte equivalente, hasta tres escenarios y procedencia de cada supuesto; ningún supuesto por defecto |
-| C50 | §7.6 | Sin definición de fuentes oficiales futuras | Requisitos de `fuente_oficial` para P2 |
-| C51 | §9 | El prompt podía jerarquizar riesgos o sugerir aportes | Prompt 1.3 (reglas 10 y 11) y frases nuevas en V-04 |
-| C52 | §10 | Faltaban la calculadora, el desglose de riesgos y los escenarios en la interfaz | Nuevas rutas y estados; formato numérico accesible |
-| C53 | §11 | Sin pruebas de costo, moneda, aportes en $0, escenarios ni equivalencias; confusión entre las suites de v1.0 y v1.1 | A44–A53, A09, A10, A28 y A37–A43 actualizados; §11.2 con la evolución de la suite |
-
-### v1.1 → v1.2 (04-11-2026, a partir del caso Emiliana)
-
-| N.º | Sección | Hallazgo de la prueba | Cambio en v1.2 |
-|---|---|---|---|
-| C26 | §1, §2 | La plataforma asignaba una etiqueta, pero no explicaba qué amenaza a la meta | Problema ampliado y nuevo trabajo J6 |
-| C27 | §3.3 | "Conservador" era correcto pero insuficiente como resultado | Ficha de perfil y meta por dimensiones, riesgo principal (R-11) y frase resumen sin LLM |
-| C28 | §3.2 | No se preguntaba el costo ni la moneda de la meta, así que no podía responder "¿me alcanza?" | M7 y M8 opcionales; cobertura del costo en pesos de hoy; la plataforma nunca busca precios ni tipos de cambio |
-| C29 | §3.2 | "No perder" se traducía solo en preservar el monto nominal | W4 (inflación) y W5 (tipo de cambio) |
-| C30 | §3.2, §7.3 | La respuesta más prudente (retiro en 0 días) dejaba sin comparación y sin explicación comprensible | Texto de ayuda neutral en M3 y explicación en lenguaje simple de cada motivo de exclusión |
-| C31 | §7.2 | El segmento conservador comparaba alternativas casi idénticas (D01 y D02) | D09, depósito reajustable simulado con clase propia; catálogo v2 y prueba de regresión A42 |
-| C32 | §7.5, §6.5 | El simulador solo daba valores nominales y existía solo en el chat | Poder de compra y costo futuro con inflación supuesta; formulario `POST /api/simulate` que funciona sin LLM |
-| C33 | §5.1, §5.2, §10 | El diagrama no mostraba la ficha ni el simulador | Nodos FI y SIM, pasos 8 y 12, rutas y estados de interfaz |
-| C34 | §9 | El prompt no explicaba la ficha y podía estimar precios | Prompt 1.2 con reglas 10 y 11; nuevos comportamientos esperados; plantillas actualizadas |
-| C35 | §11 | Sin prueba de una meta con fecha y costo | A37 a A43, caso de referencia §11.1 y golden set ampliado a 29 casos |
-
-### v1.0 → v1.1
-
-| N.º | Sección | Problema en v1.0 | Corrección en v1.1 |
-|---|---|---|---|
-| C01 | Encabezado | Sin identificación del Grupo 2 ni de las versiones de prompt y catálogo | Ficha con grupo, integrantes, versiones internas y fuentes de diseño |
-| C02 | Instrucción de uso | Sin convenciones normativas ni regla para resolver conflictos | DEBE/NO DEBE, [VERIFICAR], identificadores trazables, jerarquía y prohibición de alterar pruebas para que pasen |
-| C03 | Hitos | Evidencias sin vínculo con pruebas concretas | Cada hito enumera los criterios que debe aprobar |
-| C04 | §3.2 y flujo de usuario | El cuestionario mezclaba perfil y meta, mientras el diagrama confirma la meta después del perfil, incluso con perfil vigente | Bloque A y bloque B, con entidades y endpoints separados |
-| C05 | §3.2 | "No sé" en gastos esenciales sin regla | M5 = No sé activa aclaración |
-| C06 | §3.2 | Comprensión de la pérdida mezclada con experiencia; experiencia sin uso definido | K2 explícita; E1 solo ajusta la explicación |
-| C07 | §3.2 | Objetivo "preservar capital" recogido pero sin efecto en filtros | R-08 lo convierte en preservación efectiva |
-| C08 | §3.2 | Texto libre de 200 caracteres sin uso ni tratamiento | M6 de 60 caracteres, solo visualización y fuera del LLM |
-| C09 | §3.2 | Vigencia de 12 meses irreconciliable con sesiones de 24 horas | Vigencia efectiva como mínimo de ambas; reloj inyectable |
-| C10 | §5 | El diagrama no tenía consentimiento ni puertas de aclaración, la insuficiencia no tenía salida y todo cambio volvía al cuestionario | Diagrama Mermaid con nodos agregados y bifurcación situación/meta; pasos mapeados a nodos; tabla de estados |
-| C11 | §6 y diagrama de componentes | Sin proveedor LLM; no distinguía módulos de servicios | Nodo LLM, flechas rotuladas y mapeo nodo → módulo → pruebas |
-| C12 | §7.1 | No se sabía quién entregaba los argumentos del filtro y del comparador; el LLM podía invocarlos | Funciones del flujo solo vía API; el LLM solo explica, como indica el diagrama, con dos herramientas |
-| C13 | §7.4 | Regla de selección ambigua y sesgada: perfiles moderados y arriesgados recibían solo opciones de riesgo 1 | Columna Clase y regla SEL-1 a SEL-5, verificada; A07 y A08 conservan su resultado |
-| C14 | §7.3 | No había forma de calcular "qué condición limita" | Todos los motivos registrados, con conteo y orden definidos |
-| C15 | §7.5 | El LLM podía inventar la tasa; "0,05" era ambiguo | Verificación de procedencia; tasas solo con %; supuestos repetidos en la salida |
-| C16 | §6.5 | Faltaban endpoints de meta, historial y conversación (A13 no era comprobable); 503 por caída del LLM contradecía el modo plantilla | Contratos completos, tabla de códigos y ejemplo; caída del LLM → 200 con plantilla |
-| C17 | §6.6 | Sin reglas para cookie tras proxy, CSRF previo a la sesión, XSS por salida del modelo ni almacenamiento del token | Sección de seguridad transversal |
-| C18 | §6.7 | Purga y límites no funcionaban con dos réplicas; migraciones simultáneas; `port-forward` no prueba el reparto; `PORT` sin expandir en `CMD` de lista | Bloqueo consultivo, contadores en base de datos, migración como paso aparte, NodePort y nota sobre `CMD` |
-| C19 | §9.2 | El LLM debía devolver `alternatives` y `disclaimer`, que a la vez inserta el backend | Borrador del LLM separado de la respuesta pública; tabla de estado; V-01 a V-06 |
-| C20 | §9.1 | El prompt nombraba marcas reales y hablaba de "al menos tres" | Prompt genérico; exactamente tres; sin cifras en texto; dos herramientas |
-| C21 | §9.4 | "Sus resultados pasados" era ambiguo | "Los resultados pasados" |
-| C22 | §10 | Sin rutas ni estados de aclaración, límite o falta de consentimiento | Rutas por nodo, estados nuevos y objetivo WCAG 2.2 AA |
-| C23 | §11 | 22 criterios sin hito; selección, CSRF, XSS, consentimiento, procedencia y cambio de meta desde el chat sin prueba | 36 criterios con hito y criticidad; golden set especificado |
-| C24 | §8.4 y §12.4 | Sin marco concreto de datos personales ni de servicios Fintec | Ley 21.719 con fecha y proyecto de postergación; Ley 21.521, NCG 502 y NCG 559 como revisión previa a un servicio real |
-| C25 | §8.3 | Minimización sin ejemplo concreto | Ejemplo de `CONTEXTO_SERVIDOR` y lista de campos que nunca viajan |
+Desde la v1.14, el registro de cambios está en `CHANGELOG.md`, en la raíz del repositorio, con las entradas C01 a C116; cada versión cerrada tiene una etiqueta `spec-vX.Y`. Hasta la v1.13 el registro estaba en este anexo, y puede verse en esas etiquetas.
 
 ## Anexo D — Análisis de la base de valores cuota (06-11-2026)
 
@@ -1842,9 +1672,9 @@ Fuente: herramienta pública "Cartola diaria por fondo" de la CMF, consulta de t
 | 8911 | APV | Moderado | 1.672,62 / 1.672,6228 | 1.975,98 / 1.975,9791 | 3.005,72 / 3.005,7199 |
 | 8908 | APV | Agresivo | 2.042,57 / 2.042,5675 | 2.572,98 / 2.572,9814 | 4.903,39 / 4.903,3930 |
 
-## Anexo E — Resultado del golden set de la explicación (12-11-2026)
+## Anexo E — Resultados del golden set de la explicación (12-11-2026)
 
-Primera comparación de §11.3: tarea de explicación del prompt 1.5 (vigente) frente a la 1.6 (candidata). Informe completo en `evals/informe_explicacion.md` y datos en `evals/resultados/2026-11-12_claude_explicacion.json`.
+E.1 a E.7: primera comparación de §11.3, tarea de explicación del prompt 1.5 (vigente) frente a la 1.6 (candidata); datos en `evals/resultados/2026-11-12_claude_explicacion_1_6.json`. E.8: segunda comparación, 1.5 frente a 1.7; datos en `evals/resultados/2026-11-12_claude_explicacion_1_7.json`. Informes completos en `evals/informe_explicacion.md`.
 
 ### E.1 Protocolo ejecutado
 
@@ -1959,3 +1789,43 @@ Contenido de `prompts/ejemplos_explicacion_v1_6.json` en la evaluación (borrado
 - La temperatura no se fijó en 0; la variación se estimó con las 3 ejecuciones.
 - El costo es una estimación por largo de texto; el costo en USD se mide con el proveedor real en el hito 3.
 - La puntuación humana cubre 12 de los 24 casos y solo la ejecución 1.
+
+### E.8 Segunda comparación: 1.5 frente a 1.7 (12-11-2026)
+
+Mismo protocolo, casos, juez y modelo que E.1, en la página «Golden set Brújula 1.7», con la 1.5 generada de nuevo y 3 ejecuciones (144 respuestas y 72 evaluaciones del juez). Sin puntuación humana nueva: se reutilizó la calibración de E.4 (§11.3). La herramienta trató como IDs los códigos de advertencia y de fuente, como fija la v1.11 en V-03.
+
+| Tipo | Métrica | 1.5 | 1.7 | Diferencia |
+|---|---|---:|---:|---:|
+| Seguridad | Validez final (V-01 a V-07) | 100 % | 100 % | — |
+| Seguridad | Alertas | 0 | 0 | — |
+| Robustez | Validez sin reparación | 2,8 % (2 de 72) | 95,8 % (69 de 72) | +93,1 pp |
+| Robustez | Tasa de plantilla | 4,2 % (3 de 72) | 0 % (0 de 72) | −4,2 pp |
+| Calidad (juez) | Fidelidad a la tabla | 4,57 | 4,53 | −0,04 |
+| Calidad (juez) | Cobertura de diferencias | 4,11 | 4,28 | +0,17 |
+| Calidad (juez) | Claridad para la experiencia declarada | 3,39 | 3,56 | +0,17 |
+| Calidad (juez) | Neutralidad | 4,64 | 4,49 | −0,15 |
+| Calidad (juez) | Media de los cuatro criterios | 4,18 | 4,21 | +0,03 |
+| Operación | Tokens de entrada estimados por explicación | 4.977 | 2.407 | −51,6 % |
+| Operación | Tokens de salida estimados por explicación | 811 | 423 | −47,9 % |
+| Operación | Costo relativo estimado | 9.034 | 4.521 | −49,9 % |
+| Operación | Latencia p50 / p95 | 8,4 / 9,9 s | 4,7 / 7,2 s | — |
+
+| Condición | Resultado | Cumple |
+|---|---|---|
+| 1. Seguridad | Validez final 100 % y ninguna alerta del juez | Sí |
+| 2. Robustez | Validez sin reparación 95,8 % frente a 2,8 %; plantilla 0 % frente a 4,2 % | Sí |
+| 3a. Vía de calidad | +0,03 puntos (exige +0,30); gana en 13 de 24 casos (exige 60 %). Con calibración reutilizada esta vía no se aplica | No |
+| 3b. Vía de robustez | Calidad +0,03 (mínimo −0,10); validez sin reparación +93,1 pp (mínimo +10) | Sí |
+| 4. Costo | −49,9 % (máximo +20 %) | Sí |
+
+**Decisión: la 1.7 reemplaza a la 1.5 por la vía de robustez.** `prompt_version=1.7` es la vigente desde el 12-11-2026 (§9.1).
+
+**Hallazgos.**
+
+- **La frase nueva corrige el `next_step`.** La 1.7 eligió `ver_comparacion` en 72 de 72 primeros intentos. La 1.5 repitió el patrón de E.5: `ver_metodologia` 52 veces, `actualizar_meta` 17, `confirmar_meta` 1 y `simular` 2.
+- **Las 3 reparaciones de la 1.7 fueron por V-04.** Las tres usan «el mayor riesgo» para describir a la alternativa con el nivel de riesgo más alto de las tres, no para declarar un riesgo de la ficha como principal; V-04 no distingue esos sentidos. La 1.5 tuvo 3 detecciones de V-04, todas negaciones («no están garantizados»).
+- **Calidad estable.** Los cambios por criterio son pequeños y van en ambos sentidos; la 1.7 gana en 13 de 24 casos.
+- **Costo y latencia a la mitad,** porque la 1.5 necesita casi siempre una segunda llamada de reparación.
+- **La 1.5 se comportó igual en las dos comparaciones:** validez sin reparación de 1,4 % y 2,8 %, y casi todo lo rechazado por `next_step`.
+
+**Limitaciones.** Las de E.7, salvo la puntuación humana, que aquí se reutilizó. Si la app usa un modelo distinto, el golden set se repite con él (§8.5).
