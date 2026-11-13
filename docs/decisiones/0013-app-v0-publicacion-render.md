@@ -26,6 +26,10 @@ El Proyecto Final exige la app publicada con la IA encendida y límite de gasto.
 | P0 · Publicación | Dockerfile, `compose.yaml`, CI con pruebas en SQLite y PostgreSQL, construcción de la imagen y verificación de `/health` y `/ready`; Blueprint de Render |
 | Simplificaciones | El cuestionario está en una sola página, no por pasos; el límite agregado por IP (§12.2) y la purga horaria se reemplazan por la purga al crear sesiones; las migraciones crean las tablas al arrancar; la suite de navegador (360, 768 y 1280 px) se ejecutó de forma local con Playwright y no está en CI |
 
+## Prueba de humo (A64)
+
+13-11-2026, 15:12, en https://brujula-y21u.onrender.com: `/health` con `llm.modo=real`; recorrido completo del caso Emiliana (perfil conservador, D01, D03 y D09, D02 como otra compatible); explicación con `generated_by=llm` que pasó V-01 a V-07 a la primera ([captura](../evidencias/2026-11-13_explicacion_ia_url_publicada.png)). Los dos primeros intentos cayeron en la plantilla porque `claude-sonnet-5-5` razonaba por defecto (punto 4); el respaldo funcionó como estaba previsto.
+
 ## Consecuencias
 
 Los datos de la sesión se guardan en Estados Unidos y el aviso de privacidad lo informa. La instancia gratuita se suspende tras 15 minutos sin tráfico y tarda cerca de un minuto en despertar. La base gratuita vence a los 30 días: antes de esa fecha hay que pasarla a un plan pagado o recrearla. Para detener todo gasto: `LLM_KILL_SWITCH=true` en Render, desactivar la clave en la consola de Claude o suspender el servicio.
