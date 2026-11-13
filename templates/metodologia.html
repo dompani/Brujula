@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block titulo %}Cómo funciona · Brújula{% endblock %}
+{% macro rango(m, pct=True) %}{% if pct %}entre {{ "%+.1f"|format(m.min)|replace(".", ",") }} % y {{ "%+.1f"|format(m.max)|replace(".", ",") }} %; mediana {{ "%+.1f"|format(m.mediana)|replace(".", ",") }} %{% else %}en {{ m.min }} a {{ m.max }} (mediana {{ m.mediana }}){% endif %}{% endmacro %}
+{% block contenido %}
+<h1>Cómo funciona Brújula</h1>
+<section class="tarjeta texto">
+  <h2>Reglas, no adivinanzas</h2>
+  <ol>
+    <li><strong>Perfil.</strong> Cuatro preguntas de tolerancia suman de 0 a 8 puntos: 0 a 2 conservador, 3 a 5 moderado, 6 a 8 arriesgado. La pregunta de capacidad de pérdida fija un techo. El perfil operativo es el menor de los dos.</li>
+    <li><strong>Filtros.</strong> Una alternativa es compatible si su riesgo no supera tu perfil, su monto mínimo cabe en tu ahorro, su horizonte mínimo cabe en tu plazo, devuelve el dinero dentro de lo que puedes esperar y, si corresponde, preserva capital.</li>
+    <li><strong>Selección.</strong> Entre las compatibles, se toma la primera de cada nivel de riesgo hasta el de tu perfil y se completa buscando clases distintas. Dos alternativas equivalentes ocupan un solo lugar. Nunca se usan comisiones ni criterios comerciales.</li>
+    <li><strong>Explicación con IA.</strong> Recibe solo los resultados ya calculados y datos mínimos. El servidor revisa lo que escribe: no puede inventar cifras, nombrar marcas, prometer resultados ni ordenar las alternativas como un ranking. Si no cumple, se muestra una explicación automática sin IA. Tiene un límite de gasto diario.</li>
+  </ol>
+</section>
+<section class="tarjeta">
+  <h2>Catálogo simulado</h2>
+  <div class="tabla-envoltura" tabindex="0" role="region" aria-label="Catálogo simulado">
+  <table class="tabla"><thead><tr><th>ID</th><th>Alternativa ficticia</th><th>Riesgo</th><th>Horizonte mínimo</th><th>Retiro</th><th>Monto mínimo</th><th>Comisión simulada</th><th>Preserva capital</th><th>Reajusta (UF)</th></tr></thead>
+  <tbody>{% for a in catalogo %}<tr><td>{{ a.id }}</td><td>{{ a.categoria }}</td><td>{{ a.riesgo }}</td><td>{{ a.horizonte_min_meses }} meses</td><td>{{ a.retiro_dias }} días</td><td>{{ pesos(a.monto_min_clp) }}</td><td>{{ pct(a.comision_anual_pct) }}</td><td>{{ "Sí" if a.capital_preserved_sim else "No" }}</td><td>{{ "Sí" if a.inflation_adjusted_sim else "No" }}</td></tr>{% endfor %}</tbody></table>
+  </div>
+  <p class="nota">No representa productos ni tasas reales. Rentabilidad y valor cuota: no disponibles. Impuestos, spreads y otros costos no incluidos.</p>
+</section>
+{% if historico_on %}
+{% set h = historico %}
+<section id="historico" class="tarjeta historico" aria-labelledby="titulo-hist">
+  <h2 id="titulo-hist">Así se movieron en el pasado</h2>
+  {% for n in h.notas %}<p class="nota-hist">{{ n }}</p>{% endfor %}
+  <div class="tabla-envoltura" tabindex="0" role="region" aria-label="Panel histórico por categoría">
+  <table class="tabla">
+    <thead><tr><th scope="col">Indicador</th>
+      <th scope="col">Fondos que sus administradoras clasifican como «conservadores»</th>
+      <th scope="col">«moderados»</th><th scope="col">«agresivos»</th></tr></thead>
+    <tbody>
+    {% for clave, nombre, es_pct in [
+      ("peor_36m_hoy", "Peor ventana de 36 meses, en pesos de hoy", True),
+      ("negativas_36m_hoy", "Ventanas de 36 meses con pérdida de poder de compra (de " ~ h.ventanas["36"] ~ ")", False),
+      ("negativas_36m_corrientes", "Ventanas de 36 meses con menos pesos (de " ~ h.ventanas["36"] ~ ")", False),
+      ("peor_12m_corrientes", "Peor ventana de 12 meses, en pesos corrientes", True),
+      ("negativas_12m_corrientes", "Ventanas de 12 meses con menos pesos (de " ~ h.ventanas["12"] ~ ")", False),
+      ("caida_maxima", "Caída máxima desde un máximo previo", True),
+      ("volatilidad_anual", "Volatilidad anualizada", True),
+      ("variacion_total_corrientes", "Variación total, pesos corrientes", True),
+      ("variacion_total_hoy", "Variación total, pesos de hoy", True)] %}
+      <tr><th scope="row">{{ nombre }}</th>{% for c in ("conservador", "moderado", "agresivo") %}<td>{{ rango(h.categorias[c].metricas[clave], es_pct) }}</td>{% endfor %}</tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  </div>
+  <p class="nota">La clasificación «conservador», «moderado» o «agresivo» es de las administradoras, no el perfil que calcula esta app. Mínimo, mediana y máximo entre los 3 fondos de cada categoría. Valores cuota consultados en la CMF el 07-11-2026; UF del SII consultada el 06-11-2026.</p>
+</section>
+{% endif %}
+<section class="tarjeta glosario">
+  <h2>Glosario</h2>
+  <dl>{% for t, d in glosario.items() %}<div><dt>{{ t | capitalize }}</dt><dd>{{ d }}</dd></div>{% endfor %}</dl>
+</section>
+{% endblock %}

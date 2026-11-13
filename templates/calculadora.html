@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block titulo %}Calculadora de brecha · Brújula{% endblock %}
+{% block contenido %}
+<h1>Calculadora de brecha</h1>
+<p class="bajada">Calcula cuánto te falta o te sobra para tu meta con tus propios supuestos. No muestra alternativas y <strong>no guardamos estos datos</strong>.</p>
+{% if not sesion %}
+  <p class="tarjeta">Para usar la calculadora primero acepta el <a href="/privacidad">aviso de privacidad</a>.</p>
+{% else %}
+  {% set modo = "calculadora" %}{% include "_simulador.html" %}
+  <p><a class="boton" href="/perfil">Continuar al cuestionario</a></p>
+{% endif %}
+{% endblock %}

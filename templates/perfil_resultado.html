@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block titulo %}Resultado del perfil · Brújula{% endblock %}
+{% block contenido %}
+{% set p = estado.profile %}
+<h1>Tu perfil</h1>
+{% if not p %}
+  <p class="tarjeta">Aún no respondes el cuestionario. <a href="/perfil">Responderlo</a>.</p>
+{% elif p.status == "requiere_aclaracion" %}
+  <section class="tarjeta aclaracion">
+    <h2>Necesitamos aclarar algo antes de comparar</h2>
+    <p>Con tus respuestas, esta demo no muestra una comparación personalizada: {{ p.result.motivo }}. No es un error ni un juicio: es una señal para revisar con calma.</p>
+    <p>{{ escalada }}</p>
+    <div class="acciones"><a class="boton primario" href="/perfil">Corregir mis respuestas</a><a class="boton" href="/metodologia">Ver contenido educativo</a></div>
+  </section>
+{% else %}
+  {% set r = p.result %}
+  <section class="tarjeta">
+    <dl class="dimensiones">
+      <div><dt>Disposición al riesgo (tolerancia)</dt><dd>{{ r.disposicion | capitalize }} · perfil {{ r.tolerance }}</dd></div>
+      <div><dt>Techo por capacidad de pérdida</dt><dd>{{ r.capacity_cap | capitalize }}</dd></div>
+      <div class="destacado"><dt>Perfil operativo</dt><dd>{{ r.effective_risk | capitalize }}</dd></div>
+    </dl>
+    <ul class="razones">{% for x in r.reasons %}<li>{{ x }}</li>{% endfor %}</ul>
+    <p class="nota">Calculado el {{ p.calculated_at | scl }}. Vigente mientras dure tu sesión. Es una aproximación educativa, no una evaluación profesional.</p>
+    <div class="acciones"><a class="boton primario" href="/meta">Registrar mi meta</a><a class="boton" href="/perfil">Mi situación cambió</a></div>
+  </section>
+{% endif %}
+{% endblock %}

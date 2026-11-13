@@ -1,0 +1,53 @@
+# Blueprint de Render (decisión 0013): app web en Docker + PostgreSQL, plan gratuito.
+# Al crear el Blueprint, Render pide LLM_API_KEY y PRIVACY_CONTACT_EMAIL; nunca van en el repositorio.
+services:
+  - type: web
+    name: brujula
+    runtime: docker
+    plan: free
+    region: oregon
+    healthCheckPath: /health
+    autoDeployTrigger: checksPass
+    envVars:
+      - key: APP_ENV
+        value: produccion
+      - key: DATABASE_URL
+        fromDatabase:
+          name: brujula-db
+          property: connectionString
+      - key: LLM_MODE
+        value: real
+      - key: LLM_PROVIDER
+        value: anthropic
+      - key: LLM_MODEL
+        value: claude-sonnet-5-5
+      - key: LLM_API_KEY
+        sync: false
+      - key: PRIVACY_CONTACT_EMAIL
+        sync: false
+      - key: COOKIE_SECURE
+        value: "true"
+      - key: HMAC_SECRET
+        generateValue: true
+      - key: APP_VERSION
+        value: "0.1.0"
+      - key: LLM_BUDGET_DAILY_USD
+        value: "1"
+      - key: LLM_BUDGET_MONTHLY_USD
+        value: "10"
+      - key: LLM_BUDGET_EVAL_USD
+        value: "5"
+      - key: LLM_PRICE_INPUT_USD_PER_MTOK
+        value: "2"
+      - key: LLM_PRICE_OUTPUT_USD_PER_MTOK
+        value: "10"
+      - key: LLM_KILL_SWITCH
+        value: "false"
+      - key: HISTORICO_ENABLED
+        value: "true"
+databases:
+  - name: brujula-db
+    plan: free
+    region: oregon
+    databaseName: brujula
+    user: brujula

@@ -1,0 +1,66 @@
+# marcas_v1: administradoras, bancos y fondos reales de Chile y referencias de diseño (V-04, §9.3).
+banchile
+banco de chile
+bci
+banco de credito e inversiones
+santander
+bancoestado
+banco estado
+banco del estado
+scotiabank
+itau
+security
+bice
+falabella
+ripley
+banco consorcio
+consorcio financiero
+banco internacional
+larrainvial
+larrain vial
+btg
+btg pactual
+principal financial
+principal agf
+sura
+credicorp
+zurich
+fintual
+vector capital
+euroamerica
+compass group
+moneda asset
+toesca
+sartor
+renta 4
+renta4
+banco edwards
+citibank
+hsbc
+jp morgan
+jpmorgan
+blackrock
+vanguard
+afp habitat
+afp cuprum
+afp provida
+afp capital
+afp modelo
+afp planvital
+afp uno
+cuprum
+provida
+planvital
+coopeuch
+tenpo
+mercado pago
+racional
+metlife
+nubank
+cartera dinamica
+portafolio conservador
+portafolio moderado
+portafolio agresivo
+santander prudente
+santander equilibrio
+santander agresivo

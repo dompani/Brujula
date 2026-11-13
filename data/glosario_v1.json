@@ -1,0 +1,22 @@
+{
+ "estado": "Borrador del agente de código, pendiente de revisión del grupo (§9.2).",
+ "version": "glosario_v1",
+ "terminos": {
+  "riesgo": "En inversión, el riesgo es la posibilidad de que el valor de lo invertido suba o baje respecto de lo esperado. Más riesgo no significa mejor: significa más fluctuación posible.",
+  "perfil de riesgo": "Aproximación a cuánta fluctuación estás dispuesto a aceptar (tolerancia) y cuánta pérdida podrías absorber sin afectar tus gastos esenciales (capacidad). Esta demo usa el menor de los dos.",
+  "liquidez": "Qué tan rápido puedes convertir una inversión en dinero disponible. Una alternativa muy líquida devuelve el dinero el mismo día; otras exigen aviso previo o esperar un plazo.",
+  "horizonte": "Tiempo que falta hasta que necesites el dinero. Un horizonte corto deja fuera alternativas que requieren más tiempo.",
+  "comisión": "Cobro anual por administrar una inversión, expresado como porcentaje. En esta demo las comisiones son ficticias y no incluyen impuestos ni spreads.",
+  "diversificación": "Repartir el dinero entre alternativas distintas para que el resultado no dependa de una sola.",
+  "renta fija": "Instrumentos que pagan según condiciones pactadas de antemano, como depósitos o bonos. Pueden tener riesgo, aunque suele ser menor que en renta variable.",
+  "renta variable": "Instrumentos cuyo valor cambia con el mercado, como acciones. Pueden fluctuar mucho en el corto plazo.",
+  "inflación": "Alza generalizada de los precios. Con inflación, un monto fijo en pesos compra menos con el tiempo.",
+  "poder de compra": "Lo que tu dinero permite comprar. Se mide en pesos de hoy: descuenta la inflación supuesta.",
+  "uf": "La Unidad de Fomento es una unidad de cuenta chilena que se reajusta según la inflación chilena. Sigue los precios en Chile, no el tipo de cambio ni la inflación de otra moneda.",
+  "tipo de cambio": "Cuántos pesos chilenos cuesta una unidad de otra moneda, como el dólar o el euro. Si tu meta se paga en otra moneda, su costo en pesos cambia con él.",
+  "brecha": "Diferencia entre tu ahorro y el costo estimado de tu meta. Negativa significa que falta; positiva, que sobra, siempre con tus supuestos.",
+  "tasa efectiva anual": "Tasa que ya incluye el efecto de capitalizar. Si te informan una tasa nominal anual con capitalización mensual, el simulador la convierte a efectiva.",
+  "preservación de capital": "Propiedad, en esta demo ficticia, de las alternativas cuyo valor no baja en pesos durante la simulación. No es una garantía de instrumentos reales.",
+  "fondo de emergencia": "Ahorro separado para imprevistos, distinto del dinero de tu meta, que te evita retirar en un mal momento."
+ }
+}

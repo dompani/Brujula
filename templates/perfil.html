@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block titulo %}Tu perfil · Brújula{% endblock %}
+{% macro opcion(nombre, valor, texto) %}<label class="opcion"><input type="radio" name="{{ nombre }}" value="{{ valor }}" required><span>{{ texto }}</span></label>{% endmacro %}
+{% block contenido %}
+<h1>Cuestionario de perfil</h1>
+<p class="bajada">Aproximación educativa propia, inspirada en los elementos del perfil del inversionista que difunde CMF Educa. No es una evaluación oficial ni validada por la CMF. Ninguna opción viene marcada.</p>
+<form class="tarjeta cuestionario" data-api="/api/profile" data-method="POST" data-builder="perfil" data-next="/perfil/resultado" novalidate>
+  <input type="hidden" name="questionnaire_version" value="{{ questionnaire_version }}">
+  <fieldset><legend>1. ¿Qué fluctuación temporal aceptarías en un monto que puedes mantener invertido?</legend>
+    {{ opcion("t1", 0, "Hasta 5 %") }}{{ opcion("t1", 1, "Más de 5 % y hasta 15 %") }}{{ opcion("t1", 2, "Más de 15 %") }}</fieldset>
+  <fieldset><legend>2. Ante una caída de 10 %, ¿qué harías?</legend>
+    {{ opcion("t2", 0, "Retiraría para evitar más pérdidas") }}{{ opcion("t2", 1, "Revisaría mi situación antes de decidir") }}{{ opcion("t2", 2, "Mantendría si la meta y mi capacidad no cambiaron") }}</fieldset>
+  <fieldset><legend>3. ¿Qué combinación prefieres?</legend>
+    {{ opcion("t3", 0, "Menos fluctuación aunque el crecimiento potencial sea menor") }}{{ opcion("t3", 1, "Equilibrio entre fluctuación y crecimiento potencial") }}{{ opcion("t3", 2, "Más fluctuación por mayor crecimiento potencial") }}</fieldset>
+  <fieldset><legend>4. ¿Aceptarías un resultado inferior al monto inicial?</legend>
+    {{ opcion("t4", 0, "No") }}{{ opcion("t4", 1, "Una pérdida limitada") }}{{ opcion("t4", 2, "Una pérdida relevante dentro de un monto que puedo perder") }}</fieldset>
+  <fieldset><legend>5. Si el valor de lo invertido bajara, ¿qué pérdida podrías absorber sin afectar gastos esenciales ni compromisos?</legend>
+    {{ opcion("k1", "ninguna", "Ninguna") }}{{ opcion("k1", "hasta_10", "Hasta 10 %") }}{{ opcion("k1", "mas_10", "Más de 10 %") }}{{ opcion("k1", "no_se", "No sé") }}</fieldset>
+  <fieldset><legend>6. ¿Comprendes que en alternativas que no preservan capital podrías recibir menos dinero del que invertiste?</legend>
+    {{ opcion("k2", "si", "Sí") }}{{ opcion("k2", "no", "No") }}</fieldset>
+  <fieldset><legend>7. ¿Qué experiencia tienes invirtiendo?</legend>
+    {{ opcion("e1", "ninguna", "Ninguna") }}{{ opcion("e1", "basica", "Básica") }}{{ opcion("e1", "avanzada", "Avanzada") }}</fieldset>
+  <fieldset><legend>8. ¿Tienes un fondo de emergencia separado de este monto?</legend>
+    {{ opcion("f1", "si", "Sí") }}{{ opcion("f1", "no", "No") }}{{ opcion("f1", "prefiero_no_responder", "Prefiero no responder") }}</fieldset>
+  <p class="error-form" role="alert" aria-live="assertive"></p>
+  <button class="boton primario" type="submit">Calcular mi perfil</button>
+</form>
+{% endblock %}

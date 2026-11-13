@@ -13,12 +13,12 @@ La URL publicada debe tener la IA encendida con límite de gasto (requisito del 
 | Condición de §8.5 | Estado |
 |---|---|
 | Proveedor | Anthropic (modelos Claude), el mismo con que se ejecutó el golden set |
-| Modelo exacto | Se registra al abrir la cuenta. Si no es el que usó la herramienta del golden set, el golden set se repite con él |
-| Titular de las cuentas de IA y de nube | Un integrante que el grupo designa antes del hito 6 |
+| Modelo exacto | `claude-sonnet-5-5` (decisión 0013). El golden set se repite con él |
+| Titular de las cuentas de IA y de nube | Daphne Loewenwarter (13-11-2026) |
 | Presupuesto | `LLM_BUDGET_DAILY_USD=1`, `LLM_BUDGET_MONTHLY_USD=10`, `LLM_BUDGET_EVAL_USD=5`; alertas de facturación al 50, 80 y 100 % |
 | Región de procesamiento de la IA | Fuera de Chile (transferencia internacional informada en el aviso de privacidad); región exacta según los términos vigentes [VERIFICAR] |
 | Retención de peticiones y uso para entrenamiento | Según los términos vigentes del proveedor al abrir la cuenta [VERIFICAR] |
-| Publicación | Cloud Run con PostgreSQL gestionado, región `southamerica-west1` (Santiago) [VERIFICAR disponibilidad de los servicios] |
+| Publicación | Aprobada en Cloud Run, región Santiago; reemplazada por plazo por Render, región de Oregón (decisión 0013) |
 
 ## Consecuencias
 

@@ -1,0 +1,9 @@
+# Dependencias de la app (versiones fijas). Instalar con: pip install -r requirements.txt
+fastapi==0.162.6
+starlette==1.7.0
+pydantic==2.13.5
+uvicorn==0.54.0
+jinja2==3.1.6
+sqlalchemy==2.1.8
+psycopg[binary]==3.3.9
+httpx==0.28.1

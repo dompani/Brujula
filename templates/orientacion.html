@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block titulo %}Orientación · Brújula{% endblock %}
+{% block contenido %}
+<h1>Orientación y revisión humana</h1>
+<div class="tarjeta texto">
+  <p>{{ escalada }}</p>
+  <p>Si tu perfil o tu meta quedaron en aclaración, puedes corregir tus respuestas, revisar el <a href="/metodologia">contenido educativo</a> o conversar con un profesional antes de decidir.</p>
+  <p>Para pedir una revisión humana del perfil que calculó esta demo{% if contacto %}, escribe a {{ contacto }}{% else %}, escribe al contacto del aviso de privacidad{% endif %}. Es un proyecto académico: la revisión explica cómo se aplicaron las reglas, no es asesoría.</p>
+</div>
+{% endblock %}

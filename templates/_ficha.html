@@ -1,0 +1,29 @@
+{# Ficha de perfil y meta (§3.3). Requiere la variable ficha. #}
+<section class="tarjeta ficha" aria-labelledby="titulo-ficha">
+  <h2 id="titulo-ficha">Tu ficha de perfil y meta</h2>
+  <p class="frase">{{ ficha.frase }}</p>
+  {% set d = ficha.dimensiones %}
+  <dl class="dimensiones">
+    <div><dt>Perfil operativo</dt><dd>{{ d.perfil_operativo | capitalize }}</dd></div>
+    <div><dt>Meta</dt><dd>{{ d.objetivo | capitalize }} para {{ d.fecha }} ({{ d.horizonte_meses }} meses, {{ d.plazo }} plazo)</dd></div>
+    <div><dt>Liquidez requerida</dt><dd>{{ d.liquidez_requerida | capitalize }} · {{ significado_m3[d.espera_max_dias] }}</dd></div>
+    <div><dt>Preservación de capital</dt><dd>{% if d.preservacion %}Requerida (por {{ d.preservacion_origen | join(" y ") }}){% else %}No requerida{% endif %}</dd></div>
+    <div><dt>Ahorro disponible</dt><dd>{{ d.ahorro }}</dd></div>
+    <div><dt>Aporte mensual</dt><dd>{{ d.aporte }}</dd></div>
+    <div><dt>Costo estimado</dt><dd>{{ d.costo or "No informado" }}{% if d.costo %} · moneda: {{ d.moneda }}{% endif %}</dd></div>
+    <div><dt>Brecha de hoy</dt><dd>{% if ficha.brecha_hoy_valor is not none %}{% if ficha.brecha_hoy_valor < 0 %}Faltan {{ pesos(-ficha.brecha_hoy_valor) }}{% else %}Sobran {{ pesos(ficha.brecha_hoy_valor) }}{% endif %} <span class="nota">con tu estimación de costo</span>{% else %}No calculable{% endif %}</dd></div>
+  </dl>
+  <h3>Mapa de riesgos</h3>
+  <p class="nota">Cada riesgo se revisa por separado; la demo no los ordena por importancia.</p>
+  <ul class="riesgos">
+    {% for k, nombre in [("inflacion_cl", "Inflación chilena"), ("moneda", "Moneda"), ("mercado", "Mercado"), ("liquidez", "Liquidez")] %}
+    <li class="riesgo estado-{{ ficha.riesgos[k] }}">
+      <span class="riesgo-nombre"><span class="icono" aria-hidden="true">{% if ficha.riesgos[k] in ("aplica", "indirecto") %}●{% elif ficha.riesgos[k] == "por_confirmar" %}?{% elif ficha.riesgos[k] == "controlada_por_el_filtro" %}✓{% else %}○{% endif %}</span>{{ nombre }}</span>
+      <span class="riesgo-estado">{{ ficha.riesgos_texto[k] }}</span>
+      <span class="riesgo-sustento">{{ ficha.sustento[k] }}</span>
+      {% if historico_on and k in ("mercado", "inflacion_cl") %}<a class="riesgo-enlace" href="/metodologia#historico">Ver cómo se movieron en el pasado</a>{% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+  {% if ficha.faltante_texto %}<h3>Información faltante</h3><ul>{% for t in ficha.faltante_texto %}<li>{{ t }}</li>{% endfor %}</ul>{% endif %}
+</section>

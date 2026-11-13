@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block titulo %}Mis datos · Brújula{% endblock %}
+{% block contenido %}
+<h1>Mis datos</h1>
+{% if not sesion %}
+  <p class="tarjeta">No hay datos tuyos guardados.</p>
+{% else %}
+<section class="tarjeta">
+  <dl class="dimensiones">
+    <div><dt>Sesión vence</dt><dd>{{ sesion.expires_at | scl }}</dd></div>
+    <div><dt>Perfil</dt><dd>{% if estado.profile %}versión {{ estado.profile.version }} · {{ estado.profile.status }}{% else %}sin perfil{% endif %}</dd></div>
+    <div><dt>Meta</dt><dd>{% if estado.goal %}versión {{ estado.goal.version }}{% else %}sin meta vigente{% endif %}</dd></div>
+    <div><dt>Comparaciones</dt><dd>{{ n_comparaciones }}</dd></div>
+  </dl>
+  <p>Todo se borra automáticamente 24 horas después de que aceptaste el aviso. También puedes borrarlo ahora.</p>
+  <form class="borrar" data-action-form="borrar" novalidate>
+    <p class="campo-check"><input type="checkbox" id="confirmar" name="confirm" required><label for="confirmar">Entiendo que se borrarán mi perfil, mi meta, mis comparaciones y sus explicaciones.</label></p>
+    <p class="error-form" role="alert" aria-live="assertive"></p>
+    <button class="boton peligro" type="submit">Borrar mis datos</button>
+  </form>
+</section>
+{% endif %}
+{% endblock %}

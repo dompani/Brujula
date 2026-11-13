@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block titulo %}Privacidad · Brújula{% endblock %}
+{% block contenido %}
+<h1>Aviso de privacidad</h1>
+<div class="tarjeta texto">
+  <p><strong>Responsable:</strong> Grupo 2, proyecto académico de la Universidad Adolfo Ibáñez (Diego Silva, Keith Watt y Daphne Loewenwarter). {% if contacto %}<strong>Contacto:</strong> {{ contacto }}.{% endif %}</p>
+  <p><strong>Para qué usamos tus datos:</strong> calcular un perfil educativo, simular la brecha de una meta, comparar un catálogo simulado, explicar la comparación con IA y conversar.</p>
+  <p><strong>Qué datos tratamos:</strong> tus respuestas al cuestionario y los datos de tu meta. No pedimos nombre, RUT, ingresos, patrimonio ni datos bancarios.</p>
+  <p><strong>Con quién se comparten:</strong> con nadie, salvo el envío de datos mínimos (perfil, plazo, liquidez, monto y las alternativas comparadas; nunca el nombre ni el costo de tu meta) al proveedor de IA, Anthropic, que los procesa fuera de Chile, solo cuando pides la explicación de tu comparación. La pantalla te lo recuerda antes de enviarlos.</p>
+  <p><strong>Dónde:</strong> la app y su base de datos funcionan en servidores de Render en Estados Unidos.</p>
+  <p><strong>Cuánto tiempo:</strong> 24 horas desde que aceptas, o hasta que borres tus datos en «Mis datos». Conservamos 7 días un registro técnico sin tus respuestas ni textos.</p>
+  <p><strong>Perfilado automatizado:</strong> el perfil se calcula con reglas publicadas en <a href="/metodologia">la metodología</a>. Puedes pedir revisión humana: ver <a href="/orientacion">orientación</a>.</p>
+  <p><strong>Tus derechos:</strong> puedes borrar todo de inmediato en «Mis datos» o escribir al contacto.</p>
+</div>
+{% if sesion %}
+  <p class="nota">Ya aceptaste este aviso. <a href="/perfil">Continuar al cuestionario</a>.</p>
+{% else %}
+<form class="tarjeta" data-api="/api/session" data-method="POST" data-builder="sesion" data-next="/perfil" novalidate>
+  <input type="hidden" name="consent_version" value="{{ consent_version }}">
+  <p class="campo-check"><input type="checkbox" id="consent" name="consent" required><label for="consent">Leí el aviso y acepto el tratamiento de mis datos para estas finalidades.</label></p>
+  <p class="campo-check"><input type="checkbox" id="adult" name="adult_declared" required><label for="adult">Declaro ser mayor de 18 años.</label></p>
+  <p class="error-form" role="alert" aria-live="assertive"></p>
+  <div class="acciones"><button class="boton primario" type="submit">Aceptar y continuar</button><a class="boton enlace" href="/metodologia">No acepto: ver solo la metodología</a></div>
+  <p class="nota">Sin aceptar puedes leer la metodología y el glosario; no se crea sesión ni se guarda nada.</p>
+</form>
+{% endif %}
+{% endblock %}

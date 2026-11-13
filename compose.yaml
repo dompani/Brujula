@@ -1,0 +1,13 @@
+# Desarrollo local: app + PostgreSQL. Uso: docker compose up --build  →  http://localhost:8000
+services:
+  db:
+    image: postgres:18
+    environment: {POSTGRES_USER: brujula, POSTGRES_PASSWORD: brujula, POSTGRES_DB: brujula}
+  app:
+    build: .
+    ports: ["8000:8000"]
+    environment:
+      DATABASE_URL: postgresql://brujula:brujula@db:5432/brujula
+      LLM_MODE: demo
+      ALLOWED_ORIGINS: http://localhost:8000
+    depends_on: [db]

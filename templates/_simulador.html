@@ -1,0 +1,32 @@
+{# Simulador de escenarios (§7.5). modo = "meta" (usa la meta guardada) o "calculadora" (pide los datos). #}
+<form id="simulador" class="tarjeta formulario" data-modo="{{ modo }}" novalidate>
+  <h2>{% if modo == "meta" %}Simular mi meta{% else %}Calculadora de brecha{% endif %}</h2>
+  <p class="nota">Escenario hipotético con tus supuestos. No es un pronóstico ni una recomendación. Ningún campo viene precargado: si dejas uno vacío, el resultado que lo necesita aparece como «no calculado».</p>
+  {% if modo == "calculadora" %}
+  <fieldset class="grupo-meta"><legend>Datos de la meta</legend>
+    <p class="campo"><label for="c_target">Mes y año en que necesitarás el dinero</label><input type="month" id="c_target" name="target_month" required></p>
+    <p class="campo"><label for="c_amount">Ahorro disponible hoy (CLP)</label><input id="c_amount" name="amount_clp" inputmode="numeric" autocomplete="off" placeholder="10.000.000" required></p>
+    <p class="campo"><label for="c_aporte">Aporte mensual (CLP)</label><input id="c_aporte" name="monthly_contribution_clp" inputmode="numeric" autocomplete="off" value="0"></p>
+    <p class="campo"><label for="c_moneda">Moneda en que se pagará la meta</label><select id="c_moneda" name="payment_currency"><option value="CLP">Pesos chilenos (CLP)</option><option value="USD">Dólares (USD)</option><option value="EUR">Euros (EUR)</option><option value="no_se">No sé</option></select></p>
+    <p class="campo"><label for="c_costo">Costo estimado, en esa moneda (opcional)</label><input id="c_costo" name="estimated_cost" inputmode="decimal" autocomplete="off" placeholder="12.000.000"></p>
+  </fieldset>
+  {% endif %}
+  <div class="escenarios">
+    {% for k in (1, 2, 3) %}
+    <fieldset class="escenario" data-escenario="{{ k }}" {% if k > 1 %}hidden{% endif %}>
+      <legend>Escenario {{ k }}</legend>
+      <p class="campo"><label for="s{{k}}_tasa">Tasa anual supuesta del ahorro (%)</label><input id="s{{k}}_tasa" name="tasa_anual_pct" inputmode="decimal" autocomplete="off" placeholder="ej.: 4"></p>
+      <p class="campo"><label for="s{{k}}_tipo">Tipo de tasa</label><select id="s{{k}}_tipo" name="tipo_tasa"><option value="">Elige el tipo</option><option value="efectiva_anual">Efectiva anual</option><option value="nominal_anual_mensual">Nominal anual con capitalización mensual</option></select><small>Indica si tu tasa es efectiva anual o nominal anual con capitalización mensual. Si no lo sabes, revisa cómo la informa quien te la dio; la demo no supone ninguna de las dos.</small></p>
+      <p class="campo"><label for="s{{k}}_pi">Inflación anual supuesta en Chile (%, opcional)</label><input id="s{{k}}_pi" name="inflacion_cl_pct" inputmode="decimal" autocomplete="off"></p>
+      <details class="otra-moneda"><summary>Si tu meta se paga en otra moneda</summary>
+        <p class="campo"><label for="s{{k}}_tc">Tipo de cambio inicial supuesto (CLP por unidad)</label><input id="s{{k}}_tc" name="tc_inicial" inputmode="decimal" autocomplete="off"></p>
+        <p class="campo"><label for="s{{k}}_pim">Inflación anual supuesta de esa moneda (%)</label><input id="s{{k}}_pim" name="inflacion_moneda_meta_pct" inputmode="decimal" autocomplete="off"></p>
+        <p class="campo"><label for="s{{k}}_v">Variación anual supuesta del tipo de cambio (%)</label><input id="s{{k}}_v" name="variacion_tc_pct" inputmode="decimal" autocomplete="off"></p>
+      </details>
+    </fieldset>
+    {% endfor %}
+  </div>
+  <p class="error-form" role="alert" aria-live="assertive"></p>
+  <div class="acciones"><button class="boton primario" type="submit">Simular</button><button class="boton" type="button" data-action="agregar-escenario">Agregar escenario</button></div>
+  <div class="resultado-sim" aria-live="polite"></div>
+</form>

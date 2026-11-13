@@ -1,0 +1,12 @@
+.git
+.github
+**/__pycache__
+**/node_modules
+*.db
+tests
+analisis
+tools
+evals
+docs
+scripts
+data/fuentes

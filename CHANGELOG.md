@@ -2,6 +2,16 @@
 
 Cada versión cerrada tiene una etiqueta `spec-vX.Y` en git. Los números C identifican cada cambio y no se reutilizan.
 
+## v1.15 → v1.16, cerrada (13-11-2026, app v0 y publicación en Render)
+
+| N.º | Sección | Hallazgo o decisión | Cambio en v1.16 |
+|---|---|---|---|
+| C123 | Encabezado, §6.4 | La app v0 se construyó a partir del SPEC: FastAPI, PostgreSQL, plantillas, simulador, explicación con IA, límite de gasto, panel histórico, pruebas, Docker y CI | Estado del SPEC y árbol del repositorio actualizados; cobertura y simplificaciones en la decisión 0013 |
+| C124 | §6.7, §8.4, §12 | Por plazo, la publicación pasa de Cloud Run en Santiago a Render en Oregón, plan gratuito | Ruta de publicación, aviso de privacidad con la ubicación del servidor y pregunta 8 actualizados; `render.yaml` |
+| C125 | §8.5, §12 | Titular de las cuentas: Daphne Loewenwarter; modelo de producción `claude-sonnet-5-5` | Estado de las condiciones de §8.5 y pregunta 8 resuelta por completo |
+| C126 | Anexo E.7, §8.5 | La URL se publica antes de repetir el golden set con el modelo de producción | Pendiente registrado; mientras tanto rige el control de salida con plantilla de respaldo |
+| C127 | Encabezado, plan, §11.2 | Cierre de la versión 1.16 | Encabezado, pendientes externos y evolución de la suite actualizados |
+
 ## v1.14 → v1.15, cerrada (13-11-2026, ratificación de las preguntas abiertas)
 
 | N.º | Sección | Decisión | Cambio en v1.15 |

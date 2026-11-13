@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="es-CL">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block titulo %}Brújula Inversiones{% endblock %}</title>
+<meta name="description" content="Demostración académica de orientación de inversiones según perfil. Datos simulados.">
+<link rel="stylesheet" href="/static/estilo.css">
+<script src="/static/app.js" defer></script>
+</head>
+<body>
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera">
+  <div class="cab-interior">
+    <a class="marca" href="/" aria-label="Brújula Inversiones, inicio">
+      <svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 6 L19.5 16 L16 26 L12.5 16 Z" fill="currentColor" opacity=".25"/><path d="M16 6 L19.5 16 L12.5 16 Z" fill="currentColor"/></svg>
+      <span>Brújula <small>Inversiones</small></span>
+    </a>
+    <nav aria-label="Principal">
+      <a href="/calculadora">Calculadora</a>
+      <a href="/metodologia">Cómo funciona</a>
+      {% if sesion %}<a href="/mis-datos">Mis datos</a>{% endif %}
+    </nav>
+  </div>
+  <p class="etiqueta-demo">Demostración académica · datos simulados</p>
+</header>
+<main id="contenido" class="contenido">
+{% block contenido %}{% endblock %}
+</main>
+<footer class="pie">
+  <p class="disclaimer">{{ disclaimer }}</p>
+  <p class="pie-links"><a href="/privacidad">Privacidad</a> · <a href="/metodologia">Metodología y glosario</a> · <a href="/orientacion">Orientación y revisión humana</a> · Grupo 2 · Advanced Prompt Engineering · UAI</p>
+</footer>
+</body>
+</html>

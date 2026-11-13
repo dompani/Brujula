@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block titulo %}Tu meta · Brújula{% endblock %}
+{% macro opcion(nombre, valor, texto, ayuda=None) %}<label class="opcion"><input type="radio" name="{{ nombre }}" value="{{ valor }}" required><span>{{ texto }}{% if ayuda %}<small>{{ ayuda }}</small>{% endif %}</span></label>{% endmacro %}
+{% block contenido %}
+{% set st = estado.state %}
+{% if st in ("sin_perfil", "perfil_vencido") %}
+  <h1>Tu meta</h1><p class="tarjeta">Primero responde el <a href="/perfil">cuestionario de perfil</a>.</p>
+{% elif st == "perfil_aclaracion" %}
+  <h1>Tu meta</h1><p class="tarjeta">Tu perfil requiere aclaración. <a href="/perfil/resultado">Ver el motivo</a>.</p>
+{% else %}
+{% set g = estado.goal %}
+{% if g and g.status == "vigente" %}
+  <h1>Tu meta y tu ficha</h1>
+  {% for w in g.evaluation.warnings %}<p class="advertencia" role="note"><strong>{{ w.codigo }}</strong> {{ w.texto }}</p>{% endfor %}
+  {% set ficha = g.profile_card %}{% include "_ficha.html" %}
+  <div class="acciones">
+    <button class="boton primario" type="button" data-action="comparar">Comparar alternativas</button>
+    <a class="boton" href="#editar">Cambiar meta</a>
+  </div>
+  <p class="error-accion" role="alert" aria-live="assertive"></p>
+{% elif g and g.status == "requiere_aclaracion" %}
+  <h1>Tu meta</h1>
+  <section class="tarjeta aclaracion"><h2>Necesitamos aclarar algo antes de comparar</h2>
+    <p>Con tus respuestas, esta demo no muestra una comparación personalizada: {{ g.evaluation.motivo }}. Si este dinero puede ser necesario para gastos esenciales, es razonable no exponerlo; puedes corregir la meta abajo.</p>
+    <p>{{ escalada }}</p></section>
+{% else %}
+  <h1>Tu meta</h1>
+{% endif %}
+<form id="editar" class="tarjeta formulario" data-api="/api/goal" data-method="POST" data-builder="meta" data-next="/meta" novalidate>
+  <h2>{% if g %}Cambiar mi meta{% else %}Registra tu meta{% endif %}</h2>
+  <fieldset><legend>¿Cuál es el objetivo de este monto?</legend>
+    {{ opcion("objective", "preservar_capital", "Preservar capital") }}{{ opcion("objective", "meta_concreta", "Meta concreta") }}{{ opcion("objective", "crecimiento_largo_plazo", "Crecimiento de largo plazo") }}</fieldset>
+  <p class="campo"><label for="target_month">¿En qué mes y año necesitarás el dinero?</label><input type="month" id="target_month" name="target_month" min="{{ mes_minimo }}" required placeholder="AAAA-MM"></p>
+  <fieldset><legend>¿Cuánto podrías esperar, como máximo, entre pedir tu dinero y recibirlo?</legend>
+    <p class="ayuda">Piensa en cuánto podrías esperar entre pedir tu dinero y tenerlo disponible. Un plazo más corto deja fuera alternativas que tardan más en devolverlo. En este catálogo simulado, el plazo de retiro y el nivel de riesgo son características distintas. Si este monto también es tu respaldo para imprevistos, considera mantener un fondo de emergencia separado.</p>
+    {% for d in (0, 7, 30, 180) %}{{ opcion("max_wait_days", d, d ~ " días", significado_m3[d]) }}{% endfor %}</fieldset>
+  <p class="campo"><label for="amount_clp">Ahorro disponible hoy para esta meta (CLP)</label><input id="amount_clp" name="amount_clp" inputmode="numeric" autocomplete="off" placeholder="10.000.000" required></p>
+  <fieldset><legend>¿Necesitarás este monto para gastos esenciales durante los próximos 12 meses?</legend>
+    {{ opcion("essential_need", "si", "Sí") }}{{ opcion("essential_need", "no", "No") }}{{ opcion("essential_need", "no_se", "No sé") }}</fieldset>
+  <p class="campo"><label for="label">Nombre de la meta (opcional)</label><input id="label" name="label" maxlength="60" autocomplete="off" placeholder="Viaje, estudios, pie de un departamento…"><small>Solo se muestra aquí; no se envía a la IA.</small></p>
+  <p class="campo"><label for="payment_currency">¿En qué moneda se pagará la meta?</label>
+    <select id="payment_currency" name="payment_currency" required><option value="">Elige una opción</option><option value="CLP">Pesos chilenos (CLP)</option><option value="USD">Dólares (USD)</option><option value="EUR">Euros (EUR)</option><option value="otra">Otra</option><option value="no_se">No sé</option></select></p>
+  <p class="campo" data-solo-otra hidden><label for="otra_moneda">Código de 3 letras de la moneda</label><input id="otra_moneda" name="otra_moneda" maxlength="3" autocomplete="off" placeholder="GBP"></p>
+  <p class="campo"><label for="estimated_cost">Costo estimado de la meta, en la moneda elegida (opcional)</label><input id="estimated_cost" name="estimated_cost" inputmode="decimal" autocomplete="off" placeholder="12.000.000"><small>Usa tu propia estimación, en la moneda en que se pagará la meta. Esta demo no consulta precios.</small></p>
+  <p class="campo"><label for="monthly_contribution_clp">¿Cuánto planeas aportar cada mes? (CLP)</label><input id="monthly_contribution_clp" name="monthly_contribution_clp" inputmode="numeric" autocomplete="off" value="0" required><small>Si no harás aportes, deja $0. Los aportes no cambian qué alternativas son compatibles; solo se usan en la simulación.</small></p>
+  <p class="error-form" role="alert" aria-live="assertive"></p>
+  <button class="boton primario" type="submit">Guardar meta y ver mi ficha</button>
+</form>
+{% endif %}
+{% endblock %}

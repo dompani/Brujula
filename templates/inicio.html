@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block contenido %}
+<section class="heroe">
+  <h1>¿Te alcanza para tu meta? Entiende tu perfil y compara alternativas con reglas claras.</h1>
+  <p class="bajada">Brújula calcula tu perfil con reglas transparentes, muestra la brecha de tu meta y compara tres alternativas <strong>simuladas</strong> compatibles contigo. Una IA explica la comparación en lenguaje sencillo, sin cambiar los resultados.</p>
+  <div class="acciones">
+    {% if estado.state in ("comparacion", "insuficiente") %}
+      <a class="boton primario" href="/comparacion">Ver mi comparación</a>
+    {% elif estado.state in ("perfil_vigente", "listo", "meta_aclaracion") %}
+      <a class="boton primario" href="/meta">Continuar con mi meta</a>
+    {% elif sesion %}
+      <a class="boton primario" href="/perfil">Conocer mi perfil</a>
+    {% else %}
+      <a class="boton primario" href="/privacidad">Conocer mi perfil</a>
+    {% endif %}
+    <a class="boton" href="/calculadora">Calcular la brecha de mi meta</a>
+    <a class="boton enlace" href="/metodologia">Explorar cómo funciona</a>
+  </div>
+</section>
+<section class="pasos" aria-label="Cómo funciona">
+  <ol>
+    <li><h2>1. Tu perfil</h2><p>Ocho preguntas. Tu perfil operativo es el menor entre tu disposición al riesgo y tu capacidad de pérdida.</p></li>
+    <li><h2>2. Tu meta</h2><p>Fecha, ahorro, aportes, costo y moneda. La ficha muestra la brecha y cuatro riesgos por separado.</p></li>
+    <li><h2>3. La comparación</h2><p>Tres alternativas simuladas compatibles, de menor a mayor riesgo. El orden no es una recomendación.</p></li>
+    <li><h2>4. La explicación</h2><p>Una IA explica las diferencias. Si algo no coincide con la tabla, vale la tabla.</p></li>
+  </ol>
+</section>
+<aside class="aviso-caja">
+  <h2>Lo que esta demo no hace</h2>
+  <ul><li>No recibe dinero ni ejecuta inversiones.</li><li>No muestra productos reales ni rentabilidades futuras.</li><li>No reemplaza la asesoría de un profesional habilitado.</li></ul>
+</aside>
+{% endblock %}

@@ -8,8 +8,8 @@ Grupo 2 del curso Advanced Prompt Engineering (UAI, 2026): Diego Silva, Keith Wa
 
 ## Estado
 
-- **`SPEC.md` es la única fuente de verdad.** La app todavía no está implementada: el primer paso es el hito 1 del SPEC, en el que el agente de código entrega un plan sin escribir código (ver `AGENTS.md`).
-- **Versiones.** Cada versión cerrada del SPEC tiene una etiqueta `spec-vX.Y`; el historial está en `CHANGELOG.md`. Las versiones v1.0 a v1.15 están en el historial de git, cada una con su etiqueta.
+- **`SPEC.md` es la única fuente de verdad.** Desde la v1.16 el repositorio incluye la **app v0** (prioridades P0), construida a partir del SPEC y publicada en Render con la IA encendida y límite de gasto (`docs/decisiones/0013`).
+- **Versiones.** Cada versión cerrada del SPEC tiene una etiqueta `spec-vX.Y`; el historial está en `CHANGELOG.md`. Las versiones v1.0 a v1.16 están en el historial de git, cada una con su etiqueta.
 - **Prompt de la explicación.** Vigente: 1.7 (`prompts/system_brujula_v1_7.txt`), adoptada el 12-11-2026 tras el golden set. Resultados en §9.6 y Anexo E del SPEC y en `evals/informe_explicacion.md`.
 
 ## Contenido
@@ -25,6 +25,8 @@ Grupo 2 del curso Advanced Prompt Engineering (UAI, 2026): Diego Silva, Keith Wa
 | `evals/` | Golden set de la explicación: 24 casos, rúbrica, informes, resultados y puntuación humana |
 | `analisis/` | Scripts que produjeron los valores de referencia del SPEC (Anexo D, §7.4 y §7.5) |
 | `tools/golden_set/` | Herramienta con la que se ejecutó el golden set, como páginas de claude.ai |
+| `app/` · `templates/` · `static/` | App v0: FastAPI, dominio sin red, agente con límite de gasto, control de salida, páginas y estilos |
+| `Dockerfile` · `compose.yaml` · `render.yaml` | Imagen, desarrollo local con PostgreSQL y Blueprint de publicación en Render |
 | `docs/decisiones/` | Una ficha por cada decisión del grupo |
 | `docs/diagramas/` | Diagramas originales del grupo (flujo de usuario y componentes) |
 | `scripts/` · `tests/` | Verificaciones del SPEC y pruebas de los validadores |
@@ -37,6 +39,21 @@ Grupo 2 del curso Advanced Prompt Engineering (UAI, 2026): Diego Silva, Keith Wa
 4. Al cerrar una versión se actualiza el encabezado del SPEC y `CHANGELOG.md`, y se crea la etiqueta `spec-vX.Y`.
 
 Detalle en `CONTRIBUTING.md`.
+
+## Correr la app
+
+```bash
+pip install -r requirements-dev.txt
+python -m pytest -q tests                 # dominio y API, sin red
+uvicorn app.main:app --reload             # http://localhost:8000, modo demo y SQLite
+docker compose up --build                 # con PostgreSQL
+```
+
+Sin `LLM_MODE=real` y `LLM_API_KEY`, la explicación usa la plantilla sin IA. Las variables están en `.env.example`.
+
+## Publicación
+
+Render, con el Blueprint `render.yaml`: servicio web en Docker y PostgreSQL, plan gratuito. Al crear el Blueprint, Render pide `LLM_API_KEY` y `PRIVACY_CONTACT_EMAIL`. Cada commit en `main` se despliega cuando las verificaciones están en verde. Para detener el gasto de IA sin desplegar: `LLM_KILL_SWITCH=true` en las variables del servicio.
 
 ## Verificaciones
 

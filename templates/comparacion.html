@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block titulo %}Comparación · Brújula{% endblock %}
+{% block contenido %}
+{% if not comp %}
+  <h1>Comparación</h1>
+  <p class="tarjeta">{% if estado.state == "listo" %}Tienes perfil y meta vigentes. <button class="boton primario" type="button" data-action="comparar">Comparar alternativas</button>{% elif n_comparaciones %}Tu comparación anterior quedó histórica porque cambiaste tu perfil o tu meta. <a href="/meta">Revisa tu meta</a> y vuelve a comparar.{% else %}Primero completa tu <a href="/perfil">perfil</a> y tu <a href="/meta">meta</a>.{% endif %}</p>
+  <p class="error-accion" role="alert" aria-live="assertive"></p>
+{% else %}
+  {% set ficha = comp.ficha %}
+  <h1>{% if comp.status == "comparacion" %}Tres alternativas simuladas para tu meta{% else %}Por ahora no hay tres alternativas para comparar{% endif %}</h1>
+  {% for w in comp.warnings %}<p class="advertencia" role="note"><strong>{{ w.codigo }}</strong> {{ w.texto }}</p>{% endfor %}
+  {% include "_ficha.html" %}
+  {% if comp.status == "alternativas_insuficientes" %}
+    <section class="tarjeta">
+      <h2>Alternativas compatibles: {{ comp.n_compatibles }} de 3 necesarias</h2>
+      <p>{{ comp.summary }}</p>
+      <h3>Lo que más limita</h3>
+      <ul>{% for c in comp.limiting_conditions %}<li><strong>{{ c.codigo | replace("_", " ") | capitalize }}</strong> ({{ c.conteo }} alternativas): {{ c.explicacion }}</li>{% endfor %}</ul>
+      <p class="nota">No mostramos una alternativa aislada como recomendación, y esta demo no sugiere asumir más riesgo.</p>
+      <a class="boton primario" href="/meta#editar">Revisar mi meta</a>
+    </section>
+  {% else %}
+    <p class="nota orden">{{ comp.orden }}</p>
+    <div class="tarjetas-alt">
+    {% for a in comp.alternatives %}
+      <article class="tarjeta alternativa" aria-labelledby="alt-{{ a.id }}">
+        <p class="alt-id">{{ a.id }} · simulada</p>
+        <h2 id="alt-{{ a.id }}">{{ a.name }}</h2>
+        <p class="nivel">Riesgo {{ a.risk_level }} de 3</p>
+        <p>{{ a.risk_explanation }}</p>
+        <ul class="datos">
+          <li>Plazo de retiro: {{ a.liquidity_days }} días</li>
+          <li>Horizonte mínimo: {{ a.horizon_min_months }} meses</li>
+          <li>Monto mínimo: {{ pesos(a.min_amount_clp) }}</li>
+          <li>Comisión anual simulada: {{ pct(a.annual_fee_pct) }}</li>
+          <li>Rentabilidad: no disponible; catálogo simulado</li>
+        </ul>
+      </article>
+    {% endfor %}
+    </div>
+    <div class="tabla-envoltura" tabindex="0" role="region" aria-label="Tabla de la comparación">
+    <table class="tabla">
+      <caption>Comparación de las tres alternativas (de menor a mayor riesgo; el orden no es una recomendación)</caption>
+      <thead><tr><th scope="col">Característica</th>{% for a in comp.alternatives %}<th scope="col">{{ a.id }}</th>{% endfor %}</tr></thead>
+      <tbody>
+        <tr><th scope="row">Clase</th>{% for a in comp.alternatives %}<td>{{ a.clase | replace("_", " ") }}</td>{% endfor %}</tr>
+        <tr><th scope="row">Riesgo (1 a 3)</th>{% for a in comp.alternatives %}<td>{{ a.risk_level }}</td>{% endfor %}</tr>
+        <tr><th scope="row">Plazo de retiro</th>{% for a in comp.alternatives %}<td>{{ a.liquidity_days }} días</td>{% endfor %}</tr>
+        <tr><th scope="row">Comisión anual simulada</th>{% for a in comp.alternatives %}<td>{{ pct(a.annual_fee_pct) }}</td>{% endfor %}</tr>
+        <tr><th scope="row">Mercado</th>{% for a in comp.alternatives %}<td>{{ "No expuesta en la simulación" if comp.exposure_by_alternative[a.id].mercado == "no_expuesta" else "Expuesta: puede bajar de valor" }}</td>{% endfor %}</tr>
+        <tr><th scope="row">Inflación chilena</th>{% for a in comp.alternatives %}<td>{{ "Se reajusta (UF) en la simulación" if comp.exposure_by_alternative[a.id].inflacion_cl == "reajusta" else "No se reajusta" }}</td>{% endfor %}</tr>
+        <tr><th scope="row">Moneda de la meta</th>{% for a in comp.alternatives %}{% set m = comp.exposure_by_alternative[a.id].moneda_meta %}<td>{{ "No aplica" if m == "no_aplica" else "Por confirmar" if m == "por_confirmar" else m | capitalize }}</td>{% endfor %}</tr>
+        <tr><th scope="row">Costos no incluidos</th>{% for a in comp.alternatives %}<td>Impuestos, spreads y otros costos</td>{% endfor %}</tr>
+      </tbody>
+    </table>
+    </div>
+    {% if comp.other_eligible_ids or comp.equivalents %}
+    <p class="nota">Otras compatibles: {{ comp.other_eligible_ids | join(", ") or "ninguna" }}.{% for e, base in comp.equivalents.items() %} {{ e }} es equivalente a {{ base }}.{% endfor %}</p>
+    {% endif %}
+    <details class="tarjeta"><summary>Alternativas excluidas y sus motivos</summary>
+      <ul>{% for i, ms in comp.exclusions.items() %}<li><strong>{{ i }}</strong> ({{ porid[i].categoria }}): {% for m in ms %}{{ motivos[m] }}{% if not loop.last %} {% endif %}{% endfor %}</li>{% endfor %}</ul>
+    </details>
+
+    <section class="tarjeta explicacion" aria-labelledby="titulo-expl">
+      <h2 id="titulo-expl">Explicación en lenguaje sencillo</h2>
+      <div class="expl-contenido" aria-live="polite" data-comparacion="{{ comp.id }}"
+           {% if comp.explanation %}data-explicacion='{{ comp.explanation | tojson }}'{% endif %}></div>
+      {% if not comp.explanation %}
+      <p class="nota aviso-envio">Al pedir la explicación se envían al proveedor de IA (Anthropic, fuera de Chile) solo datos mínimos: tu perfil, plazo, liquidez, monto y las alternativas comparadas. Nunca el nombre ni el costo de tu meta.</p>
+      <button class="boton primario" type="button" data-action="explicar" data-id="{{ comp.id }}">Explícame esta comparación</button>
+      {% endif %}
+      <p class="error-accion" role="alert" aria-live="assertive"></p>
+    </section>
+  {% endif %}
+
+  {% set modo = "meta" %}{% include "_simulador.html" %}
+
+  <section class="tarjeta chat" aria-labelledby="titulo-chat">
+    <h2 id="titulo-chat">Preguntas sobre conceptos</h2>
+    <p class="nota">Asistente en modo automático, sin IA. La explicación con IA está en la comparación.</p>
+    <div class="chat-log" aria-live="polite"></div>
+    <form id="chat" class="chat-form" novalidate>
+      <label for="mensaje" class="solo-lector">Tu pregunta</label>
+      <input id="mensaje" name="message" maxlength="2000" autocomplete="off" placeholder="¿Qué es la liquidez?">
+      <button class="boton" type="submit">Preguntar</button>
+    </form>
+  </section>
+  <div class="acciones"><a class="boton" href="/meta#editar">Cambiar meta</a><a class="boton" href="/perfil">Mi situación cambió</a></div>
+{% endif %}
+{% endblock %}
