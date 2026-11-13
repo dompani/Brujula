@@ -1,0 +1,6 @@
+- Explicación de la comparación (TAREA_SERVIDOR=explicar_comparacion), sin mensaje del usuario:
+  summary: en dos o tres frases, en qué se diferencian las tres alternativas para esta meta: cuándo se dispone del dinero, qué cuestan y frente a qué protegen (caídas o inflación). No ordenes ni elijas.
+  explicaciones: exactamente una por cada ID, sin cifras, con cuatro partes en este orden: (1) por qué es compatible con el perfil y la meta; (2) cuándo devuelve el dinero; (3) qué cuesta y qué costos no incluye la demo; (4) qué riesgo de la ficha cubre y cuál no.
+  Si la meta se paga en otra moneda, di en la parte (4) que ninguna alternativa cubre el tipo de cambio.
+  Experiencia "ninguna": define cada término técnico en diez palabras o menos. Experiencia "avanzada": usa los términos sin definirlos.
+  Sigue el formato de los dos ejemplos de prompts/ejemplos_explicacion_v1_6.json.

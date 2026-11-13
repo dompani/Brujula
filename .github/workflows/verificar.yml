@@ -1,0 +1,47 @@
+name: Verificaciones
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  spec:
+    name: SPEC, datos y golden set
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Instalar dependencias de verificación
+        run: pip install -r requirements-verificacion.txt
+
+      - name: Estructura del SPEC
+        run: python scripts/verificar_spec.py SPEC.md
+
+      - name: Checksums de las fuentes (FUENTES.md)
+        run: cd data/fuentes && sha256sum -c SHA256SUMS
+
+      - name: Ejemplos de selección y simulación (§7.4 y §7.5)
+        run: python analisis/verificar_reglas_catalogo_v3.py
+
+      - name: Tabla de referencia del panel histórico (§7.7)
+        run: python analisis/cotejar_tabla_referencia.py SPEC.md
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Diagramas Mermaid
+        run: |
+          cd scripts && npm ci --no-audit --no-fund
+          cd .. && node scripts/verificar_mermaid.mjs SPEC.md
+
+      - name: Validadores del golden set y coherencia de los prompts
+        run: node --test tests/golden_set.test.mjs

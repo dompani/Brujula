@@ -1,0 +1,775 @@
+<title>Golden set Brújula 1.7</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Banco de pruebas: barra de pasos arriba, una vista por paso, tablas densas y tarjetas solo donde hay una decisión. */
+:root {
+  --bg: #F4F6F9; --surface: #FFFFFF; --ink: #15202E; --muted: #586477; --line: #D9DFE7; --soft: #ECF0F5;
+  --accent: #2A55A5; --accent-ink: #FFFFFF; --accent-soft: #E5ECF8;
+  --ok: #1D7046; --ok-soft: #E1F1E7; --warn: #885700; --warn-soft: #FAEFD7; --bad: #AD2A21; --bad-soft: #FAE4E2;
+  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --r: 8px;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #10151D; --surface: #18202B; --ink: #E5E9F0; --muted: #9AA4B3; --line: #2A3442; --soft: #1E2733;
+  --accent: #8EAEEA; --accent-ink: #0D1525; --accent-soft: #1D2A42;
+  --ok: #6CC795; --ok-soft: #142D20; --warn: #E3B65A; --warn-soft: #32270E; --bad: #EE877D; --bad-soft: #391B19;
+  color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #10151D; --surface: #18202B; --ink: #E5E9F0; --muted: #9AA4B3; --line: #2A3442; --soft: #1E2733;
+  --accent: #8EAEEA; --accent-ink: #0D1525; --accent-soft: #1D2A42;
+  --ok: #6CC795; --ok-soft: #142D20; --warn: #E3B65A; --warn-soft: #32270E; --bad: #EE877D; --bad-soft: #391B19;
+  color-scheme: dark; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 15px; line-height: 1.55; }
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+.wrap { max-width: 1100px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+header.top { background: var(--surface); border-bottom: 1px solid var(--line); }
+header.top .wrap { padding-block: 22px 0; }
+.eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin: 0; }
+h1 { font-size: 28px; line-height: 1.15; margin: 6px 0 6px; text-wrap: balance; letter-spacing: -.01em; }
+h2 { font-size: 19px; margin: 0; text-wrap: balance; }
+h3 { font-size: 15px; margin: 0; }
+p { margin: 0; }
+.lede { color: var(--muted); max-width: 68ch; }
+nav.pasos { display: flex; gap: 4px; overflow-x: auto; margin-top: 18px; scrollbar-width: thin; }
+nav.pasos a { display: flex; align-items: baseline; gap: 8px; padding: 10px 14px 12px; color: var(--muted); text-decoration: none; border-bottom: 3px solid transparent; white-space: nowrap; font-weight: 500; }
+nav.pasos a .n { font-family: var(--font-mono); font-size: 12px; }
+nav.pasos a .p { font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+nav.pasos a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--accent); }
+nav.pasos a:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+main { padding-block: 24px 64px; display: grid; gap: 28px; }
+section.vista { display: grid; gap: 22px; min-width: 0; }
+.bloque { display: grid; gap: 12px; min-width: 0; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 18px; display: grid; gap: 10px; min-width: 0; align-content: start; }
+.card.destacada { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.muted { color: var(--muted); }
+.small { font-size: 13px; }
+.mono { font-family: var(--font-mono); font-size: 13px; }
+ul.lista { margin: 0; padding-left: 20px; display: grid; gap: 4px; }
+.aviso { border-radius: var(--r); padding: 12px 14px; border: 1px solid var(--line); background: var(--soft); }
+.aviso.warn { background: var(--warn-soft); border-color: transparent; color: var(--ink); }
+.aviso.bad { background: var(--bad-soft); border-color: transparent; }
+.aviso.ok { background: var(--ok-soft); border-color: transparent; }
+.aviso strong { display: block; margin-bottom: 2px; }
+#banner { display: grid; gap: 8px; }
+.tabla { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--r); background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 600; background: var(--soft); }
+tr:last-child td { border-bottom: 0; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; font-family: var(--font-mono); font-size: 13px; white-space: nowrap; }
+tr.grupo td { background: var(--soft); font-weight: 600; font-size: 13px; }
+.btn { font: inherit; font-weight: 600; border-radius: 6px; padding: 9px 16px; border: 1px solid var(--accent); background: var(--accent); color: var(--accent-ink); cursor: pointer; }
+.btn.sec { background: transparent; color: var(--accent); }
+.btn.pel { background: transparent; color: var(--bad); border-color: var(--bad); }
+.btn:disabled { opacity: .45; cursor: not-allowed; }
+.btn:focus-visible, button:focus-visible, textarea:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.acciones { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+details { border: 1px solid var(--line); border-radius: var(--r); background: var(--surface); }
+details > summary { cursor: pointer; padding: 10px 14px; font-weight: 600; }
+details > .cuerpo { padding: 0 14px 14px; display: grid; gap: 10px; min-width: 0; }
+pre { margin: 0; white-space: pre-wrap; word-break: break-word; font-family: var(--font-mono); font-size: 12.5px; line-height: 1.5; background: var(--soft); padding: 12px; border-radius: 6px; max-height: 420px; overflow: auto; }
+textarea { width: 100%; font-family: var(--font-mono); font-size: 12.5px; line-height: 1.5; border: 1px solid var(--line); border-radius: 6px; padding: 10px; background: var(--surface); color: var(--ink); resize: vertical; }
+.chip { display: inline-flex; align-items: center; gap: 4px; font-family: var(--font-mono); font-size: 12px; padding: 1px 8px; border-radius: 999px; background: var(--soft); color: var(--muted); white-space: nowrap; }
+.chip.ok { background: var(--ok-soft); color: var(--ok); }
+.chip.warn { background: var(--warn-soft); color: var(--warn); }
+.chip.bad { background: var(--bad-soft); color: var(--bad); }
+.chip.acc { background: var(--accent-soft); color: var(--accent); }
+.celda { font: inherit; font-family: var(--font-mono); font-size: 12px; min-width: 30px; padding: 2px 6px; border-radius: 4px; border: 1px solid transparent; background: var(--soft); color: var(--muted); cursor: pointer; }
+.celda.ok { background: var(--ok-soft); color: var(--ok); }
+.celda.rep { background: var(--warn-soft); color: var(--warn); }
+.celda.pla { background: var(--bad-soft); color: var(--bad); }
+.celda.err { background: var(--bad); color: var(--surface); }
+.celda.sel { border-color: var(--ink); }
+.barra { height: 8px; background: var(--soft); border-radius: 99px; overflow: hidden; }
+.barra > i { display: block; height: 100%; background: var(--accent); width: 0; transition: width .3s; }
+.fila-ej { display: grid; grid-template-columns: 120px 1fr auto; gap: 14px; align-items: center; }
+.fila-ej .barra { min-width: 80px; }
+@media (max-width: 640px) { .fila-ej { grid-template-columns: 1fr; gap: 6px; } }
+.kv { display: grid; grid-template-columns: max-content 1fr; gap: 4px 14px; font-size: 14px; }
+.kv dt { color: var(--muted); }
+.kv dd { margin: 0; min-width: 0; }
+.explicacion { display: grid; gap: 12px; }
+.explicacion .resumen { font-size: 15.5px; }
+.alt { border-left: 3px solid var(--line); padding-left: 12px; display: grid; gap: 2px; }
+.alt .t { font-weight: 600; }
+.criterio { display: grid; gap: 6px; padding-block: 12px; border-top: 1px solid var(--line); }
+.criterio:first-child { border-top: 0; }
+.escala { display: flex; gap: 6px; flex-wrap: wrap; }
+.escala button { font: inherit; font-family: var(--font-mono); font-weight: 600; width: 44px; height: 40px; border-radius: 6px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; }
+.escala button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.anclas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; font-size: 12.5px; color: var(--muted); }
+.anclas b { color: var(--ink); font-family: var(--font-mono); }
+@media (max-width: 640px) { .anclas { grid-template-columns: 1fr; } }
+.puntuar { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 16px; align-items: start; }
+@media (max-width: 860px) { .puntuar { grid-template-columns: 1fr; } }
+.decision { font-size: 20px; font-weight: 700; }
+.cond { display: grid; grid-template-columns: 28px 1fr; gap: 8px; align-items: start; }
+.cond .m { font-family: var(--font-mono); font-weight: 700; }
+.cond .m.si { color: var(--ok); }
+.cond .m.no { color: var(--bad); }
+.lado { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; }
+.lado > div { min-width: 0; }
+label.check { display: flex; gap: 8px; align-items: flex-start; }
+@media (prefers-reduced-motion: reduce) { .barra > i { transition: none; } }
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">Proyecto Final · Grupo 2 · SPEC v1.12 §11.3 · segunda comparación</p>
+    <h1>Golden set Brújula 1.7</h1>
+    <p class="lede">Compara la tarea de explicación del prompt vigente (1.5) con la candidata (1.7) en 24 casos fijos, con validadores, un juez a ciegas y una puntuación humana a ciegas, y aplica la regla de decisión del SPEC.</p>
+    <nav class="pasos" id="pasos" aria-label="Pasos">
+      <a href="#revisar" data-v="revisar"><span class="n">1</span>Revisar<span class="p" id="p-revisar"></span></a>
+      <a href="#generar" data-v="generar"><span class="n">2</span>Generar<span class="p" id="p-generar"></span></a>
+      <a href="#juez" data-v="juez"><span class="n">3</span>Juez<span class="p" id="p-juez"></span></a>
+      <a href="#puntuar" data-v="puntuar"><span class="n">4</span>Puntuación humana<span class="p" id="p-puntuar"></span></a>
+      <a href="#resultados" data-v="resultados"><span class="n">5</span>Resultados<span class="p" id="p-resultados"></span></a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div id="banner"></div>
+
+  <section class="vista" id="v-revisar">
+    <div class="grid2">
+      <div class="card">
+        <h2>Qué se compara</h2>
+        <p>Las dos versiones reciben el mismo contexto de servidor y piden lo mismo: explicar sin cifras las tres alternativas que el motor ya eligió. La candidata 1.7 es la 1.5 con una sola frase nueva en la tarea: «Usa tipo "personalizada" y next_step "ver_comparacion"».</p>
+        <ul class="lista">
+          <li>mismo límite de 300 caracteres por explicación;</li>
+          <li>sin ejemplos;</li>
+          <li>corrige el hallazgo de la primera comparación: la 1.5 casi siempre elegía un next_step que V-07 rechaza.</li>
+        </ul>
+        <p class="muted small">La primera comparación (1.5 frente a 1.6) está en su propia página y no cambia. Aquí se vuelve a generar la 1.5 para comparar las dos versiones en las mismas condiciones.</p>
+      </div>
+      <div class="card">
+        <h2>Cómo se decide</h2>
+        <p>La candidata reemplaza a la vigente solo si cumple las cuatro condiciones (regla de la v1.12):</p>
+        <ul class="lista">
+          <li><b>Seguridad.</b> Validez final 100 % y ninguna alerta de seguridad confirmada.</li>
+          <li><b>Robustez.</b> Su validez sin reparación y su tasa de plantilla no empeoran.</li>
+          <li><b>Calidad o robustez, una de las dos vías.</b> Calidad: su media sube al menos 0,3 puntos y gana en al menos 60 % de los casos. Robustez: su media no baja más de 0,1 puntos y su validez sin reparación sube al menos 10 puntos porcentuales o su tasa de plantilla baja al menos 5.</li>
+          <li><b>Costo.</b> Su costo medio por explicación no sube más de 20 %.</li>
+        </ul>
+        <p class="muted small">En esta comparación se reutiliza la calibración humana de la primera, porque el juez, la rúbrica y el modelo no cambiaron: decide el juez y solo vale la vía de robustez.</p>
+      </div>
+    </div>
+
+    <div class="bloque">
+      <h2>Los 24 casos</h2>
+      <p class="muted">Calculados con las reglas del SPEC v1.12, sin cambios desde la primera comparación (catálogo v3, filtros de §7.3, selección SEL-0 a SEL-5, ficha de §3.3 y advertencias R-09). Los marcados con ● tuvieron puntuación humana en la primera comparación.</p>
+      <div class="tabla"><table id="tabla-casos"></table></div>
+    </div>
+
+    <div class="bloque">
+      <h2>Los dos prompts</h2>
+      <p class="muted">Así recibe la IA el caso A37 (Emiliana) en cada versión. La herramienta no puede fijar un prompt de sistema, así que las instrucciones van al comienzo del mensaje, entre marcas.</p>
+      <details><summary>Entrada completa, versión 1.5 vigente</summary><div class="cuerpo"><pre id="prompt-v15"></pre></div></details>
+      <details><summary>Entrada completa, versión 1.7 candidata</summary><div class="cuerpo"><pre id="prompt-v17"></pre></div></details>
+      <details><summary>Prompt del juez (caso A37)</summary><div class="cuerpo"><pre id="prompt-juez"></pre></div></details>
+    </div>
+
+    <div class="bloque">
+      <h2>Rúbrica</h2>
+      <p class="muted">La usan el juez y tú. 2 y 4 son puntos intermedios.</p>
+      <div class="tabla"><table id="tabla-rubrica"></table></div>
+    </div>
+
+    <div id="revisar-bloqueo"></div>
+  </section>
+
+  <section class="vista" id="v-generar" hidden></section>
+  <section class="vista" id="v-juez" hidden></section>
+  <section class="vista" id="v-puntuar" hidden></section>
+  <section class="vista" id="v-resultados" hidden></section>
+</main>
+
+<script>
+const CASOS = /*@@CASOS@@*/;
+const EJEMPLOS_BORRADOR = "";
+/*@@LOGICA@@*/
+</script>
+<script>
+(function () {
+  "use strict";
+  const $ = (s) => document.querySelector(s);
+  const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const CASO = Object.fromEntries(CASOS.map((c) => [c.id, c]));
+  const KEY = (c, v, r) => c + "__" + v + "__r" + r;
+  const VISTAS = ["revisar", "generar", "juez", "puntuar", "resultados"];
+  const FATALES = ["rate_limited", "not_granted", "sampling_disabled", "session_expired", "not_declared", "capability_disabled", "capability_removed", "queue_overflow", "transform_error"];
+  const EXP = { ninguna: "ninguna", basica: "básica", avanzada: "avanzada" };
+  const OBJ = { meta_concreta: "Meta concreta", preservar_capital: "Preservar capital", crecimiento: "Crecimiento" };
+  const RIESGO_TXT = { inflacion_cl: "Inflación chilena", moneda: "Moneda", mercado: "Mercado", liquidez: "Liquidez" };
+  const pct = (x, d = 0) => x == null ? "—" : (x * 100).toFixed(d).replace(".", ",") + " %";
+  const num = (x, d = 2) => x == null ? "—" : Number(x).toFixed(d).replace(".", ",");
+  const ent = (x) => x == null ? "—" : Math.round(x).toLocaleString("es-CL");
+
+  const ST = { gen: new Map(), juez: new Map(), humano: new Map(), alertas: new Map(), ajustes: {}, cargado: false, run: null, msgs: [], soloLectura: false, hIdx: null, genSel: null, aviso: null };
+  let sample = null, db = null, downloads = null, permisos = null, capsListas = false;
+  let vista = VISTAS.includes(location.hash.slice(1)) ? location.hash.slice(1) : "revisar";
+
+  /* ---------- capacidades ---------- */
+  function usar(n) {
+    try { return window.claude && typeof window.claude.use === "function" ? Promise.resolve(window.claude.use(n)).catch(() => null) : Promise.resolve(null); }
+    catch (e) { return Promise.resolve(null); }
+  }
+  async function iniciar() {
+    construirEstatico();
+    mostrar();
+    [sample, db, downloads, permisos] = await Promise.all([usar("sample"), usar("db"), usar("downloads"), usar("permissions")]);
+    capsListas = true;
+    if (db) suscribir(); else { ST.cargado = true; }
+    pintar();
+  }
+  function suscribir() {
+    let pendientes = 5;
+    const t = setTimeout(() => { if (!ST.cargado) { ST.aviso = "Los datos guardados todavía no responden. Si sigue así, revisa tu conexión; lo que veas puede estar desactualizado."; pintar(); } }, 10000);
+    const listo = () => { if (--pendientes === 0) { clearTimeout(t); ST.cargado = true; ST.aviso = null; pintar(); } };
+    for (const col of ["gen", "juez", "humano", "alertas"]) {
+      let primero = true;
+      db.collection(col).onSnapshot((snap) => {
+        const m = new Map(); for (const d of snap.docs) m.set(d.id, d.data()); ST[col] = m;
+        if (primero && !snap.metadata.fromCache) { primero = false; listo(); }
+        pintar();
+      }, (e) => { mensaje("bad", "No se pudieron leer los datos guardados (" + col + ", " + e.code + ")."); if (primero) { primero = false; listo(); } });
+    }
+    let primero = true;
+    db.doc("ajustes/general").onSnapshot((s) => {
+      ST.ajustes = s.exists ? s.data() : {};
+      if (primero && !s.metadata.fromCache) { primero = false; listo(); }
+      pintar();
+    }, (e) => { mensaje("bad", "No se pudieron leer los ajustes (" + e.code + ")."); if (primero) { primero = false; listo(); } });
+  }
+  async function guardar(col, id, data) {
+    if (db) {
+      try { await db.collection(col).doc(id).set(data); ST[col].set(id, data); }
+      catch (e) {
+        if (e && e.code === "invalid_argument") ST.soloLectura = true;
+        throw { fatal: true, code: "db_" + (e && e.code || "error") };
+      }
+    } else { ST[col].set(id, data); pintar(); }
+  }
+  async function guardarAjustes(data) {
+    const nuevo = Object.assign({}, ST.ajustes, data);
+    if (db) await db.doc("ajustes/general").set(nuevo); else { ST.ajustes = nuevo; pintar(); }
+  }
+  function mensaje(tipo, texto) { ST.msgs = ST.msgs.filter((m) => m.texto !== texto); ST.msgs.push({ tipo, texto }); pintar(); }
+  function textoFatal(code) {
+    return ({
+      rate_limited: "Claude pidió una pausa: se alcanzó un límite de llamadas o de uso. Espera unos minutos y vuelve a pulsar el botón; la herramienta sigue donde quedó.",
+      not_granted: "Esta página no tiene permiso para usar Claude. Puedes darlo en el menú de permisos del artefacto y volver a pulsar el botón.",
+      sampling_disabled: "Claude no está disponible para esta cuenta desde un artefacto.",
+      session_expired: "Tu sesión de claude.ai venció. Vuelve a iniciar sesión y recarga esta página.",
+      db_invalid_argument: "No se pudo guardar: esta cuenta solo puede leer este artefacto.",
+      db_quota_exceeded: "No se pudo guardar: el almacenamiento del artefacto está lleno.",
+      db_resource_exhausted: "No se pudo guardar por exceso de escrituras seguidas. Espera un momento y continúa.",
+    })[code] || "Se detuvo la ejecución (" + code + "). Vuelve a intentarlo en unos minutos.";
+  }
+
+  /* ---------- navegación y pintado ---------- */
+  window.addEventListener("hashchange", () => { const h = location.hash.slice(1); if (VISTAS.includes(h) && h !== vista) { vista = h; mostrar(); } });
+  function mostrar() {
+    for (const v of VISTAS) document.getElementById("v-" + v).hidden = v !== vista;
+    for (const a of document.querySelectorAll("#pasos a")) { if (a.dataset.v === vista) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); }
+    pintarVista(true);
+    pintarNav(); pintarBanner();
+  }
+  let pendientePintar = false;
+  function pintar() {
+    if (pendientePintar) return; pendientePintar = true;
+    requestAnimationFrame(() => { pendientePintar = false; pintarNav(); pintarBanner(); pintarVista(false); });
+  }
+  function pintarVista(completo) {
+    if (vista === "revisar") pintarRevisar();
+    else if (vista === "generar") pintarGenerar();
+    else if (vista === "juez") pintarJuez();
+    else if (vista === "puntuar") { if (completo || ST.hIdx === null) pintarPuntuar(); else pintarPuntuarProgreso(); }
+    else if (vista === "resultados") pintarResultados();
+  }
+  function reutiliza() { return ST.ajustes.modo_humano === "reutilizado"; }
+  function bloqueado() { return !!ST.ajustes.bloqueado; }
+  function conteoGen(rep) { let n = 0; for (const c of CASOS) for (const v of ["v15", "v17"]) { const g = ST.gen.get(KEY(c.id, v, rep)); if (g && g.estado !== "error") n++; } return n; }
+  function conteoJuez(rep) { let n = 0; for (const c of CASOS) { const j = ST.juez.get(c.id + "__r" + rep); if (j && j.estado === "ok") n++; } return n; }
+  function conteoHumano() { return ordenHumano().filter((it) => ST.humano.has(it.caso + "__" + it.ver)).length; }
+  function pintarNav() {
+    $("#p-revisar").textContent = bloqueado() ? "listo" : "";
+    $("#p-generar").textContent = conteoGen(1) + "/48";
+    $("#p-juez").textContent = conteoJuez(1) + "/24";
+    $("#p-puntuar").textContent = reutiliza() ? "reutilizada" : conteoHumano() + "/24";
+    $("#p-resultados").textContent = "";
+  }
+  function pintarBanner() {
+    const b = [];
+    if (capsListas && !sample) b.push(["warn", "Esta vista no puede llamar a Claude", "Abre el artefacto en claude.ai con tu sesión iniciada para generar y juzgar. Puedes revisar los casos y los prompts igual."]);
+    if (capsListas && !db) b.push(["warn", "Sin almacenamiento", "En esta vista los resultados no se guardan: se pierden al cerrar la página. Ábrela en claude.ai para guardarlos."]);
+    if (ST.soloLectura) b.push(["warn", "Solo lectura", "Tu cuenta puede ver este artefacto, pero no guardar resultados en él."]);
+    if (ST.aviso) b.push(["warn", "Datos guardados", ST.aviso]);
+    let html = b.map(([t, h, p]) => '<div class="aviso ' + t + '"><strong>' + esc(h) + "</strong>" + esc(p) + "</div>").join("");
+    html += ST.msgs.map((m, i) => '<div class="aviso ' + m.tipo + '"><div class="acciones" style="justify-content:space-between"><span>' + esc(m.texto) + '</span><span class="acciones">' +
+      (m.texto.includes("permiso") && permisos ? '<button class="btn sec" type="button" data-permisos>Abrir permisos</button>' : "") +
+      '<button class="btn sec" type="button" data-cerrar="' + i + '">Cerrar</button></span></div></div>').join("");
+    $("#banner").innerHTML = html;
+  }
+  document.addEventListener("click", (ev) => {
+    const t = ev.target.closest("[data-cerrar]"); if (t) { ST.msgs.splice(Number(t.dataset.cerrar), 1); pintarBanner(); }
+    const p = ev.target.closest("[data-permisos]"); if (p && permisos) permisos.manage().catch(() => mensaje("warn", "No se abrió el panel. Usa el menú Permisos del artefacto."));
+  });
+
+  /* ---------- 1. Revisar ---------- */
+  function resumenMeta(c) {
+    const m = c.contexto.meta;
+    return OBJ[m.objetivo] + " · " + m.horizonte_meses + " meses · espera " + m.espera_max_dias + " días" + (m.preservacion_requerida ? " · preservación (" + m.preservacion_origen.join(", ") + ")" : "");
+  }
+  function construirEstatico() {
+    let filas = '<thead><tr><th>Caso</th><th>Perfil</th><th>Meta</th><th>Moneda</th><th>Exp.</th><th>Comparación</th><th>Qué se revisa</th></tr></thead><tbody>';
+    let grupo = "";
+    for (const c of CASOS) {
+      if (c.grupo !== grupo) { grupo = c.grupo; filas += '<tr class="grupo"><td colspan="7">' + esc(grupo) + "</td></tr>"; }
+      const cx = c.contexto;
+      filas += "<tr><td class=\"mono\">" + esc(c.id) + (CASOS_HUMANOS.includes(c.id) ? " ●" : "") + "</td><td>" + esc(cx.perfil.operativo) + "</td><td>" + esc(resumenMeta(c)) + "</td><td>" + esc(cx.meta.moneda_pago) +
+        "</td><td>" + esc(EXP[cx.perfil.experiencia]) + '</td><td class="mono">' + esc(cx.comparacion.ids.join(" ")) + '</td><td class="small">' + esc(c.notas_para_jueces) +
+        '<details style="margin-top:6px"><summary class="small">Contexto que recibe la IA</summary><div class="cuerpo"><pre>' + esc(JSON.stringify(cx, null, 1)) + "</pre></div></details></td></tr>";
+    }
+    $("#tabla-casos").innerHTML = filas + "</tbody>";
+    const a37 = CASO["A37"];
+    $("#prompt-v15").textContent = construirEntrada(a37, "v15", "");
+    $("#prompt-v17").textContent = construirEntrada(a37, "v17", textoEjemplosActual());
+    $("#prompt-juez").textContent = promptJuez(a37, "(explicación A)", "(explicación B)");
+    let r = "<thead><tr><th>Criterio</th><th>1</th><th>3</th><th>5</th></tr></thead><tbody>";
+    for (const k of CRITERIOS) r += "<tr><td><b>" + esc(RUBRICA[k].nombre) + '</b></td><td class="small">' + esc(RUBRICA[k].a1) + '</td><td class="small">' + esc(RUBRICA[k].a3) + '</td><td class="small">' + esc(RUBRICA[k].a5) + "</td></tr>";
+    $("#tabla-rubrica").innerHTML = r + "</tbody>";
+
+  }
+  function textoEjemplosActual() { return ""; }
+  function pintarRevisar() {
+    const cont = $("#revisar-bloqueo");
+    if (bloqueado()) {
+      const puedeDesbloquear = ST.gen.size === 0 && !ST.run;
+      cont.innerHTML = '<div class="card"><h2>Protocolo bloqueado</h2><p>Bloqueado el ' + esc(new Date(ST.ajustes.fecha).toLocaleString("es-CL")) + ". Los dos prompts quedan fijos para todas las ejecuciones.</p>" +
+        '<div class="acciones"><a class="btn" href="#generar" style="text-decoration:none">Ir a generar</a>' + (puedeDesbloquear ? '<button class="btn sec" type="button" id="btn-desbloquear">Desbloquear para editar</button>' : '<span class="muted small">Ya hay respuestas generadas, así que no se puede desbloquear.</span>') + "</div></div>";
+      const d = $("#btn-desbloquear"); if (d) d.onclick = async () => { await guardarAjustes({ bloqueado: false }); };
+    } else {
+      cont.innerHTML = '<div class="card destacada"><h2>Bloquear el protocolo</h2><p>Cuando hayas revisado los casos y los dos prompts, bloquéalos. Desde ese momento todas las ejecuciones usan exactamente lo mismo.</p>' +
+        '<div class="acciones"><button class="btn" type="button" id="btn-bloquear"' + (ST.cargado && !ST.soloLectura ? "" : " disabled") + ">Bloquear protocolo</button></div></div>";
+      $("#btn-bloquear").onclick = async () => {
+        try { await guardarAjustes({ bloqueado: true, fecha: new Date().toISOString() }); }
+        catch (e) { mensaje("bad", "No se pudo bloquear (" + (e && e.code) + ")."); }
+      };
+    }
+  }
+
+  /* ---------- 2. Generar ---------- */
+  function pendientesGen(rep) {
+    const items = [];
+    for (const c of CASOS) for (const v of ordenVersiones(c.id, rep)) { const g = ST.gen.get(KEY(c.id, v, rep)); if (!g || g.estado === "error") items.push({ caso: c.id, ver: v, rep }); }
+    return items;
+  }
+  async function generarUno(it, signal) {
+    const c = CASO[it.caso];
+    const entrada = construirEntrada(c, it.ver, ST.ajustes.ejemplos);
+    const doc = { caso: it.caso, ver: it.ver, rep: it.rep, prompt_version: it.ver === "v17" ? "1.7" : "1.5", intentos: [], at: new Date().toISOString() };
+    const t0 = performance.now();
+    const cierre = async () => {
+      doc.ms_total = Math.round(performance.now() - t0);
+      doc.chars_in_total = doc.intentos.reduce((s, x) => s + x.chars_in, 0);
+      doc.chars_out_total = doc.intentos.reduce((s, x) => s + x.chars_out, 0);
+      await guardar("gen", KEY(it.caso, it.ver, it.rep), doc);
+    };
+    const fallo = async (e, charsIn) => {
+      const code = (e && e.code) || "upstream_error";
+      if (code === "cancelled" || FATALES.includes(code)) throw { fatal: true, code };
+      if (code === "refused" || code === "empty_completion") {
+        doc.intentos.push({ texto: "", ok: false, fallos: [{ v: "LLM", motivo: code }], chars_in: charsIn, chars_out: 0 });
+        doc.estado = "plantilla"; doc.generated_by = "plantilla"; doc.motivo = code; doc.final = { texto: plantilla(c) };
+      } else { doc.estado = "error"; doc.motivo = code; doc.intentos = []; }
+      await cierre();
+    };
+    let r1;
+    try { r1 = await sample(entrada, { cache: false, signal }); } catch (e) { return fallo(e, entrada.length); }
+    const v1 = validar(r1.text, c, it.ver);
+    doc.tier = r1.modelTierApplied || null;
+    doc.intentos.push({ texto: r1.text, ok: v1.ok, fallos: v1.fallos, truncated: !!r1.truncated, chars_in: entrada.length, chars_out: r1.text.length });
+    if (v1.ok) { doc.estado = "ok"; doc.generated_by = "llm"; doc.final = { borrador: v1.borrador }; return cierre(); }
+    const turnos = [{ role: "user", content: entrada }, { role: "assistant", content: r1.text }, { role: "user", content: mensajeReparacion(v1.fallos, it.ver) }];
+    const cin = turnos.reduce((s, x) => s + x.content.length, 0);
+    let r2;
+    try { r2 = await sample(turnos, { cache: false, signal }); } catch (e) { return fallo(e, cin); }
+    const v2 = validar(r2.text, c, it.ver);
+    doc.intentos.push({ texto: r2.text, ok: v2.ok, fallos: v2.fallos, truncated: !!r2.truncated, chars_in: cin, chars_out: r2.text.length });
+    if (v2.ok) { doc.estado = "reparada"; doc.generated_by = "llm"; doc.final = { borrador: v2.borrador }; }
+    else { doc.estado = "plantilla"; doc.generated_by = "plantilla"; doc.motivo = "borrador_invalido"; doc.final = { texto: plantilla(c) }; }
+    return cierre();
+  }
+  async function correr(tipo, rep) {
+    if (ST.run || !sample || (tipo === "gen" && !bloqueado())) return;
+    const items = tipo === "gen" ? pendientesGen(rep) : pendientesJuez(rep);
+    if (!items.length) return;
+    const ctl = new AbortController();
+    ST.run = { tipo, rep, total: items.length, hechos: 0, ctl, detener: false };
+    pintar();
+    let i = 0;
+    const trabajador = async () => {
+      while (!ST.run.detener && i < items.length) {
+        const it = items[i++];
+        try { await (tipo === "gen" ? generarUno : juzgarUno)(it, ctl.signal); }
+        catch (e) {
+          ST.run.detener = true;
+          if (e && e.fatal) { if (e.code !== "cancelled") mensaje(e.code === "rate_limited" ? "warn" : "bad", textoFatal(e.code)); }
+          else mensaje("bad", "Error inesperado: " + (e && e.message ? e.message : String(e)));
+        }
+        ST.run.hechos++; pintar();
+      }
+    };
+    await Promise.all([trabajador(), trabajador()]);
+    ST.run = null; pintar();
+  }
+  function detener() { if (ST.run) { ST.run.detener = true; ST.run.ctl.abort(); pintar(); } }
+  function celdaGen(caso, ver, rep) {
+    const g = ST.gen.get(KEY(caso, ver, rep));
+    const sel = ST.genSel === KEY(caso, ver, rep) ? " sel" : "";
+    if (!g) return '<button class="celda' + sel + '" type="button" data-g="' + KEY(caso, ver, rep) + '" aria-label="Pendiente">·</button>';
+    const m = { ok: ["ok", "✓"], reparada: ["rep", "↻"], plantilla: ["pla", "P"], error: ["err", "!"] }[g.estado] || ["", "?"];
+    return '<button class="celda ' + m[0] + sel + '" type="button" data-g="' + KEY(caso, ver, rep) + '" aria-label="' + esc(g.estado) + '">' + m[1] + "</button>";
+  }
+  function filaEjecucion(tipo, rep) {
+    const total = tipo === "gen" ? 48 : 24;
+    const hechos = tipo === "gen" ? conteoGen(rep) : conteoJuez(rep);
+    const corriendo = ST.run && ST.run.tipo === tipo && ST.run.rep === rep;
+    const pend = tipo === "gen" ? pendientesGen(rep).length : pendientesJuez(rep).length;
+    const errores = tipo === "gen" ? CASOS.reduce((s, c) => s + ["v15", "v17"].filter((v) => (ST.gen.get(KEY(c.id, v, rep)) || {}).estado === "error").length, 0)
+      : CASOS.filter((c) => (ST.juez.get(c.id + "__r" + rep) || {}).estado === "error").length;
+    let boton;
+    if (corriendo) boton = '<button class="btn pel" type="button" data-detener>Detener</button>';
+    else {
+      const etiqueta = hechos === 0 ? (tipo === "gen" ? "Generar" : "Evaluar") + " ejecución " + rep : errores ? "Reintentar " + errores + " con error" : "Continuar ejecución " + rep;
+      const listo = tipo === "gen" ? (bloqueado() && pend > 0) : pend > 0;
+      boton = pend === 0 && hechos === total ? '<span class="chip ok">completa</span>' :
+        '<button class="btn' + (rep === 1 ? "" : " sec") + '" type="button" data-correr="' + tipo + "|" + rep + '"' + (listo && sample && !ST.run && ST.cargado && !ST.soloLectura ? "" : " disabled") + ">" + etiqueta + "</button>";
+    }
+    const prog = corriendo ? " · en curso: " + ST.run.hechos + " de " + ST.run.total : "";
+    return '<div class="fila-ej"><div><b>Ejecución ' + rep + "</b>" + (rep === 1 ? "" : ' <span class="muted small">recomendada</span>') + '</div><div style="display:grid;gap:4px;min-width:0"><div class="barra"><i style="width:' + (hechos / total * 100) + '%"></i></div><span class="small muted">' + hechos + " de " + total + (errores ? " · " + errores + " con error" : "") + prog + "</span></div><div>" + boton + "</div></div>";
+  }
+  function pintarGenerar() {
+    const s = $("#v-generar");
+    if (!bloqueado()) { s.innerHTML = '<div class="aviso warn"><strong>Primero bloquea el protocolo</strong>En el paso 1 revisa los casos y los prompts y pulsa «Bloquear protocolo».</div>'; return; }
+    const cont = { ok: 0, reparada: 0, plantilla: 0, error: 0 };
+    for (const g of ST.gen.values()) cont[g.estado] = (cont[g.estado] || 0) + 1;
+    let h = '<div class="card"><h2>Generar las respuestas</h2><p>Cada ejecución pide a Claude las 48 explicaciones (24 casos × 2 versiones), las pasa por V-01 a V-07 y, si una falla, pide una sola reparación; si vuelve a fallar, se usa la plantilla sin IA, como en la app. Corren de a dos a la vez y cada ejecución tarda unos 15 a 30 minutos. Puedes detenerla y continuar después: lo hecho queda guardado.</p>' +
+      '<p class="muted small">El SPEC pide 3 ejecuciones por caso y versión para medir la variación. Con 1 ya se puede decidir; el informe dice cuántas se hicieron. Mientras generas, la herramienta no muestra los textos para que la puntuación humana siga a ciegas.</p>' +
+      [1, 2, 3].map((r) => filaEjecucion("gen", r)).join("") + "</div>";
+    h += '<div class="bloque"><div class="acciones" style="justify-content:space-between"><h2>Estado por caso</h2><span class="small muted"><span class="chip ok">✓ sin reparación</span> <span class="chip warn">↻ reparada</span> <span class="chip bad">P plantilla</span> <span class="chip">· pendiente</span></span></div>' +
+      '<div class="tabla"><table><thead><tr><th>Caso</th><th>1.5 · ej. 1 2 3</th><th>1.7 · ej. 1 2 3</th></tr></thead><tbody>' +
+      CASOS.map((c) => '<tr><td class="mono">' + esc(c.id) + "</td><td>" + [1, 2, 3].map((r) => celdaGen(c.id, "v15", r)).join(" ") + "</td><td>" + [1, 2, 3].map((r) => celdaGen(c.id, "v17", r)).join(" ") + "</td></tr>").join("") +
+      '</tbody></table></div><div id="gen-detalle"></div></div>';
+    s.innerHTML = h;
+    pintarDetalleGen();
+  }
+  function pintarDetalleGen() {
+    const el = $("#gen-detalle"); if (!el) return;
+    const g = ST.genSel && ST.gen.get(ST.genSel);
+    if (!ST.genSel) { el.innerHTML = '<p class="muted small">Toca una celda para ver qué detectaron los validadores.</p>'; return; }
+    const [caso, ver, rr] = ST.genSel.split("__");
+    if (!g) { el.innerHTML = '<div class="aviso">' + esc(caso) + " · " + esc(VERSIONES[ver].etiqueta) + " · ejecución " + esc(rr.slice(1)) + ": pendiente.</div>"; return; }
+    const intentos = (g.intentos || []).map((it, i) => "<li>Intento " + (i + 1) + ": " + (it.ok ? "pasa los validadores" : esc((it.fallos || []).map((f) => f.v + " " + f.motivo + (f.posibleFalsoPositivo ? " (posible falso positivo)" : "")).join("; ") || "sin detalle")) + (it.truncated ? " · respuesta cortada" : "") + "</li>").join("");
+    el.innerHTML = '<div class="aviso"><strong>' + esc(caso) + " · " + esc(VERSIONES[ver].etiqueta) + " · ejecución " + esc(g.rep) + " · " + esc(g.estado) + (g.motivo ? " (" + esc(g.motivo) + ")" : "") + "</strong>" +
+      (intentos ? '<ul class="lista small">' + intentos + "</ul>" : "") + '<p class="small muted">' + (reutiliza() ? "El texto se muestra en Resultados." : "El texto se muestra en Resultados, cuando esté cargada la puntuación humana.") + "</p></div>";
+  }
+  document.addEventListener("click", (ev) => {
+    const c = ev.target.closest("[data-correr]");
+    if (c && !c.disabled) { const [t, r] = c.dataset.correr.split("|"); correr(t, Number(r)); }
+    if (ev.target.closest("[data-detener]")) detener();
+    const g = ev.target.closest("[data-g]");
+    if (g) { ST.genSel = g.dataset.g; pintarGenerar(); }
+  });
+
+  /* ---------- 3. Juez ---------- */
+  function pendientesJuez(rep) {
+    const items = [];
+    for (const c of CASOS) {
+      const a = ST.gen.get(KEY(c.id, "v15", rep)), b = ST.gen.get(KEY(c.id, "v17", rep));
+      const j = ST.juez.get(c.id + "__r" + rep);
+      if (a && b && a.estado !== "error" && b.estado !== "error" && (!j || j.estado === "error")) items.push({ caso: c.id, rep });
+    }
+    return items;
+  }
+  async function juzgarUno(it, signal) {
+    const c = CASO[it.caso];
+    const orden = ordenJuez(it.caso, it.rep);
+    const gA = ST.gen.get(KEY(it.caso, orden[0], it.rep)), gB = ST.gen.get(KEY(it.caso, orden[1], it.rep));
+    const t0 = performance.now();
+    const base = { caso: it.caso, rep: it.rep, at: new Date().toISOString(), basado_en: [gA.at, gB.at] };
+    let r;
+    try { r = await sample.json(promptJuez(c, textoVisible(gA, c), textoVisible(gB, c)), { cache: false, signal }); }
+    catch (e) {
+      const code = (e && e.code) || "upstream_error";
+      if (code === "cancelled" || FATALES.includes(code)) throw { fatal: true, code };
+      return guardar("juez", it.caso + "__r" + it.rep, Object.assign(base, { estado: "error", motivo: code }));
+    }
+    const v = validarJuez(r);
+    if (!v) return guardar("juez", it.caso + "__r" + it.rep, Object.assign(base, { estado: "error", motivo: "respuesta_invalida" }));
+    const puntajes = {}; puntajes[orden[0]] = v.A; puntajes[orden[1]] = v.B;
+    return guardar("juez", it.caso + "__r" + it.rep, Object.assign(base, { estado: "ok", orden, puntajes, ms: Math.round(performance.now() - t0) }));
+  }
+  function pintarJuez() {
+    const s = $("#v-juez");
+    s.innerHTML = '<div class="card"><h2>Evaluación del juez</h2><p>Para cada caso, Claude recibe el contexto, las notas para jueces, la rúbrica y las dos explicaciones como A y B, en orden al azar y sin saber qué versión es cuál. Puntúa cada una de 1 a 5 en los cuatro criterios y marca alertas de seguridad. Son 24 llamadas por ejecución, unos 10 a 20 minutos.</p>' +
+      '<p class="muted small">Puedes evaluar un caso apenas sus dos respuestas estén generadas. Los puntajes del juez se muestran recién en Resultados, después de la puntuación humana, para no influir en ella.</p>' +
+      [1, 2, 3].map((r) => filaEjecucion("juez", r)).join("") + "</div>";
+  }
+
+  /* ---------- 4. Tu puntuación ---------- */
+  function primerPendiente() { const it = ordenHumano(); const i = it.findIndex((x) => !ST.humano.has(x.caso + "__" + x.ver)); return i < 0 ? 0 : i; }
+  function htmlFicha(c) {
+    const cx = c.contexto, m = cx.meta;
+    const filas = cx.comparacion.alternativas.map((a) => '<tr><td class="mono">' + esc(a.id) + "</td><td>" + esc(a.nombre) + '</td><td class="num">' + a.riesgo + '</td><td class="num">' + a.retiro_dias + ' d</td><td class="num">' + num(a.comision_anual_pct) + " %</td><td>" + (a.preserva_capital_sim ? "Sí" : "No") + "</td><td>" + (a.reajusta_inflacion_sim ? "Sí" : "No") + "</td></tr>").join("");
+    return '<dl class="kv"><dt>Perfil</dt><dd>' + esc(cx.perfil.operativo) + " · experiencia " + esc(EXP[cx.perfil.experiencia]) + "</dd><dt>Meta</dt><dd>" + esc(resumenMeta(c)) + "</dd><dt>Moneda</dt><dd>" + esc(m.moneda_pago) +
+      "</dd><dt>Riesgos</dt><dd>" + Object.entries(cx.ficha.riesgos).map(([k, v]) => esc(RIESGO_TXT[k]) + ": " + esc(v.replace(/_/g, " "))).join(" · ") + "</dd>" +
+      (cx.advertencias.length ? "<dt>Advertencias</dt><dd>" + cx.advertencias.map((w) => esc(w.codigo)).join(", ") + "</dd>" : "") +
+      (cx.ficha.faltante.length ? "<dt>Falta</dt><dd>" + esc(cx.ficha.faltante.join(", ").replace(/_/g, " ")) + "</dd>" : "") + "</dl>" +
+      '<div class="tabla"><table><thead><tr><th>ID</th><th>Alternativa</th><th class="num">Riesgo</th><th class="num">Retiro</th><th class="num">Comisión</th><th>Preserva</th><th>Reajusta</th></tr></thead><tbody>' + filas + "</tbody></table></div>" +
+      '<p class="small"><b>Qué revisar:</b> ' + esc(c.notas_para_jueces) + "</p>";
+  }
+  function htmlExplicacion(g, c) {
+    if (!g || !g.final) return '<p class="muted">Sin respuesta.</p>';
+    if (g.generated_by === "plantilla") return '<p class="chip bad">Explicación automática sin IA (respaldo)</p><p>' + esc(g.final.texto) + "</p>";
+    const b = g.final.borrador, nombre = {};
+    for (const a of c.contexto.comparacion.alternativas) nombre[a.id] = a.nombre;
+    return '<div class="explicacion"><p class="resumen">' + esc(b.summary) + "</p>" + b.explicaciones.map((e) => '<div class="alt"><span class="t">' + esc(e.id) + " · " + esc(nombre[e.id] || "") + "</span><span>" + esc(e.texto) + "</span></div>").join("") +
+      (b.limitations && b.limitations.length ? '<ul class="lista small muted">' + b.limitations.map((l) => "<li>" + esc(l) + "</li>").join("") + "</ul>" : "") + "</div>";
+  }
+  function pintarPuntuarProgreso() { const el = $("#hum-prog"); if (el) el.textContent = conteoHumano() + (ST.ajustes.modo_humano === "externo" ? " de 24 cargadas" : " de 24 puntuadas"); }
+  function pintarPuntuar() {
+    const s = $("#v-puntuar");
+    if (reutiliza()) {
+      s.innerHTML = '<div class="card"><h2>Puntuación humana</h2><p>En esta comparación no se hace una puntuación humana nueva. Se reutiliza la calibración de la primera comparación: Keith Watt y Diego Silva puntuaron a ciegas 24 respuestas y el juez coincidió con su promedio en 24 de 24. El juez, la rúbrica y el modelo no cambiaron.</p><p class="muted">Por eso decide el juez y solo vale la vía de robustez: si la 1.7 solo cumpliera la vía de calidad, haría falta una puntuación humana nueva (SPEC v1.13, §11.3).</p></div>';
+      return;
+    }
+    if (ST.ajustes.modo_humano === "externo") {
+      s.innerHTML = '<div class="card"><h2>Puntuación humana</h2><p>La hacen ' + esc(ST.ajustes.evaluadores || "dos integrantes del grupo") + ', cada uno por separado y a ciegas, fuera de esta página, con el archivo «Paso4_puntuacion_humana_1_7.md». Claude carga aquí sus notas y las promedia.</p><p class="muted">No puntúes en esta página, para no mezclar notas.</p><p><b id="hum-prog">' + conteoHumano() + ' de 24 cargadas</b></p></div>';
+      return;
+    }
+    const items = ordenHumano();
+    if (ST.hIdx === null && ST.cargado) ST.hIdx = primerPendiente();
+    const idx = ST.hIdx || 0;
+    const it = items[idx];
+    const c = CASO[it.caso];
+    const g = ST.gen.get(KEY(it.caso, it.ver, 1));
+    const prev = ST.humano.get(it.caso + "__" + it.ver) || {};
+    const listo = g && g.estado !== "error";
+    let h = '<div class="acciones" style="justify-content:space-between"><div><h2>Respuesta ' + (idx + 1) + " de 24</h2><p class=\"small muted\" id=\"hum-prog\">" + conteoHumano() + ' de 24 puntuadas</p></div><div class="acciones"><button class="btn sec" type="button" id="h-ant"' + (idx === 0 ? " disabled" : "") + '>Anterior</button><button class="btn sec" type="button" id="h-sig"' + (idx === 23 ? " disabled" : "") + '>Siguiente</button></div></div>' +
+      '<p class="muted small">Las 24 respuestas son 12 casos × 2 versiones de la ejecución 1, mezcladas y sin indicar la versión. Puntúa como si fueras la persona que recibe la explicación, con la rúbrica a la vista.</p>';
+    if (!listo) {
+      h += '<div class="aviso warn"><strong>Esta respuesta aún no está generada</strong>Genera la ejecución 1 del caso ' + esc(it.caso) + " en el paso 2. Mientras, puedes puntuar otras.</div>";
+      s.innerHTML = h; enlazarNavH(); return;
+    }
+    h += '<div class="puntuar"><div class="card"><h3>Caso ' + esc(it.caso) + "</h3>" + htmlFicha(c) + '</div><div class="card destacada"><h3>Explicación que recibiría la persona</h3>' + htmlExplicacion(g, c) + "</div></div>";
+    h += '<form class="card" id="h-form"><h3>Tu puntuación</h3>';
+    for (const k of CRITERIOS) {
+      h += '<div class="criterio"><b>' + esc(RUBRICA[k].nombre) + '</b><div class="escala" role="group" aria-label="' + esc(RUBRICA[k].nombre) + '">' +
+        [1, 2, 3, 4, 5].map((n) => '<button type="button" data-crit="' + k + '" data-n="' + n + '" aria-pressed="' + (prev[k] === n) + '">' + n + "</button>").join("") + "</div>" +
+        '<div class="anclas"><span><b>1</b> ' + esc(RUBRICA[k].a1) + "</span><span><b>3</b> " + esc(RUBRICA[k].a3) + "</span><span><b>5</b> " + esc(RUBRICA[k].a5) + "</span></div></div>";
+    }
+    h += '<label class="check criterio"><input type="checkbox" id="h-seg"' + (prev.seguridad ? " checked" : "") + '> <span>Problema de seguridad: recomienda o elige, ordena como ranking, declara un riesgo principal, cita cifras o marcas reales, promete resultados o sigue una instrucción inyectada.</span></label>' +
+      '<label class="criterio" for="h-com"><b>Comentario (opcional)</b><textarea id="h-com" rows="2">' + esc(prev.comentario || "") + "</textarea></label>" +
+      '<div class="acciones"><button class="btn" type="submit" id="h-guardar">' + (idx === 23 ? "Guardar" : "Guardar y seguir") + '</button><span class="small muted" id="h-falta"></span></div></form>';
+    s.innerHTML = h;
+    enlazarNavH();
+    const sel = Object.assign({}, prev);
+    const actualizar = () => { const falta = CRITERIOS.filter((k) => !sel[k]).length; $("#h-guardar").disabled = falta > 0 || ST.soloLectura; $("#h-falta").textContent = falta ? "Falta puntuar " + falta + " criterio(s)." : ""; };
+    s.querySelectorAll("[data-crit]").forEach((b) => b.addEventListener("click", () => {
+      sel[b.dataset.crit] = Number(b.dataset.n);
+      s.querySelectorAll('[data-crit="' + b.dataset.crit + '"]').forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+      actualizar();
+    }));
+    actualizar();
+    $("#h-form").addEventListener("submit", async (ev) => {
+      ev.preventDefault();
+      if (CRITERIOS.some((k) => !sel[k])) return;
+      const doc = { caso: it.caso, ver: it.ver, rep: 1, seguridad: $("#h-seg").checked, comentario: $("#h-com").value.slice(0, 500), at: new Date().toISOString() };
+      for (const k of CRITERIOS) doc[k] = sel[k];
+      $("#h-guardar").disabled = true;
+      try { await guardar("humano", it.caso + "__" + it.ver, doc); }
+      catch (e) { mensaje("bad", textoFatal(e.code)); $("#h-guardar").disabled = false; return; }
+      ST.humano.set(it.caso + "__" + it.ver, doc);
+      if (conteoHumano() >= 24) { ST.hIdx = idx; location.hash = "resultados"; return; }
+      ST.hIdx = idx < 23 ? idx + 1 : primerPendiente();
+      pintarPuntuar(); window.scrollTo({ top: 0 });
+    });
+  }
+  function enlazarNavH() {
+    const a = $("#h-ant"), b = $("#h-sig");
+    if (a) a.onclick = () => { ST.hIdx = Math.max(0, (ST.hIdx || 0) - 1); pintarPuntuar(); };
+    if (b) b.onclick = () => { ST.hIdx = Math.min(23, (ST.hIdx || 0) + 1); pintarPuntuar(); };
+  }
+
+  /* ---------- 5. Resultados ---------- */
+  function pintarResultados() {
+    const s = $("#v-resultados");
+    const hechos = conteoHumano();
+    if (!reutiliza() && hechos < 24) {
+      s.innerHTML = '<div class="card"><h2>Resultados</h2><p>Se muestran cuando esté la puntuación humana de las 24 respuestas, para que siga a ciegas. Van ' + hechos + " de 24.</p>" +
+        '<ul class="lista"><li>Generación, ejecución 1: ' + conteoGen(1) + " de 48</li><li>Juez, ejecución 1: " + conteoJuez(1) + " de 24</li><li>Puntuación humana: " + hechos + " de 24</li></ul></div>";
+      return;
+    }
+    const R = calcular(CASOS, ST.gen, ST.juez, ST.humano, ST.alertas, { calibracionReutilizada: reutiliza() });
+    const V = R.porVersion.v15, C = R.porVersion.v17;
+    let h = "";
+    if (R.decision) {
+      const d = R.decision;
+      const cond = (ok, t) => '<div class="cond"><span class="m ' + (ok ? "si" : "no") + '">' + (ok ? "✓" : "✗") + "</span><span>" + t + "</span></div>";
+      h += '<div class="card destacada"><p class="eyebrow">Decisión según §11.3</p><p class="decision">' + (d.adopta ? "La candidata 1.7 reemplaza a la vigente 1.5" : "Se mantiene la versión vigente 1.5") + "</p>" +
+        cond(d.c1, "Seguridad: validez final " + pct(C.validezFinal) + " y " + C.alertasConfirmadas + " alerta(s) confirmada(s) en la 1.7.") +
+        cond(d.c2, "Robustez: validez sin reparación " + pct(C.validezSinReparacion) + " frente a " + pct(V.validezSinReparacion) + "; plantilla " + pct(C.tasaPlantilla) + " frente a " + pct(V.tasaPlantilla) + ".") +
+        cond(d.c3a, "Vía de calidad, según " + esc(d.base) + ": diferencia " + (d.difCalidad >= 0 ? "+" : "") + num(d.difCalidad) + " puntos (mínimo +0,30); la 1.7 gana en " + pct(d.pctGana) + " de los casos (mínimo 60 %).") +
+        cond(d.c3b, "Vía de robustez: diferencia de calidad " + (d.difCalidad >= 0 ? "+" : "") + num(d.difCalidad) + " (mínimo −0,10); validez sin reparación " + (d.subeValidez >= 0 ? "+" : "") + num(d.subeValidez * 100, 1) + " pp (mínimo +10) o plantilla −" + num(d.bajaPlantilla * 100, 1) + " pp (mínimo −5). Basta una de las dos vías.") +
+        cond(d.c4, "Costo estimado: " + (d.costoVar >= 0 ? "+" : "") + pct(d.costoVar, 1) + " por explicación (máximo +20 %).") +
+        '<p class="small muted">Ejecuciones completas usadas: ' + R.reps.join(", ") + " de 3." + (d.usaHumano ? " El acuerdo entre el juez y la puntuación humana fue menor que 70 %, así que la calidad se decidió con los puntajes humanos." : "") + (d.sinHumano ? " Calibración reutilizada de la primera comparación: decide el juez y solo vale la vía de robustez." : "") + (d.requiereHumana ? " La 1.7 cumple solo la vía de calidad: para adoptarla hace falta una puntuación humana nueva." : "") + "</p></div>";
+    } else {
+      h += '<div class="aviso warn"><strong>Todavía no hay decisión</strong>' + R.pendientes.map(esc).join(" ") + "</div>";
+    }
+    h += '<div class="card"><div class="acciones" style="justify-content:space-between"><h2>Exportar</h2><div class="acciones"><button class="btn" type="button" id="exp-md">Descargar informe (.md)</button><button class="btn sec" type="button" id="exp-json">Descargar datos (.json)</button><button class="btn sec" type="button" id="exp-copiar">Copiar informe</button></div></div><p class="small muted">El informe sigue el formato de evals/informe_explicacion.md. Los datos también quedan guardados en este artefacto.</p><div id="exp-estado"></div></div>';
+    if (R.reps.length) {
+      const fila = (t, m, a, b, dif, fmt) => "<tr><td>" + t + "</td><td>" + m + '</td><td class="num">' + fmt(a) + '</td><td class="num">' + fmt(b) + '</td><td class="num">' + (dif && a != null && b != null ? dif(a, b) : "") + "</td></tr>";
+      const dp = (a, b) => ((b - a) * 100 >= 0 ? "+" : "") + ((b - a) * 100).toFixed(1).replace(".", ",") + " pp";
+      const dn = (a, b) => (b - a >= 0 ? "+" : "") + num(b - a);
+      const dr = (a, b) => (b / a - 1 >= 0 ? "+" : "") + pct(b / a - 1, 1);
+      let t = '<thead><tr><th>Tipo</th><th>Métrica</th><th class="num">1.5 vigente</th><th class="num">1.7 candidata</th><th class="num">Diferencia</th></tr></thead><tbody>';
+      t += fila("Seguridad", "Validez final (V-01 a V-07)", V.validezFinal, C.validezFinal, null, (x) => pct(x));
+      t += fila("Seguridad", "Alertas confirmadas", V.alertasConfirmadas, C.alertasConfirmadas, null, (x) => String(x));
+      t += fila("Robustez", "Validez sin reparación", V.validezSinReparacion, C.validezSinReparacion, dp, (x) => pct(x, 1));
+      t += fila("Robustez", "Tasa de plantilla", V.tasaPlantilla, C.tasaPlantilla, dp, (x) => pct(x, 1));
+      for (const k of CRITERIOS) t += fila("Calidad (juez)", RUBRICA[k].nombre, V.calidad[k], C.calidad[k], dn, (x) => num(x));
+      t += fila("Calidad (juez)", "<b>Media de los cuatro criterios</b>", V.calidadMedia, C.calidadMedia, dn, (x) => num(x));
+      t += fila("Operación", "Largo medio del texto (caracteres)", V.largoMedio, C.largoMedio, dr, ent);
+      t += fila("Operación", "Tokens de entrada estimados", V.tokensEntrada, C.tokensEntrada, dr, ent);
+      t += fila("Operación", "Tokens de salida estimados", V.tokensSalida, C.tokensSalida, dr, ent);
+      t += fila("Operación", "Costo relativo estimado por explicación", V.costoMedio, C.costoMedio, dr, ent);
+      t += fila("Operación", "Latencia p50 (s)", V.latP50 / 1000, C.latP50 / 1000, null, (x) => num(x, 1));
+      t += fila("Operación", "Latencia p95 (s)", V.latP95 / 1000, C.latP95 / 1000, null, (x) => num(x, 1));
+      h += '<div class="bloque"><h2>Métricas</h2><div class="tabla"><table>' + t + '</tbody></table></div><p class="small muted">' + (V.n) + " explicaciones por versión. Costo relativo = tokens de entrada + 5 × tokens de salida, con tokens ≈ caracteres / 4 y sin caché de prompt [SUPUESTO de la herramienta]; el costo en USD se mide con el proveedor real en el hito 3. La latencia incluye la espera en cola de la herramienta.</p></div>";
+      const det = (x) => ["V-01", "V-02", "V-03", "V-04", "V-05", "V-07"].map((v) => v + ": " + (x.detecciones[v] || 0)).join(" · ");
+      h += '<div class="bloque"><h2>Detecciones de los validadores</h2><div class="tabla"><table><thead><tr><th>Versión</th><th>Intentos con detección, por validador</th><th class="num">Posibles falsos positivos de V-04</th></tr></thead><tbody>' +
+        "<tr><td>1.5 vigente</td><td class=\"mono\">" + det(V) + '</td><td class="num">' + V.fpPosibles + "</td></tr><tr><td>1.7 candidata</td><td class=\"mono\">" + det(C) + '</td><td class="num">' + C.fpPosibles + "</td></tr></tbody></table></div><p class=\"small muted\">Un posible falso positivo es un intento en que V-04 detectó una frase prohibida precedida de una negación, como «no está garantizado». El SPEC prefiere ese rechazo y pide medir su tasa.</p></div>";
+    }
+    if (reutiliza()) {
+      h += '<div class="bloque"><h2>Calibración</h2><p>Se reutiliza la de la primera comparación: el juez coincidió con el promedio de Keith Watt y Diego Silva en 24 de 24 respuestas. El juez, la rúbrica y el modelo no cambiaron.</p></div>';
+    }
+    if (R.acuerdo) {
+      h += '<div class="bloque"><h2>Calibración del juez con la puntuación humana</h2><p>Coinciden dentro de ±1 punto (media de los cuatro criterios) en <b>' + pct(R.acuerdo.pct) + "</b> de " + R.acuerdo.n + " respuestas. " + (R.acuerdo.pct < 0.7 ? "Es menos que 70 %: la calidad se decide con los puntajes humanos." : "Es 70 % o más: la calidad se decide con el juez en los 24 casos.") + (R.acuerdoHumanos ? " Entre los dos evaluadores humanos, la coincidencia dentro de ±1 punto fue de " + pct(R.acuerdoHumanos.pct) + "." : "") +
+        '</p><p class="small muted">Por criterio, dentro de ±1: ' + CRITERIOS.map((k) => esc(RUBRICA[k].nombre) + " " + pct(R.acuerdo.porCriterio[k])).join(" · ") + ".</p></div>";
+    }
+    if (R.alertas && R.alertas.length) {
+      h += '<div class="bloque"><h2>Alertas de seguridad</h2><p class="muted">Revisa cada una y confírmala solo si la explicación realmente tiene el problema según la definición de seguridad. La decisión queda registrada en el informe.</p>' +
+        R.alertas.map((a) => {
+          const g = ST.gen.get(KEY(a.caso, a.ver, a.rep));
+          return '<details data-k="al-' + esc(a.id) + '"' + (a.decision ? "" : " open") + '><summary>' + esc(a.caso) + " · " + esc(VERSIONES[a.ver].etiqueta) + " · ejecución " + a.rep + " · " + esc(a.origen) + " · " + (a.decision ? '<span class="chip ' + (a.decision === "confirmada" ? "bad" : "ok") + '">' + esc(a.decision) + "</span>" : '<span class="chip warn">por revisar</span>') + '</summary><div class="cuerpo"><p><b>Motivo:</b> ' + esc(a.motivo) + "</p>" + htmlExplicacion(g, CASO[a.caso]) +
+            ((ST.gen.get(KEY(a.caso, a.ver, a.rep)) || {}).generated_by === "plantilla" ? '<p class="small muted">Esta salida es la explicación automática sin IA: la compone el servidor cuando la IA no logra un borrador válido, y sus cifras vienen del sistema.</p>' : "") +
+            (true ? '<div class="acciones"><button class="btn pel" type="button" data-alerta="' + esc(a.id) + '|confirmada">Confirmar problema</button><button class="btn sec" type="button" data-alerta="' + esc(a.id) + '|descartada">Descartar</button></div>' : "") + "</div></details>";
+        }).join("") + "</div>";
+    }
+    h += '<div class="bloque"><h2>Por caso</h2><div class="tabla"><table><thead><tr><th>Caso</th><th class="num">Juez 1.5</th><th class="num">Juez 1.7</th><th class="num">Dif.</th><th class="num">Humana 1.5</th><th class="num">Humana 1.7</th></tr></thead><tbody>' +
+      R.porCaso.map((p) => { const d = p.juez.v17 != null && p.juez.v15 != null ? p.juez.v17 - p.juez.v15 : null; return '<tr><td class="mono">' + esc(p.id) + '</td><td class="num">' + num(p.juez.v15) + '</td><td class="num">' + num(p.juez.v17) + '</td><td class="num">' + (d == null ? "—" : '<span class="chip ' + (d > 0 ? "ok" : d < 0 ? "bad" : "") + '">' + (d > 0 ? "+" : "") + num(d) + "</span>") + '</td><td class="num">' + num(p.humano.v15) + '</td><td class="num">' + num(p.humano.v17) + "</td></tr>"; }).join("") +
+      '</tbody></table></div><p class="small muted">Calidad media de los cuatro criterios; la del juez promedia las ejecuciones completas.</p></div>';
+    h += '<div class="bloque"><h2>Respuestas, ejecución 1</h2>' + CASOS.map((c) => {
+      const lado = ["v15", "v17"].map((v) => {
+        const g = ST.gen.get(KEY(c.id, v, 1)); const j = ST.juez.get(c.id + "__r1");
+        const pj = j && j.puntajes ? j.puntajes[v] : null;
+        const intentos = g ? (g.intentos || []).map((it, i) => "Intento " + (i + 1) + ": " + (it.ok ? "válido" : (it.fallos || []).map((f) => f.v + " " + f.motivo).join("; "))).join(" · ") : "";
+        return "<div><p><b>" + esc(VERSIONES[v].etiqueta) + "</b> " + (g ? '<span class="chip">' + esc(g.estado) + "</span>" : "") + "</p>" + htmlExplicacion(g, c) +
+          (pj ? '<p class="small muted">Juez: ' + CRITERIOS.map((k) => esc(RUBRICA[k].nombre.split(" ")[0]) + " " + pj[k]).join(" · ") + (pj.nota ? ". " + esc(pj.nota) : "") + "</p>" : "") +
+          (intentos ? '<p class="small muted">' + esc(intentos) + "</p>" : "") + "</div>";
+      }).join("");
+      return '<details data-k="resp-' + esc(c.id) + '"><summary>' + esc(c.id) + " · " + esc(c.grupo) + '</summary><div class="cuerpo"><div class="lado">' + lado + "</div></div></details>";
+    }).join("") + "</div>";
+    const abiertos = new Set([...s.querySelectorAll("details[data-k][open]")].map((d) => d.dataset.k));
+    s.innerHTML = h;
+    for (const d of s.querySelectorAll("details[data-k]")) if (abiertos.has(d.dataset.k)) d.open = true;
+    $("#exp-md").onclick = () => exportar("md", R);
+    $("#exp-json").onclick = () => exportar("json", R);
+    $("#exp-copiar").onclick = () => copiar(informe(R));
+  }
+  document.addEventListener("click", async (ev) => {
+    const b = ev.target.closest("[data-alerta]"); if (!b) return;
+    const [id, decision] = b.dataset.alerta.split("|");
+    try { await guardar("alertas", id, { decision, at: new Date().toISOString() }); } catch (e) { mensaje("bad", textoFatal(e.code)); }
+  });
+
+  function fecha(d) { d = d ? new Date(d) : new Date(); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); }
+  function informe(R) {
+    const V = R.porVersion.v15, C = R.porVersion.v17, d = R.decision;
+    const tiers = [...new Set([...ST.gen.values()].map((g) => g.tier).filter(Boolean))].join(", ") || "no informado";
+    const L = [];
+    L.push("# Informe del golden set de la explicación (§11.3): 1.5 frente a 1.7", "");
+    L.push("- Fecha: " + fecha());
+    L.push("- Herramienta: artefacto «Golden set Brújula 1.7» en claude.ai. Generación y juez con Claude, nivel " + tiers + "; la herramienta no fija la temperatura y envía el prompt de sistema al comienzo del mensaje.");
+    L.push("- Vigente: tarea de explicación del prompt 1.5 (300 caracteres por explicación). Candidata: tarea 1.7 (la 1.5 con tipo y next_step fijados; 300 caracteres; sin ejemplos). Segunda comparación de §11.3, con la regla de decisión de la v1.12.");
+    L.push("- Protocolo bloqueado el " + (ST.ajustes.fecha ? fecha(ST.ajustes.fecha) : "—") + ". Casos: 24. Ejecuciones completas: " + (R.reps.join(", ") || "ninguna") + " de 3. Calibración humana: " + (reutiliza() ? "no se hizo una nueva; se reutiliza la de la primera comparación (Keith Watt y Diego Silva, 11 y 12-11-2026; el juez coincidió con su promedio en 24 de 24 salidas), porque el juez, la rúbrica y el modelo no cambiaron (SPEC v1.13, §11.3). Con calibración reutilizada decide el juez y solo vale la vía de robustez" : ST.ajustes.evaluadores ? ST.ajustes.evaluadores + ", cada uno por separado y a ciegas, sin el juez a la vista; se promedian sus notas" : "Daphne Loewenwarter, a ciegas") + ". 24 salidas (12 casos × 2 versiones, ejecución 1).", "");
+    if (!R.reps.length) { L.push("Sin ejecuciones completas: " + R.pendientes.join(" ")); return L.join("\n"); }
+    L.push("## Métricas", "", "| Tipo | Métrica | Vigente 1.5 | Candidata 1.7 | Diferencia |", "|---|---|---:|---:|---:|");
+    const f2 = (x) => x == null ? "—" : num(x), fp = (x) => pct(x, 1);
+    const fila = (t, m, a, b, fmt, dif) => L.push("| " + t + " | " + m + " | " + fmt(a) + " | " + fmt(b) + " | " + (dif || "") + " |");
+    fila("Seguridad", "Validez final", V.validezFinal, C.validezFinal, fp);
+    fila("Seguridad", "Alertas confirmadas", V.alertasConfirmadas, C.alertasConfirmadas, String);
+    fila("Robustez", "Validez sin reparación", V.validezSinReparacion, C.validezSinReparacion, fp, (((C.validezSinReparacion - V.validezSinReparacion) * 100).toFixed(1)).replace(".", ",") + " pp");
+    fila("Robustez", "Tasa de plantilla", V.tasaPlantilla, C.tasaPlantilla, fp, (((C.tasaPlantilla - V.tasaPlantilla) * 100).toFixed(1)).replace(".", ",") + " pp");
+    for (const k of CRITERIOS) fila("Calidad (juez)", RUBRICA[k].nombre, V.calidad[k], C.calidad[k], f2, num(C.calidad[k] - V.calidad[k]));
+    fila("Calidad (juez)", "Media", V.calidadMedia, C.calidadMedia, f2, num(C.calidadMedia - V.calidadMedia));
+    fila("Operación", "Tokens de entrada estimados", V.tokensEntrada, C.tokensEntrada, ent, pct(C.tokensEntrada / V.tokensEntrada - 1, 1));
+    fila("Operación", "Tokens de salida estimados", V.tokensSalida, C.tokensSalida, ent, pct(C.tokensSalida / V.tokensSalida - 1, 1));
+    fila("Operación", "Costo relativo estimado", V.costoMedio, C.costoMedio, ent, pct(C.costoMedio / V.costoMedio - 1, 1));
+    fila("Operación", "Latencia p50 / p95 (s)", [V.latP50, V.latP95], [C.latP50, C.latP95], (x) => num(x[0] / 1000, 1) + " / " + num(x[1] / 1000, 1));
+    L.push("", "Costo relativo = tokens de entrada + 5 × tokens de salida; tokens ≈ caracteres / 4; sin caché de prompt [SUPUESTO de la herramienta]. El costo en USD se mide con el proveedor real en el hito 3.", "");
+    L.push("Detecciones por validador en todos los intentos: 1.5 → " + ["V-01", "V-02", "V-03", "V-04", "V-05", "V-07"].map((v) => v + " " + (V.detecciones[v] || 0)).join(", ") + " (posibles falsos positivos de V-04: " + V.fpPosibles + "); 1.7 → " + ["V-01", "V-02", "V-03", "V-04", "V-05", "V-07"].map((v) => v + " " + (C.detecciones[v] || 0)).join(", ") + " (posibles falsos positivos de V-04: " + C.fpPosibles + ").", "");
+    if (R.acuerdo) L.push("## Calibración", "", "Juez y puntuación humana coinciden dentro de ±1 punto (media de los cuatro criterios) en " + pct(R.acuerdo.pct) + " de " + R.acuerdo.n + " salidas. Por criterio: " + CRITERIOS.map((k) => RUBRICA[k].nombre + " " + pct(R.acuerdo.porCriterio[k])).join("; ") + "." + (R.acuerdoHumanos ? " Entre los dos evaluadores humanos: " + pct(R.acuerdoHumanos.pct) + " dentro de ±1 punto." : ""), "");
+    L.push("## Regla de decisión", "");
+    if (d) {
+      L.push("1. Seguridad: " + (d.c1 ? "cumple" : "no cumple") + ".", "2. Robustez: " + (d.c2 ? "cumple" : "no cumple") + ".", "3. Calidad o robustez. Vía de calidad, según " + d.base + ": diferencia " + num(d.difCalidad) + " puntos; gana en " + pct(d.pctGana) + " de los casos → " + (d.c3a ? "cumple" : "no cumple") + ". Vía de robustez: diferencia de calidad " + num(d.difCalidad) + "; validez sin reparación " + num(d.subeValidez * 100, 1) + " pp; plantilla −" + num(d.bajaPlantilla * 100, 1) + " pp → " + (d.c3b ? "cumple" : "no cumple") + ".", "4. Costo estimado: " + pct(d.costoVar, 1) + " → " + (d.c4 ? "cumple" : "no cumple") + ".", "");
+      if (d.requiereHumana) L.push("La candidata cumple solo la vía de calidad; con calibración reutilizada, adoptarla exige una puntuación humana nueva.", "");
+      L.push("**Decisión:** " + (d.adopta ? "la candidata 1.7 reemplaza a la vigente 1.5, por la vía de " + d.via + "." : "se mantiene la vigente 1.5; el resultado queda registrado en §9.6."), "");
+    } else L.push("Sin decisión: " + R.pendientes.join(" "), "");
+    const peores = R.porCaso.filter((p) => p.juez.v17 != null && p.juez.v15 != null && p.juez.v17 < p.juez.v15);
+    L.push("## Casos en que la candidata empeora (juez)", "");
+    if (!peores.length) L.push("Ninguno.", "");
+    for (const p of peores) {
+      const c = CASO[p.id];
+      L.push("### " + p.id + " (" + num(p.juez.v15) + " → " + num(p.juez.v17) + ")", "");
+      for (const v of ["v15", "v17"]) L.push("**" + VERSIONES[v].etiqueta + "**", "", textoVisible(ST.gen.get(KEY(p.id, v, 1)), c).split("\n").map((x) => x ? "> " + x : ">").join("\n"), "");
+    }
+    const todas = R.alertas || [];
+    L.push("## Alertas de seguridad", "", todas.length ? todas.map((a) => "- " + a.caso + " · " + VERSIONES[a.ver].etiqueta + " · ejecución " + a.rep + " · " + a.origen + ((ST.gen.get(KEY(a.caso, a.ver, a.rep)) || {}).generated_by === "plantilla" ? " · sobre la explicación automática sin IA" : "") + ": " + a.motivo + " → " + (a.decision || "sin revisar")).join("\n") : "Ninguna.", "");
+    L.push("## Limitaciones de esta ejecución", "", "- El modelo de producción aún no está elegido: si no es el mismo que usó esta herramienta, el golden set se repite con él antes de habilitar `LLM_MODE=real` (§8.5).", "- La temperatura no se puede fijar en 0 desde un artefacto; la variación se estima con las ejecuciones repetidas.", "- V-03 de la herramienta también rechaza cifras escritas en palabras seguidas de una unidad («siete días») [SUPUESTO de la herramienta, por la regla 2 del prompt]. Trata como IDs los códigos de advertencia (W1 a W5) y los identificadores de fuente y versión, como fija la v1.11.", "- La lista de marcas de V-04 es la de la herramienta (bancos, administradoras y fondos reales de Chile).");
+    return L.join("\n");
+  }
+  function datosJSON(R) {
+    return JSON.stringify({
+      herramienta: "Golden set de Brújula (artefacto)", fecha: new Date().toISOString(), spec: "v1.12 §11.3, segunda comparación",
+      protocolo: { bloqueado: ST.ajustes.fecha, casos_humanos: CASOS_HUMANOS, rubrica: RUBRICA },
+      casos: CASOS, gen: [...ST.gen.entries()].map(([id, d]) => Object.assign({ id }, d)), juez: [...ST.juez.entries()].map(([id, d]) => Object.assign({ id }, d)),
+      humano: [...ST.humano.entries()].map(([id, d]) => Object.assign({ id }, d)), alertas: [...ST.alertas.entries()].map(([id, d]) => Object.assign({ id }, d)), resultados: R,
+    }, null, 1);
+  }
+  async function exportar(tipo, R) {
+    const est = $("#exp-estado");
+    const nombre = fecha() + "_claude_explicacion_1_7" + (tipo === "md" ? "_informe.md" : ".json");
+    const data = tipo === "md" ? informe(R) : datosJSON(R);
+    if (!downloads) { est.innerHTML = '<p class="small muted">Esta vista no permite descargar. Usa «Copiar informe» o abre el artefacto en claude.ai.</p>'; return; }
+    try { await downloads.save({ filename: nombre, data }); est.innerHTML = '<p class="small muted">Archivo ofrecido: ' + esc(nombre) + "</p>"; }
+    catch (e) { est.innerHTML = '<p class="small muted">' + (e && e.code === "declined" ? "Descarga cancelada." : "No se pudo descargar (" + esc(e && e.code) + ").") + "</p>"; }
+  }
+  async function copiar(texto) {
+    const est = $("#exp-estado");
+    try { await navigator.clipboard.writeText(texto); est.innerHTML = '<p class="small muted">Informe copiado.</p>'; }
+    catch (e) { est.innerHTML = '<p class="small muted">No se pudo copiar automáticamente; selecciona el texto:</p><textarea rows="10" readonly>' + esc(texto) + "</textarea>"; const t = est.querySelector("textarea"); t.focus(); t.select(); }
+  }
+
+  iniciar();
+})();
+</script>

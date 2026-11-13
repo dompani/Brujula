@@ -1,0 +1,32 @@
+[
+  {
+    "contexto_resumido": "Perfil moderado, meta concreta de mediano plazo en pesos, puede esperar hasta un mes, experiencia básica. Comparación: D01 (liquidez; devuelve el dinero el mismo día; comisión simulada baja; preserva capital), D03 (depósito en pesos; devuelve el dinero al cumplirse su plazo de retiro; sin comisión simulada; preserva capital) y D05 (mixto defensivo de riesgo medio; aviso corto; comisión simulada más alta; no preserva capital). Ninguna se reajusta por inflación.",
+    "ids": ["D01", "D03", "D05"],
+    "borrador": {
+      "tipo": "personalizada",
+      "summary": "Las tres alternativas se diferencian en cuándo puedes disponer del dinero, cuánto cuestan y frente a qué protegen. D01 y D03 preservan el capital en la simulación; D05 puede subir o bajar de valor antes de tu meta y tiene la comisión simulada más alta de las tres. Ninguna se reajusta por inflación, así que el mismo monto en pesos compraría menos con el tiempo.",
+      "explicaciones": [
+        {"id": "D01", "texto": "Es compatible porque su nivel de riesgo está dentro de tu perfil y su horizonte mínimo cabe en el plazo de tu meta. Devuelve el dinero el mismo día en que lo pides. Cobra una comisión anual simulada baja; la demo no incluye impuestos, spreads ni otros costos. Preserva el capital en la simulación, así que no queda expuesta a caídas de mercado, pero no se reajusta por inflación."},
+        {"id": "D03", "texto": "Es compatible porque su nivel de riesgo es bajo y su plazo de retiro está dentro de lo que puedes esperar. Devuelve el dinero al cumplirse ese plazo, no el mismo día. No cobra comisión simulada; la demo no incluye impuestos, spreads ni otros costos. Preserva el capital en la simulación frente a caídas de mercado, pero no se reajusta por inflación chilena."},
+        {"id": "D05", "texto": "Es compatible porque su nivel de riesgo medio coincide con tu perfil y su horizonte mínimo cabe en tu meta. Devuelve el dinero tras un aviso corto. Su comisión anual simulada es la más alta de las tres; la demo no incluye impuestos, spreads ni otros costos. No preserva el capital en la simulación: podría valer menos que lo aportado antes de tu meta. Tampoco se reajusta por inflación."}
+      ],
+      "limitations": ["Catálogo y costos simulados; no describen productos reales.", "La tabla va de menor a mayor riesgo; ese orden no es una recomendación."],
+      "next_step": "ver_comparacion"
+    }
+  },
+  {
+    "contexto_resumido": "Perfil conservador sin preservación requerida, meta concreta de corto plazo que se paga en dólares, puede esperar hasta una semana, experiencia ninguna. Comparación: D01 (liquidez; devuelve el dinero el mismo día; comisión simulada baja; preserva capital), D02 (liquidez con aviso previo; sin comisión simulada; preserva capital) y D04 (deuda corta; aviso previo; comisión simulada mayor; no preserva capital). Ninguna está en dólares ni se reajusta.",
+    "ids": ["D01", "D02", "D04"],
+    "borrador": {
+      "tipo": "personalizada",
+      "summary": "Las tres te devuelven el dinero dentro del plazo que puedes esperar, pero cambian en rapidez, costo y protección. D01 y D02 preservan el capital en la simulación; D04 puede bajar de valor antes de tu meta. Como tu meta se paga en dólares, ninguna alternativa cubre el tipo de cambio.",
+      "explicaciones": [
+        {"id": "D01", "texto": "Es compatible porque su riesgo es bajo, como tu perfil, y sirve para metas cercanas. Su liquidez, es decir, qué tan rápido recuperas el dinero, es inmediata: lo devuelve el mismo día. La comisión, el cobro anual por administrarlo, es baja y simulada; la demo no incluye impuestos ni otros costos. Preserva el capital en la simulación, pero no cubre el tipo de cambio, o sea, cuántos pesos cuesta un dólar."},
+        {"id": "D02", "texto": "Es compatible por su riesgo bajo y porque tu meta cabe en su horizonte mínimo, el tiempo mínimo sugerido para mantenerla. Devuelve el dinero después de un aviso previo, no el mismo día. No cobra comisión simulada; la demo no incluye impuestos ni otros costos. Preserva el capital en la simulación, pero no cubre el tipo de cambio: si el dólar sube, tus pesos alcanzan para menos dólares."},
+        {"id": "D04", "texto": "Es compatible porque su riesgo es bajo y su horizonte mínimo coincide con el plazo de tu meta. Devuelve el dinero tras un aviso previo. Cobra una comisión anual simulada mayor que las otras dos; la demo no incluye impuestos ni otros costos. No preserva el capital en la simulación: podría valer menos que lo que pusiste antes de tu meta. Tampoco cubre el tipo de cambio."}
+      ],
+      "limitations": ["Catálogo y costos simulados; no describen productos reales.", "Ninguna alternativa del catálogo está en dólares."],
+      "next_step": "ver_comparacion"
+    }
+  }
+]
