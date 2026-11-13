@@ -2,6 +2,17 @@
 
 Cada versión cerrada tiene una etiqueta `spec-vX.Y` en git. Los números C identifican cada cambio y no se reutilizan.
 
+## v1.14 → v1.15, cerrada (13-11-2026, ratificación de las preguntas abiertas)
+
+| N.º | Sección | Decisión | Cambio en v1.15 |
+|---|---|---|---|
+| C117 | Encabezado, §12 | Preguntas 1 y 2: el grupo confirma nombre e integrantes, y el alcance de demo académica sin dinero real | Integrantes y nombre sin marcas de confirmación; preguntas 1 y 2 resueltas |
+| C118 | §3.2, §7.4, §12 | Preguntas 3, 4 y 5: se aprueban el cuestionario, el umbral de 36 meses y W1 a W3 como política educativa provisional, la regla SEL-1 a SEL-5 y las incorporaciones de v1.2 y v1.3 | W2 deja de ser supuesto; preguntas 3, 4 y 5 resueltas |
+| C119 | §8.4, §6.4, §12 | Pregunta 7: responsable del aviso, el Grupo 2; contacto y revisión jurídica, Daphne Loewenwarter | Aviso con responsable, contacto y proveedor de IA; variable `PRIVACY_CONTACT_EMAIL`, para que el correo no quede en el repositorio (decisión 0009) |
+| C120 | §6.3, §6.7, §8.5, Anexo E.7, §12 | Pregunta 8: IA de Anthropic; límites de 1, 10 y 5 USD; Cloud Run con PostgreSQL gestionado en la región de Santiago | Los montos dejan de ser supuestos; ruta de publicación aprobada; estado de las condiciones de §8.5. Falta designar al titular de las cuentas antes del hito 6 |
+| C121 | §1.1, §3.2, §4, §12 | Pregunta 9: el grupo descarta las cuentas persistentes | Se mantiene la sesión de 24 horas; la vigencia de 12 meses queda como tope; el modelo freemium queda descartado |
+| C122 | Encabezado, plan, §11.2 | Cierre de la versión 1.15 | Encabezado, pendientes externos y evolución de la suite actualizados |
+
 ## v1.13 → v1.14, cerrada (12-11-2026, la 1.7 reemplaza a la 1.5 y paso al repositorio)
 
 | N.º | Sección | Hallazgo o decisión | Cambio en v1.14 |

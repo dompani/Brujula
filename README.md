@@ -9,7 +9,7 @@ Grupo 2 del curso Advanced Prompt Engineering (UAI, 2026): Diego Silva, Keith Wa
 ## Estado
 
 - **`SPEC.md` es la única fuente de verdad.** La app todavía no está implementada: el primer paso es el hito 1 del SPEC, en el que el agente de código entrega un plan sin escribir código (ver `AGENTS.md`).
-- **Versiones.** Cada versión cerrada del SPEC tiene una etiqueta `spec-vX.Y`; el historial está en `CHANGELOG.md`. Las versiones v1.0 a v1.14 están en el historial de git, cada una con su etiqueta.
+- **Versiones.** Cada versión cerrada del SPEC tiene una etiqueta `spec-vX.Y`; el historial está en `CHANGELOG.md`. Las versiones v1.0 a v1.15 están en el historial de git, cada una con su etiqueta.
 - **Prompt de la explicación.** Vigente: 1.7 (`prompts/system_brujula_v1_7.txt`), adoptada el 12-11-2026 tras el golden set. Resultados en §9.6 y Anexo E del SPEC y en `evals/informe_explicacion.md`.
 
 ## Contenido
@@ -32,8 +32,8 @@ Grupo 2 del curso Advanced Prompt Engineering (UAI, 2026): Diego Silva, Keith Wa
 ## Cómo se trabaja
 
 1. Cada cambio va en una rama y se propone con un pull request; la plantilla pide sección, motivo y número C.
-2. Otro integrante revisa antes de unir. `main` está protegida.
-3. Las preguntas abiertas del SPEC son issues con la etiqueta `pregunta-abierta` (`scripts/crear_issues.sh` las crea).
+2. Otro integrante revisa antes de unir.
+3. Una pregunta nueva para el grupo se abre como issue con la plantilla «Pregunta abierta del SPEC» (etiqueta `pregunta-abierta`). Las preguntas de la v1.14 quedaron ratificadas el 13-11-2026 (`docs/decisiones/0011` y `0012`).
 4. Al cerrar una versión se actualiza el encabezado del SPEC y `CHANGELOG.md`, y se crea la etiqueta `spec-vX.Y`.
 
 Detalle en `CONTRIBUTING.md`.

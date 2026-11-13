@@ -12,3 +12,5 @@ Una ficha por decisión del grupo, numerada en orden. Formato: fecha, quién dec
 - [0008. Calibración humana reutilizada en la segunda comparación](0008-calibracion-humana-reutilizada.md) · 12-11-2026
 - [0009. Repositorio público](0009-repositorio-publico.md) · 12-11-2026
 - [0010. Golden set: la versión 1.7 del prompt reemplaza a la 1.5](0010-golden-set-1-7-adoptada.md) · 12-11-2026
+- [0011. Ratificación de las preguntas abiertas](0011-ratificacion-preguntas-abiertas.md) · 13-11-2026
+- [0012. Proveedor de IA, presupuesto y publicación](0012-proveedor-ia-presupuesto-publicacion.md) · 13-11-2026

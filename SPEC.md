@@ -2,12 +2,12 @@
 
 | Campo | Valor |
 |---|---|
-| Versión | **1.14, cerrada** (reemplaza la 1.13; historial completo en `CHANGELOG.md`). Registra el resultado de la segunda comparación del golden set: la versión 1.7 del prompt reemplaza a la 1.5 por la vía de robustez (Anexo E.8). Es la primera versión mantenida como `SPEC.md` en el repositorio público Brujula: el Anexo C pasa a `CHANGELOG.md` y cada versión cerrada es una etiqueta `spec-vX.Y`. Las preguntas de §12 que siguen abiertas son ratificaciones y no reabren la especificación |
-| Fecha | 12-11-2026 |
-| Repositorio | `https://github.com/dompani/Brujula` (público, en la cuenta de Daphne Loewenwarter, con Diego Silva y Keith Watt como colaboradores). Versiones v1.0 a v1.14 como etiquetas `spec-v1.0` a `spec-v1.14`; los archivos que este SPEC describe (prompts, catálogo, golden set, fuentes y decisiones) están en el repositorio |
+| Versión | **1.15, cerrada** (reemplaza la 1.14; historial completo en `CHANGELOG.md`). Registra la ratificación de las preguntas abiertas de §12 (13-11-2026): nombre e integrantes confirmados; demo académica sin dinero real; cuestionario, selección e incorporaciones de v1.2 y v1.3 aprobados; responsable del aviso de privacidad y revisión jurídica; proveedor de IA, presupuesto y publicación; y sesión efímera sin cuentas persistentes. Solo queda designar, antes del hito 6, al integrante titular de las cuentas de IA y de publicación |
+| Fecha | 13-11-2026 |
+| Repositorio | `https://github.com/dompani/Brujula` (público, en la cuenta de Daphne Loewenwarter, con Diego Silva y Keith Watt como colaboradores). Cada versión cerrada es una etiqueta `spec-vX.Y`, desde `spec-v1.0`; los archivos que este SPEC describe (prompts, catálogo, golden set, fuentes y decisiones) están en el repositorio |
 | Entrega | Grupo 2 · UAI Advanced · clase 7 |
-| Integrantes | Diego Silva, Keith Watt, Daphne Loewenwarter [confirmar] |
-| Nombre de trabajo | **Brújula Inversiones** [SUPUESTO editable por el grupo] |
+| Integrantes | Diego Silva, Keith Watt, Daphne Loewenwarter (confirmados el 13-11-2026, pregunta 1) |
+| Nombre de trabajo | **Brújula Inversiones** (confirmado el 13-11-2026, pregunta 1) |
 | Versiones internas | `questionnaire_version=1.3` · `policy_version=1.4` · `prompt_version=1.7` vigente desde el 12-11-2026 (§9.1); `1.6` evaluada y no adoptada (§9.6, Anexo E) · `source_id=CATALOGO_DEMO_V3` · `historical_id=HISTORICO_CATEGORIAS_V1` (opción B aprobada, §7.7) |
 | Suite de aceptación vigente | A01–A64 (§11); su evolución desde los criterios A01–A22 de la v1.0 está en §11.2 |
 | Fuentes de diseño | Este SPEC; diagramas de flujo de usuario (`Flijo_1.jpeg`) y de componentes (`Flujo_2.jpeg`) del Grupo 2; caso de prueba "Emiliana" (§11.1); revisión de un integrante del grupo sobre la v1.1; observaciones de una revisora externa al grupo sobre la v1.3; base de valores cuota preparada por Keith Watt, versión 2 (Anexo D); observaciones del profesor Ahmat sobre la v1.0 (06-11-2026); resultados del golden set de la explicación, con la puntuación humana de Keith Watt y Diego Silva (08 a 12-11-2026, Anexo E) |
@@ -77,7 +77,7 @@ Si el tiempo no alcanza, se entrega P0 completo antes de iniciar P1. La IA gener
 
 ### Pendientes externos y cierre de la versión
 
-La v1.4 incorporó los dos ajustes priorizados (nombre de la tasa y explicación con IA generativa). La v1.5 agregó el análisis de la base de valores cuota y una propuesta concreta para usarla, y la v1.6 lo actualizó con la versión 2 de la base, que completa los meses faltantes. La v1.7 incorporó las observaciones del profesor; la v1.8, la aprobación de la opción B para los valores cuota; la v1.9, el modelo de ingresos elegido; la v1.10, el cotejo con la CMF; la v1.11, el resultado del golden set de la explicación; la v1.12, la nueva vía de adopción por robustez y la candidata 1.7; la v1.13, la reutilización de la calibración humana en la segunda comparación; y la v1.14, el resultado de esa comparación y el paso al repositorio. Estado de los insumos:
+La v1.4 incorporó los dos ajustes priorizados (nombre de la tasa y explicación con IA generativa). La v1.5 agregó el análisis de la base de valores cuota y una propuesta concreta para usarla, y la v1.6 lo actualizó con la versión 2 de la base, que completa los meses faltantes. La v1.7 incorporó las observaciones del profesor; la v1.8, la aprobación de la opción B para los valores cuota; la v1.9, el modelo de ingresos elegido; la v1.10, el cotejo con la CMF; la v1.11, el resultado del golden set de la explicación; la v1.12, la nueva vía de adopción por robustez y la candidata 1.7; la v1.13, la reutilización de la calibración humana en la segunda comparación; la v1.14, el resultado de esa comparación y el paso al repositorio; y la v1.15, la ratificación de las preguntas abiertas de §12. Estado de los insumos:
 
 | Insumo | Responsable | Qué permite decidir | Estado |
 |---|---|---|---|
@@ -85,6 +85,7 @@ La v1.4 incorporó los dos ajustes priorizados (nombre de la tasa y explicación
 | Observaciones del profesor Ahmat | Profesor del curso | Alcance de la entrega final y requisitos del curso | **Recibidas el 06-11-2026**, sobre la v1.0: "bien alineado, ajustes puntuales". Pide IA encendida en la URL publicada con límite de gasto, un golden set de la función de IA con mejora medida entre versiones del prompt, el modelo de ingresos y sacar el laboratorio Kubernetes del camino crítico. Incorporadas en la v1.7 (Anexo C) |
 | Entregables del taller (ficha de negocio y video demo) | Grupo | Fuera de este SPEC | Se trabajan el viernes 06-11-2026 |
 | Golden set de la explicación (§11.3) | Daphne Loewenwarter (protocolo y revisión de alertas); Keith Watt y Diego Silva (puntuación humana) | Si la versión 1.6 del prompt reemplaza a la 1.5 | **Ejecutado del 08 al 12-11-2026** (Anexo E): se mantiene la 1.5. La 1.6 mejora la robustez y el costo, pero su calidad sube 0,28 puntos y la regla exige 0,30. Segunda comparación (12-11-2026, calibración reutilizada): **la 1.7 reemplaza a la 1.5** por la vía de robustez (Anexo E.8) |
+| Preguntas abiertas de §12 | Grupo | Nombre, alcance, reglas, privacidad, IA, publicación y cuentas | **Ratificadas el 13-11-2026** (decisiones 0011 y 0012). Falta designar, antes del hito 6, al integrante titular de las cuentas de IA y de publicación |
 
 **Lista de verificación aplicada a la base de valores cuota** (detalle en el Anexo D):
 
@@ -102,7 +103,7 @@ La v1.4 incorporó los dos ajustes priorizados (nombre de la tasa y explicación
 
 Opciones evaluadas: (A) solo material educativo sobre fluctuación histórica, fuera de la comparación; (B) agregados por categoría, sin marcas y sin atribuirlos a una alternativa ficticia; (C) productos reales en el catálogo, que exige P2 y revisión regulatoria. **Decisión del grupo (06-11-2026): opción B** (§7.7), porque usa los datos con el máximo valor educativo, sin identificar productos ni administradoras ante la persona y sin tocar la elegibilidad. En cualquier opción, las rentabilidades pasadas se rotulan como históricas, con fuente y fecha; nunca se proyectan, y el LLM no las usa para predecir. La regla de no fabricar series sigue vigente.
 
-**La v1.14 queda cerrada** como especificación de referencia para el Proyecto Final y como primera versión del repositorio. Las preguntas abiertas de §12 se ratifican antes de publicar.
+**La v1.15 queda cerrada** como especificación de referencia para el Proyecto Final. Las preguntas abiertas de §12 quedaron ratificadas el 13-11-2026; antes del hito 6 falta designar al integrante titular de las cuentas de IA y de publicación.
 
 ## 1. Problema
 
@@ -126,7 +127,7 @@ El resultado de v0 es una **demostración académica de orientación y simulaci�
 |---|---|---|---|---|---|
 | Licencia educativa institucional | Universidades, institutos profesionales, CFT, fundaciones y municipios con programas para adultos | Uso en cursos y programas de educación financiera, con el simulador, los casos y el panel histórico | Alto: es lo más cercano a la demo actual y tiene el menor riesgo regulatorio | Presupuestos acotados; compras lentas; uso por semestre; contenido docente por producir | **1, elegido** |
 | Licencia de bienestar financiero (B2B2C) | Empleadores, cajas de compensación, gremios | Acceso para su población, metas de ejemplo configurables y un informe agregado y anónimo de uso | Alto: la app es educativa, neutral y no pide datos de identificación | Ciclo de venta largo; competencia; la organización no puede acceder a datos individuales (§8.4) | 2, expansión posterior |
-| Freemium para personas (B2C) | La persona | Gratis: el flujo actual. De pago: metas guardadas, recordatorios e informe descargable de escenarios | Medio: exige cuentas persistentes, fuera de v0 (pregunta 9) | Baja disposición a pagar; costo de adquisición | 3, fase posterior |
+| Freemium para personas (B2C) | La persona | Gratis: el flujo actual. De pago: metas guardadas, recordatorios e informe descargable de escenarios | Bajo: exige cuentas persistentes, que el grupo descartó (pregunta 9) | Baja disposición a pagar; costo de adquisición | Descartado |
 | Marca blanca para entidades reguladas | Administradoras, bancos, corredoras | Herramienta de educación y perfilamiento para sus clientes | Bajo: pone en riesgo la neutralidad si la entidad incorpora sus productos | Conflicto de interés; responsabilidad regulatoria de la entidad | No prioritario |
 
 **Economía unitaria**, con datos medidos y no supuestos:
@@ -269,7 +270,7 @@ No se solicitan ingresos, patrimonio, edad, género ni datos de identificación.
 | R-06 | Validar el bloque B como en R-01, incluida la derivación de `horizon_months` desde M2 (un mes actual o pasado → 422). Solo se admite con un perfil vigente; si no existe o venció → 409 `perfil_requerido` o `perfil_vencido`. |
 | R-07 | **Puerta de meta.** M5 = "Sí" o "No sé" → meta con estado `requiere_aclaracion`; sin comparación personalizada; mismo tratamiento que R-02. |
 | R-08 | Preservación efectiva = (K1 = Ninguna) **o** (M1 = Preservar capital). Se guarda con su origen (`capacidad`, `objetivo` o ambos). |
-| R-09 | Advertencias que no bloquean ni alteran la elegibilidad: **W1** F1 = No → recomendar contar con un fondo de emergencia separado; **W2** M1 = Crecimiento de largo plazo y horizonte < 36 meses → señalar la tensión entre objetivo y horizonte [SUPUESTO: umbral de 36 meses]; **W3** E1 = Ninguna y perfil operativo distinto de conservador → nota educativa sobre fluctuaciones; **W4** M8 = CLP o No sé, y horizonte ≥ 12 meses → explicar que, con inflación, un monto fijo en pesos compra menos con el tiempo; **W5** M8 = USD, EUR u Otra → explicar que el costo en pesos cambia con el tipo de cambio y con la inflación de esa moneda, y que una alternativa reajustable en UF sigue la inflación chilena pero no asegura cubrir un gasto en esa moneda; con M8 = No sé, pedir confirmar la moneda. Ninguna advertencia eleva el riesgo, recomienda una alternativa ni dispara una venta. |
+| R-09 | Advertencias que no bloquean ni alteran la elegibilidad: **W1** F1 = No → recomendar contar con un fondo de emergencia separado; **W2** M1 = Crecimiento de largo plazo y horizonte < 36 meses → señalar la tensión entre objetivo y horizonte (umbral de 36 meses aprobado como política educativa provisional, pregunta 3); **W3** E1 = Ninguna y perfil operativo distinto de conservador → nota educativa sobre fluctuaciones; **W4** M8 = CLP o No sé, y horizonte ≥ 12 meses → explicar que, con inflación, un monto fijo en pesos compra menos con el tiempo; **W5** M8 = USD, EUR u Otra → explicar que el costo en pesos cambia con el tipo de cambio y con la inflación de esa moneda, y que una alternativa reajustable en UF sigue la inflación chilena pero no asegura cubrir un gasto en esa moneda; con M8 = No sé, pedir confirmar la moneda. Ninguna advertencia eleva el riesgo, recomienda una alternativa ni dispara una venta. |
 | R-10 | Aplicar los filtros de §7.3 y la selección de §7.4. |
 | R-11 | Componer la ficha de perfil y meta (§3.3). |
 
@@ -286,7 +287,7 @@ Casos de referencia del perfilado (verificados ejecutando las reglas):
 
 #### Vigencia y versiones
 
-- Perfil: `valid_until = calculated_at + 12 meses` [SUPUESTO de demo]. **Vigencia efectiva = mínimo entre `valid_until` y el vencimiento de la sesión.** Con sesiones de 24 horas, en v0 el límite práctico es la sesión; la regla de 12 meses existe para una futura cuenta persistente y se prueba con reloj inyectado.
+- Perfil: `valid_until = calculated_at + 12 meses` [SUPUESTO de demo]. **Vigencia efectiva = mínimo entre `valid_until` y el vencimiento de la sesión.** Con sesiones de 24 horas, el límite práctico es la sesión. El grupo descartó las cuentas persistentes (pregunta 9); la regla de 12 meses queda como tope y se sigue probando con reloj inyectado.
 - Un perfil deja de estar vigente si cambian respuestas del bloque A (se reemplaza por una versión nueva), si cambia la `questionnaire_version` o la `policy_version` desplegada (pasa a `vencido`) o si alcanza su vencimiento.
 - Tras un perfil nuevo, la meta anterior se ofrece precargada para confirmarla; confirmar crea una nueva versión de meta asociada al perfil nuevo.
 - Un cambio de meta crea una nueva `goal_version`; las comparaciones previas pasan a históricas y el perfil sigue vigente.
@@ -350,7 +351,7 @@ Ejemplo verificado, caso Emiliana (§11.1), meta registrada en noviembre de 2026
 - Optimización de carteras y asignaciones porcentuales de inversión.
 - Varios agentes autónomos, servidores MCP innecesarios o base vectorial.
 - Cambios de perfil o de meta desde el chat; solo se hacen por las pantallas del flujo.
-- Cuentas persistentes, inicio de sesión y recuperación entre dispositivos.
+- Cuentas persistentes, inicio de sesión y recuperación entre dispositivos. El grupo las descartó el 13-11-2026 (pregunta 9).
 - Envío de correos, notificaciones o derivaciones automáticas a terceros.
 - Texto libre distinto del nombre de la meta (M6) y de los mensajes de chat.
 - Declaraciones de autorización, patrocinio o fiscalización de la plataforma que no hayan sido acreditadas.
@@ -485,7 +486,7 @@ Backend, motor, asesor IA y control de salida se ejecutan en el mismo proceso Fa
 
 | Componente | Decisión |
 |---|---|
-| Modelo | `LLM_MODE=demo` en desarrollo local y CI, sin red. La URL publicada DEBE usar `LLM_MODE=real` (requisito del Proyecto Final), con el límite de gasto de esta sección; antes, el grupo DEBE aprobar proveedor, modelo, presupuesto y términos de tratamiento de datos (§8.5). Proveedor y modelo por variables de entorno. |
+| Modelo | `LLM_MODE=demo` en desarrollo local y CI, sin red. La URL publicada DEBE usar `LLM_MODE=real` (requisito del Proyecto Final), con el límite de gasto de esta sección. El grupo aprobó el proveedor (Anthropic, modelos Claude) y el presupuesto el 13-11-2026 (pregunta 8); el modelo exacto y los términos de tratamiento de datos se registran antes de habilitarlo (§8.5). Proveedor y modelo por variables de entorno. |
 | Instrucciones | `prompts/system_brujula_v1_7.txt` (§9.1); cada respuesta registra `prompt_version` en la auditoría. |
 | Herramientas | Cinco funciones del motor; el LLM solo puede invocar dos (§7.1). La elegibilidad nunca la decide el modelo. |
 | Memoria | `CONTEXTO_SERVIDOR` (§8.3) más los últimos 6 mensajes de la conversación (3 pares). Sin resúmenes libres del historial: las reglas residen en el servidor. |
@@ -517,7 +518,7 @@ Algoritmo del orquestador para `POST /api/chat`:
 
 | Elemento | Regla |
 |---|---|
-| Límites | `LLM_BUDGET_DAILY_USD` y `LLM_BUDGET_MONTHLY_USD` [SUPUESTO: 1 y 10 USD; montos definitivos en la pregunta 8]. Día y mes según America/Santiago |
+| Límites | `LLM_BUDGET_DAILY_USD` y `LLM_BUDGET_MONTHLY_USD`: 1 y 10 USD, aprobados por el grupo el 13-11-2026 (pregunta 8). Día y mes según America/Santiago |
 | Tarifas | `LLM_PRICE_INPUT_USD_PER_MTOK` y `LLM_PRICE_OUTPUT_USD_PER_MTOK`, tomadas de la página de precios vigente del proveedor elegido [VERIFICAR al configurar] |
 | Reserva previa | Antes de cada llamada se reserva el costo máximo posible: tokens de entrada medidos × tarifa de entrada + `max_tokens` × tarifa de salida. La reserva se hace en una transacción que bloquea la fila del día en PostgreSQL, para que varias instancias nunca superen el límite |
 | Sin saldo | Si lo gastado más lo reservado más la nueva reserva supera el límite diario o el mensual, no se llama al modelo: se usa la plantilla con `generated_by=plantilla` y `motivo=presupuesto_agotado` |
@@ -525,7 +526,7 @@ Algoritmo del orquestador para `POST /api/chat`:
 | Interruptor | `LLM_KILL_SWITCH=true` detiene toda llamada. Se lee en cada petición desde la configuración, para poder activarlo sin desplegar de nuevo [SUPUESTO] |
 | Segunda capa | Límite de gasto o presupuesto configurado en la consola del proveedor, si lo ofrece [VERIFICAR], y alertas de facturación de la nube al 50, 80 y 100 %. Las alertas avisan; no cortan |
 | Visibilidad | `GET /health` informa `llm: {modo: real o demo, estado: activo, pausado_presupuesto o apagado}`, sin montos ni secretos |
-| Evaluaciones | El golden set (§11.3) se ejecuta fuera de la URL publicada, con su propio límite `LLM_BUDGET_EVAL_USD` [SUPUESTO: 5 USD] y `operation=eval` en el registro |
+| Evaluaciones | El golden set (§11.3) se ejecuta fuera de la URL publicada, con su propio límite `LLM_BUDGET_EVAL_USD`: 5 USD, aprobado el 13-11-2026 (pregunta 8), y `operation=eval` en el registro |
 | Chat | Si se habilita con LLM real (P1), usa el mismo presupuesto. Mientras tanto responde en modo automático y lo rotula (§10) |
 
 La capacidad diaria aproximada es `LLM_BUDGET_DAILY_USD / costo medio por explicación`, medido en el registro; se informa en el README.
@@ -580,7 +581,7 @@ brujula/
 
 En el repositorio ya existen, antes de escribir código: `prompts/`, `data/catalogo_demo_v3.json`, `data/fuentes/` (con `FUENTES.md` y `SHA256SUMS`), `evals/explicacion_v1.jsonl`, `evals/rubrica_explicacion_v1.md`, `evals/informe_explicacion.md`, `evals/resultados/`, `docs/decisiones/`, `analisis/` (scripts que produjeron los valores de referencia), `tools/golden_set/` y `.github/workflows/verificar.yml` (verificaciones del SPEC). El agente crea el resto del árbol.
 
-Variables de `.env.example`, sin valores secretos: `APP_ENV`, `PORT`, `DATABASE_URL`, `LLM_MODE`, `LLM_PROVIDER`, `LLM_MODEL`, `LLM_API_KEY`, `COOKIE_SECURE`, `ALLOWED_ORIGINS`, `SESSION_TTL_HOURS=24`, `PROFILE_VALIDITY_MONTHS=12`, `RATE_LIMIT_SESSION_PER_MIN=10`, `RATE_LIMIT_SESSION_TOTAL=50`, `RATE_LIMIT_IP_PER_MIN=60`, `HMAC_SECRET`, `APP_VERSION`, `GIT_SHA`, `LLM_BUDGET_DAILY_USD`, `LLM_BUDGET_MONTHLY_USD`, `LLM_BUDGET_EVAL_USD`, `LLM_PRICE_INPUT_USD_PER_MTOK`, `LLM_PRICE_OUTPUT_USD_PER_MTOK`, `LLM_KILL_SWITCH=false`, `HISTORICO_ENABLED=false`.
+Variables de `.env.example`, sin valores secretos: `APP_ENV`, `PORT`, `DATABASE_URL`, `LLM_MODE`, `LLM_PROVIDER`, `LLM_MODEL`, `LLM_API_KEY`, `COOKIE_SECURE`, `ALLOWED_ORIGINS`, `SESSION_TTL_HOURS=24`, `PROFILE_VALIDITY_MONTHS=12`, `RATE_LIMIT_SESSION_PER_MIN=10`, `RATE_LIMIT_SESSION_TOTAL=50`, `RATE_LIMIT_IP_PER_MIN=60`, `HMAC_SECRET`, `PRIVACY_CONTACT_EMAIL`, `APP_VERSION`, `GIT_SHA`, `LLM_BUDGET_DAILY_USD`, `LLM_BUDGET_MONTHLY_USD`, `LLM_BUDGET_EVAL_USD`, `LLM_PRICE_INPUT_USD_PER_MTOK`, `LLM_PRICE_OUTPUT_USD_PER_MTOK`, `LLM_KILL_SWITCH=false`, `HISTORICO_ENABLED=false`.
 
 ### 6.5 Contratos HTTP
 
@@ -672,7 +673,7 @@ Los decimales viajan como cadenas para no perder precisión; la interfaz los mue
 - **Purga.** Comando `python -m app.tareas.purga` que elimina sesiones vencidas en cascada, auditoría de más de 7 días, registro de gasto de IA de más de 13 meses y contadores vencidos. Usa `pg_try_advisory_lock`: si otra ejecución tiene el bloqueo, termina sin hacer nada. Programación: planificador de la plataforma que lanza el comando cada hora en publicación (y CronJob en el laboratorio kind opcional); no depender de tareas en segundo plano dentro del servidor web, porque algunas plataformas restringen la CPU fuera de las peticiones. Además, toda lectura verifica `expires_at`, de modo que un dato vencido nunca se sirve aunque la purga se atrase.
 - **Laboratorio kind (clase 6; opcional y fuera del camino crítico por indicación del profesor).** Clúster con `extraPortMappings` y Service NodePort: `kubectl port-forward` hacia un Service conecta con un solo Pod y no demuestra el reparto entre réplicas. Imagen cargada con `kind load docker-image`. Manifiestos: Namespace, ConfigMap, Secret creado con `kubectl` (sin valores en el repositorio), PostgreSQL de laboratorio con volumen persistente, Job de migración, Deployment de dos réplicas con readiness en `/ready` y liveness en `/health`, requests y limits [SUPUESTO: 100m/128Mi y 500m/256Mi] y CronJob de purga. Solo con `APP_ENV=lab`, las respuestas incluyen `X-Served-By` con el nombre del Pod para evidenciar A20. El PostgreSQL del laboratorio no es alta disponibilidad productiva.
 - **CI con GitHub Actions.** Disparadores `pull_request` y `push` a la rama principal. Trabajos: análisis estático, pruebas unitarias, integración con un servicio PostgreSQL, construcción de imagen, arranque del contenedor con verificación de `/health` y `/ready`, y escaneo de secretos. Siempre con `LLM_MODE=demo`; una prueba falla si se instancia el cliente real. NO DEBE usarse `pull_request_target` con secretos sobre código de PR. La publicación de imagen ocurre solo desde la rama principal, con entorno protegido y credenciales federadas de corta duración en lugar de claves JSON permanentes.
-- **Publicación.** Ruta propuesta: Cloud Run con PostgreSQL gestionado [SUPUESTO]. Antes de desplegar, confirmar cuenta, región (evaluar `southamerica-west1`, Santiago) [VERIFICAR disponibilidad de los servicios requeridos], conectividad, IAM y costos vigentes. Límite de instancias [SUPUESTO: mínimo 0, máximo 2]; secretos en el gestor de secretos. Heroku o Fly.io son alternativas si el grupo las acuerda; no crear tres infraestructuras en paralelo. La URL publicada DEBE usar `LLM_MODE=real` con el límite de gasto de §6.3 activo (A64).
+- **Publicación.** Ruta aprobada por el grupo el 13-11-2026 (pregunta 8): Cloud Run con PostgreSQL gestionado, en la región `southamerica-west1` (Santiago) [VERIFICAR disponibilidad de los servicios requeridos], con una cuenta a nombre del integrante que el grupo designe antes del hito 6. Antes de desplegar, confirmar conectividad, IAM y costos vigentes. Límite de instancias [SUPUESTO: mínimo 0, máximo 2]; secretos en el gestor de secretos. Heroku o Fly.io son alternativas si el grupo las acuerda; no crear tres infraestructuras en paralelo. La URL publicada DEBE usar `LLM_MODE=real` con el límite de gasto de §6.3 activo (A64).
 - **Prueba de humo.** `scripts/smoke.sh <URL>`: `/health` con SHA esperado y `llm.modo=real`, `/ready`, crear sesión, perfil, meta con ficha, comparación, explicación generativa (con rótulo y `generated_by`), simulación, chat y borrado; termina con código distinto de cero ante cualquier fallo.
 - **Reversión.** En Cloud Run, devolver el tráfico a la revisión anterior (`gcloud run services update-traffic <servicio> --to-revisions=<revision_anterior>=100`); documentarla y ensayarla en el hito 6.
 
@@ -991,12 +992,14 @@ Se aplica la secuencia de protección del material del curso (`ModelosOpenSource
 ### 8.4 Privacidad y aviso
 
 - **Base del tratamiento:** consentimiento previo, informado y específico, mediante casilla no premarcada; se revoca borrando la sesión.
-- **Contenido mínimo del aviso:** responsable (Grupo 2 y contacto académico [completar]); finalidades (calcular un perfil educativo, simular la brecha de una meta, comparar un catálogo simulado, explicar la comparación con IA y conversar); datos tratados; ausencia de cesión, salvo el envío de los datos mínimos de §8.3 al proveedor de IA (nombrado en el aviso) cuando la persona pide una explicación o usa el chat; antes de cada primera explicación, la interfaz recuerda qué se envía; plazo de conservación; existencia de un perfilado automatizado, su lógica (enlace a la metodología) y la posibilidad de solicitar revisión humana; forma de ejercer derechos (borrado inmediato en "Mis datos" y contacto); conservación de auditoría sin contenido.
-- **Marco a revisar:** Ley 19.628 modificada por la Ley 21.719, publicada el 13-12-2024, cuya entrada en vigencia está fijada para el 1-12-2026; un proyecto en tramitación (boletín 18.623-07) propone postergarla al 1-12-2027 [VERIFICAR estado al publicar]. La demo DEBERÍA diseñarse conforme al régimen nuevo: finalidad, proporcionalidad, transparencia, seguridad y derechos del titular, incluidas sus disposiciones sobre tratamiento automatizado y elaboración de perfiles [revisión jurídica del grupo pendiente].
+- **Contenido mínimo del aviso:** responsable (Grupo 2, proyecto académico UAI) y contacto (Daphne Loewenwarter; su correo se configura en `PRIVACY_CONTACT_EMAIL` y no se publica en el repositorio, pregunta 7); finalidades (calcular un perfil educativo, simular la brecha de una meta, comparar un catálogo simulado, explicar la comparación con IA y conversar); datos tratados; ausencia de cesión, salvo el envío de los datos mínimos de §8.3 al proveedor de IA (Anthropic, nombrado en el aviso, que procesa los datos fuera de Chile) cuando la persona pide una explicación o usa el chat; antes de cada primera explicación, la interfaz recuerda qué se envía; plazo de conservación; existencia de un perfilado automatizado, su lógica (enlace a la metodología) y la posibilidad de solicitar revisión humana; forma de ejercer derechos (borrado inmediato en "Mis datos" y contacto); conservación de auditoría sin contenido.
+- **Marco a revisar:** Ley 19.628 modificada por la Ley 21.719, publicada el 13-12-2024, cuya entrada en vigencia está fijada para el 1-12-2026; un proyecto en tramitación (boletín 18.623-07) propone postergarla al 1-12-2027 [VERIFICAR estado al publicar]. La demo DEBERÍA diseñarse conforme al régimen nuevo: finalidad, proporcionalidad, transparencia, seguridad y derechos del titular, incluidas sus disposiciones sobre tratamiento automatizado y elaboración de perfiles [revisión jurídica a cargo de Daphne Loewenwarter antes de publicar, pregunta 7].
 
 ### 8.5 Condiciones previas para `LLM_MODE=real`
 
 Como la explicación generativa es P0, estas condiciones DEBEN estar cumplidas antes del hito 6. Antes de habilitarlo, el grupo DEBE registrar en `docs/decisiones/`: proveedor y modelo; región de procesamiento (transferencia internacional de datos); plazo de retención de peticiones; uso o no del contenido para entrenamiento según contrato o términos vigentes; presupuesto máximo y alertas; resultado del golden set con ese modelo. La alternativa de un modelo local evita la transferencia, pero exige recursos de cómputo y no es necesaria en v0.
+
+**Estado (13-11-2026).** Aprobados el proveedor (Anthropic), el presupuesto (1 USD diario, 10 USD mensual y 5 USD para evaluaciones) y la publicación en Cloud Run, región Santiago (pregunta 8; `docs/decisiones/0012-proveedor-ia-presupuesto-publicacion.md`). Falta designar al integrante titular de las cuentas y registrar el modelo exacto, la región de procesamiento, la retención y el uso para entrenamiento según los términos vigentes [VERIFICAR], y el golden set con ese modelo si no es el que usó la herramienta (Anexo E.7).
 
 ## 9. Prompts centrales
 
@@ -1349,6 +1352,7 @@ La suite que manda es siempre la de la versión vigente de este SPEC. Los númer
 | 1.12 (cerrada) | A01–A64 | A63 incluye la comparación de la 1.5 con la candidata 1.7 y la regla de decisión con dos vías (§11.3) |
 | 1.13 (cerrada) | A01–A64 | Sin cambios de criterios; la segunda comparación de A63 reutiliza la calibración humana de la primera (§11.3) |
 | 1.14 (cerrada) | A01–A64 | Sin cambios de criterios; A63 ejecutado en sus dos comparaciones (Anexo E). Las verificaciones del SPEC corren en GitHub Actions del repositorio |
+| 1.15 (cerrada) | A01–A64 | Sin cambios de criterios; preguntas abiertas de §12 ratificadas |
 
 ### 11.3 Golden set de la explicación generativa y mejora medida entre versiones del prompt
 
@@ -1505,15 +1509,15 @@ Fuentes externas (consultadas el 21-10-2026, el 04-11-2026 y el 06-11-2026):
 
 No bloquean la redacción ni las pruebas locales con fixtures. Registrar las respuestas y actualizar la versión antes del hito que dependa de ellas:
 
-1. ¿El grupo confirma nombre, marca e integrantes?
-2. ¿Confirma demo académica sin dinero real como alcance de esta entrega?
-3. ¿Aprueba el cuestionario, sus umbrales y las advertencias W1 a W3, incluido el umbral de 36 meses, como política educativa provisional?
-4. ¿Aprueba la regla de selección SEL-1 a SEL-5, que reemplaza la de v1.0?
-5. ¿Aprueba las incorporaciones de v1.2 y v1.3: ficha con mapa de riesgos y bandas de plazo, preguntas M2 (mes y año), M7, M8 y M9, advertencias W4 y W5, simulador de escenarios con procedencia, calculadora sin perfil, catálogo v3 con D02 redefinida y D09, y la regla de equivalencias SEL-0?
+1. **Resuelta (13-11-2026):** el grupo confirma el nombre Brújula Inversiones y a sus integrantes: Diego Silva, Keith Watt y Daphne Loewenwarter.
+2. **Resuelta (13-11-2026):** el alcance de esta entrega es una demo académica sin dinero real.
+3. **Resuelta (13-11-2026):** el cuestionario, sus umbrales y las advertencias W1 a W3, incluido el umbral de 36 meses, se aprueban como política educativa provisional (§3.2).
+4. **Resuelta (13-11-2026):** se aprueba la regla de selección SEL-1 a SEL-5, que reemplaza la de v1.0 (§7.4).
+5. **Resuelta (13-11-2026):** se aprueban las incorporaciones de v1.2 y v1.3: ficha con mapa de riesgos y bandas de plazo, preguntas M2 (mes y año), M7, M8 y M9, advertencias W4 y W5, simulador de escenarios con procedencia, calculadora sin perfil, catálogo v3 con D02 redefinida y D09, y la regla de equivalencias SEL-0.
 6. **Resuelta (06-11-2026):** el laboratorio kind queda opcional y fuera del camino crítico, por indicación del profesor.
-7. ¿Quién figura como responsable y contacto en el aviso de privacidad, y quién hace la revisión jurídica?
-8. ¿Qué cuenta, proveedor, región y presupuesto se autorizan para IA y publicación, y con qué montos de `LLM_BUDGET_DAILY_USD`, `LLM_BUDGET_MONTHLY_USD` y `LLM_BUDGET_EVAL_USD`? Es necesario para P0: la IA debe quedar encendida en la URL publicada.
-9. ¿Se mantendrá la sesión efímera o se financiará una fase posterior con cuentas persistentes?
+7. **Resuelta (13-11-2026):** responsable del aviso, el Grupo 2 (proyecto académico UAI); contacto y revisión jurídica, Daphne Loewenwarter. Su correo se configura en el despliegue y no se publica en el repositorio (§8.4).
+8. **Resuelta (13-11-2026), salvo el titular de las cuentas:** IA de Anthropic (modelos Claude, como en el golden set); `LLM_BUDGET_DAILY_USD=1`, `LLM_BUDGET_MONTHLY_USD=10` y `LLM_BUDGET_EVAL_USD=5`; publicación en Cloud Run con PostgreSQL gestionado, región Santiago (§6.3, §6.7, §8.5). Las cuentas de IA y de nube quedan a nombre de un integrante que el grupo designa antes del hito 6; entonces se registra el modelo exacto, y si no es el que usó la herramienta, el golden set se repite con él.
+9. **Resuelta (13-11-2026):** se mantiene la sesión efímera de 24 horas; el grupo descartó las cuentas persistentes (§4).
 10. **Resuelta (06-11-2026):** el grupo aprobó la opción B para los valores cuota corregidos de Keith (versión 2, completa): panel educativo agregado por categoría, sin marcas (§7.7).
 11. **Resuelta (06-11-2026):** el profesor pidió IA encendida con límite de gasto, golden set con mejora medida, modelo de ingresos y kind fuera del camino crítico; todo quedó incorporado en la v1.7.
 12. **Resuelta (07-11-2026):** el cotejo con la CMF dio 27 de 27 coincidencias, confirma que los datos son reales y permite citar la CMF como fuente. Las consultas que quedaban para Keith (fecha exacta de extracción, sufijo `_test` y elección de series) son opcionales: no cambian ningún cálculo, requisito ni texto obligatorio, porque la mezcla de series ya está declarada como limitación (§7.7).
@@ -1785,7 +1789,7 @@ Contenido de `prompts/ejemplos_explicacion_v1_6.json` en la evaluación (borrado
 
 ### E.7 Limitaciones
 
-- El modelo de producción aún no está elegido (pregunta 8). Si no es el que usó la herramienta, el golden set se repite con él antes de habilitar `LLM_MODE=real` (§8.5).
+- El proveedor de producción es Anthropic (pregunta 8), pero el modelo exacto se registra al abrir la cuenta. Si no es el que usó la herramienta, el golden set se repite con él antes de habilitar `LLM_MODE=real` (§8.5).
 - La temperatura no se fijó en 0; la variación se estimó con las 3 ejecuciones.
 - El costo es una estimación por largo de texto; el costo en USD se mide con el proveedor real en el hito 3.
 - La puntuación humana cubre 12 de los 24 casos y solo la ejecución 1.
