@@ -16,7 +16,7 @@
   <h2>Catálogo simulado</h2>
   <div class="tabla-envoltura" tabindex="0" role="region" aria-label="Catálogo simulado">
   <table class="tabla"><thead><tr><th>ID</th><th>Alternativa ficticia</th><th>Riesgo</th><th>Horizonte mínimo</th><th>Retiro</th><th>Monto mínimo</th><th>Comisión simulada</th><th>Preserva capital</th><th>Reajusta (UF)</th></tr></thead>
-  <tbody>{% for a in catalogo %}<tr><td>{{ a.id }}</td><td>{{ a.categoria }}</td><td>{{ a.riesgo }}</td><td>{{ a.horizonte_min_meses }} meses</td><td>{{ a.retiro_dias }} días</td><td>{{ pesos(a.monto_min_clp) }}</td><td>{{ pct(a.comision_anual_pct) }}</td><td>{{ "Sí" if a.capital_preserved_sim else "No" }}</td><td>{{ "Sí" if a.inflation_adjusted_sim else "No" }}</td></tr>{% endfor %}</tbody></table>
+  <tbody>{% for a in catalogo %}<tr><td>{{ a.id }}</td><td>{{ a.categoria }}</td><td>{{ a.riesgo }}</td><td>{{ a.horizonte_min_meses }} {{ "mes" if a.horizonte_min_meses == 1 else "meses" }}</td><td>{{ a.retiro_dias }} días</td><td>{{ pesos(a.monto_min_clp) }}</td><td>{{ pct(a.comision_anual_pct) }}</td><td>{{ "Sí" if a.capital_preserved_sim else "No" }}</td><td>{{ "Sí" if a.inflation_adjusted_sim else "No" }}</td></tr>{% endfor %}</tbody></table>
   </div>
   <p class="nota">No representa productos ni tasas reales. Rentabilidad y valor cuota: no disponibles. Impuestos, spreads y otros costos no incluidos.</p>
 </section>

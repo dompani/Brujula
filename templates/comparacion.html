@@ -30,7 +30,7 @@
         <p>{{ a.risk_explanation }}</p>
         <ul class="datos">
           <li>Plazo de retiro: {{ a.liquidity_days }} días</li>
-          <li>Horizonte mínimo: {{ a.horizon_min_months }} meses</li>
+          <li>Horizonte mínimo: {{ a.horizon_min_months }} {{ "mes" if a.horizon_min_months == 1 else "meses" }}</li>
           <li>Monto mínimo: {{ pesos(a.min_amount_clp) }}</li>
           <li>Comisión anual simulada: {{ pct(a.annual_fee_pct) }}</li>
           <li>Rentabilidad: no disponible; catálogo simulado</li>
