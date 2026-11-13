@@ -43,7 +43,7 @@ app = FastAPI(title="Brújula Inversiones", docs_url=None, redoc_url=None, opena
 app.mount("/static", StaticFiles(directory=RAIZ / "static"), name="static")
 templates = Jinja2Templates(directory=RAIZ / "templates")
 templates.env.globals.update(disclaimer=P.DISCLAIMER_V1_1, pesos=pesos, motivos=P.TEXTOS_MOTIVO,
-                             significado_m3=P.SIGNIFICADO_M3)
+                             significado_m3=P.SIGNIFICADO_M3, version_estatica=CFG.git_sha)
 
 
 def _scl(d) -> str:

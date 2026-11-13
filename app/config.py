@@ -16,6 +16,8 @@ class Config:
     llm_provider: str = field(default_factory=lambda: os.environ.get("LLM_PROVIDER", "anthropic"))
     llm_model: str = field(default_factory=lambda: os.environ.get("LLM_MODEL", "claude-sonnet-5-5"))
     llm_api_key: str = field(default_factory=lambda: os.environ.get("LLM_API_KEY", "").strip())
+    llm_thinking: str = field(default_factory=lambda: os.environ.get("LLM_THINKING", "between_tools").strip())
+    llm_effort: str = field(default_factory=lambda: os.environ.get("LLM_EFFORT", "medium").strip())
     cookie_secure: bool = field(default_factory=lambda: _bool("COOKIE_SECURE"))
     allowed_origins: list = field(default_factory=lambda: [o.strip().rstrip("/") for o in (
         os.environ.get("ALLOWED_ORIGINS", "") + "," + os.environ.get("RENDER_EXTERNAL_URL", "")).split(",") if o.strip()]

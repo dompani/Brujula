@@ -14,14 +14,21 @@ class ErrorProveedor(Exception):
 
 
 class ClienteAnthropic:
-    def __init__(self, api_key: str, model: str, timeout_s: float = 20.0):
+    def __init__(self, api_key: str, model: str, timeout_s: float = 20.0, thinking: str = "", effort: str = ""):
         self.api_key, self.model, self.timeout_s = api_key, model, timeout_s
+        self.thinking, self.effort = thinking, effort
         self.ultimo_mensaje = ""
 
     def completar(self, system: str, mensajes: list[dict], max_tokens: int, plazo_total_s: float = 30.0) -> dict:
         """Devuelve {texto, tokens_in, tokens_out}. Como máximo un reintento por fallo transitorio."""
         inicio = time.monotonic()
         cuerpo = {"model": self.model, "max_tokens": max_tokens, "system": system, "messages": mensajes}
+        # Sonnet 5.5 razona por defecto y ese razonamiento consume max_tokens y tiempo. Sin herramientas,
+        # "between_tools" deja solo texto (decisión 0013). Configurable para otros modelos.
+        if self.thinking:
+            cuerpo["thinking"] = {"type": self.thinking}
+        if self.effort:
+            cuerpo["output_config"] = {"effort": self.effort}
         cab = {"x-api-key": self.api_key, "anthropic-version": "2023-06-01", "content-type": "application/json"}
         ultimo = "proveedor_no_disponible"
         for intento in range(2):
@@ -37,7 +44,8 @@ class ClienteAnthropic:
                     d = r.json()
                     texto = "".join(b.get("text", "") for b in d.get("content", []) if b.get("type") == "text")
                     u = d.get("usage") or {}
-                    return {"texto": texto, "tokens_in": u.get("input_tokens"), "tokens_out": u.get("output_tokens")}
+                    return {"texto": texto, "tokens_in": u.get("input_tokens"), "tokens_out": u.get("output_tokens"),
+                            "stop_reason": d.get("stop_reason")}
                 try:
                     e = r.json().get("error") or {}
                 except ValueError:

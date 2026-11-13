@@ -13,7 +13,8 @@ El Proyecto Final exige la app publicada con la IA encendida y límite de gasto.
 1. **Publicación en Render**, plan gratuito: app en Docker y PostgreSQL gestionado, región de Oregón (Estados Unidos), definidos en `render.yaml` (Blueprint). Render despliega cada commit de `main` cuando las verificaciones de GitHub están en verde (`autoDeployTrigger: checksPass`). Cloud Run queda para una fase posterior.
 2. **Titular de las cuentas** de IA y de publicación: Daphne Loewenwarter. La clave de la IA y el correo de contacto se ingresan en Render y nunca van al repositorio.
 3. **Modelo de producción:** `claude-sonnet-5-5`, con tarifas de 2 y 10 USD por millón de tokens de entrada y de salida (página de precios del proveedor, 13-11-2026). Límites: 1 USD diario y 10 USD mensual; una explicación reserva como máximo cerca de 0,025 USD.
-4. **Golden set con el modelo de producción:** pendiente. La URL se publica antes de repetirlo; mientras tanto cada explicación pasa por V-01 a V-07, con una reparación como máximo, y si falla se muestra la plantilla sin IA.
+4. **Sin razonamiento extendido en la explicación.** `claude-sonnet-5-5` razona por defecto, y ese razonamiento consume el límite de 1.500 tokens de salida y alarga la respuesta más allá del plazo de 20 s. La app envía `thinking: between_tools` (sin herramientas, la respuesta es solo texto) y `effort: medium`, configurables con `LLM_THINKING` y `LLM_EFFORT`. Sin `temperature`, que este modelo no admite.
+5. **Golden set con el modelo de producción:** pendiente. La URL se publica antes de repetirlo; mientras tanto cada explicación pasa por V-01 a V-07, con una reparación como máximo, y si falla se muestra la plantilla sin IA.
 
 ## Qué cubre la app v0
 

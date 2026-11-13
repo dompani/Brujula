@@ -45,7 +45,8 @@ def explicar(eng, cfg, perfil_row, goal_row, comp_row, cliente=None, auditar=Non
     if cliente is None:
         if not cfg.llm_real:
             return _plantilla(ids, "modo_demo", f"LLM_MODE={cfg.llm_mode} clave_presente={bool(cfg.llm_api_key)}")
-        cliente = ClienteAnthropic(cfg.llm_api_key, cfg.llm_model)
+        cliente = ClienteAnthropic(cfg.llm_api_key, cfg.llm_model, thinking=getattr(cfg, "llm_thinking", ""),
+                                   effort=getattr(cfg, "llm_effort", ""))
     if cfg.kill_switch:
         return _plantilla(ids, "interruptor")
     contexto = construir(perfil_row, goal_row, comp_row)
@@ -76,7 +77,8 @@ def explicar(eng, cfg, perfil_row, goal_row, comp_row, cliente=None, auditar=Non
             return {"summary": b["summary"], "explicaciones": [{"id": i, "texto": orden[i]} for i in ids],
                     "limitations": b["limitations"], "rotulo": P.ROTULO_IA, "generated_by": "llm", "motivo": None,
                     "model_id": cfg.llm_model, "prompt_version": P.PROMPT_VERSION}
-        fallos.append(f"{v['fallos'][0]['v']}: {v['fallos'][0]['motivo']}")
+        fallos.append(f"{v['fallos'][0]['v']}: {v['fallos'][0]['motivo']} (stop={r.get('stop_reason')}, "
+                      f"tokens_out={r.get('tokens_out')})")
         if intento == 0:
             mensajes = mensajes + [{"role": "assistant", "content": r["texto"].strip() or "(sin texto)"},
                                    {"role": "user", "content": mensaje_reparacion(v["fallos"][0])}]
