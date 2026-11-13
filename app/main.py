@@ -2,6 +2,7 @@
 import hashlib
 import hmac
 import json
+import logging
 import secrets
 import uuid
 from datetime import datetime, timedelta, timezone
@@ -28,6 +29,7 @@ from .dominio.perfil import EntradaInvalida, calcular_perfil
 from .dominio.simulacion import simular_escenarios
 from .salida import plantillas
 
+logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s %(message)s")
 RAIZ = Path(__file__).resolve().parents[1]
 SCL = ZoneInfo("America/Santiago")
 CFG = config.cargar()
@@ -522,10 +524,11 @@ async def explicacion(request: Request, cid: int):
 
     pr = {**p, "valid_until": _aware(p["valid_until"]).astimezone(SCL).isoformat()}
     res = explicar(ENG, CFG, pr, g, c, auditar=_aud)
-    with ENG.begin() as conn:
-        conn.execute(db.comparisons.update().where(db.comparisons.c.id == cid).values(
-            explanation=res, explanation_generated_by=res["generated_by"], explanation_model_id=res["model_id"],
-            explanation_prompt_version=res["prompt_version"]))
+    if res["generated_by"] == "llm":  # la plantilla no se guarda: la persona puede reintentar con IA
+        with ENG.begin() as conn:
+            conn.execute(db.comparisons.update().where(db.comparisons.c.id == cid).values(
+                explanation=res, explanation_generated_by=res["generated_by"], explanation_model_id=res["model_id"],
+                explanation_prompt_version=res["prompt_version"]))
     return {"comparison_id": cid, **res, "disclaimer": P.DISCLAIMER_V1_1, "trace_id": trace}
 
 

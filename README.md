@@ -12,6 +12,8 @@ Grupo 2 del curso Advanced Prompt Engineering (UAI, 2026): Diego Silva, Keith Wa
 - **Versiones.** Cada versión cerrada del SPEC tiene una etiqueta `spec-vX.Y`; el historial está en `CHANGELOG.md`. Las versiones v1.0 a v1.16 están en el historial de git, cada una con su etiqueta.
 - **Prompt de la explicación.** Vigente: 1.7 (`prompts/system_brujula_v1_7.txt`), adoptada el 12-11-2026 tras el golden set. Resultados en §9.6 y Anexo E del SPEC y en `evals/informe_explicacion.md`.
 
+**App publicada:** https://brujula-y21u.onrender.com (plan gratuito de Render: la primera carga puede tardar cerca de un minuto).
+
 ## Contenido
 
 | Carpeta o archivo | Qué contiene |

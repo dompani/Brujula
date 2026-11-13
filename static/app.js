@@ -149,6 +149,15 @@
     (d.limitations || []).forEach((l) => {
       const p = document.createElement("p"); p.className = "nota"; p.textContent = l; cont.appendChild(p);
     });
+    const MOTIVOS = {
+      modo_demo: "La IA no está activada en esta instalación.",
+      proveedor_no_disponible: "La IA no respondió o no estuvo disponible en este momento.",
+      borrador_invalido: "El texto de la IA no pasó los controles del servidor, así que se muestra esta versión.",
+      interruptor: "La IA está pausada por el equipo.",
+    };
+    if (d.generated_by !== "llm" && MOTIVOS[d.motivo]) {
+      const p = document.createElement("p"); p.className = "nota"; p.textContent = MOTIVOS[d.motivo]; cont.appendChild(p);
+    }
   }
   const contExpl = document.querySelector(".expl-contenido");
   if (contExpl && contExpl.dataset.explicacion) {
@@ -160,8 +169,12 @@
     try {
       const d = await api("POST", "/api/comparisons/" + b.dataset.id + "/explanation");
       pintarExplicacion(contExpl, d);
-      b.remove();
-      const aviso = document.querySelector(".aviso-envio"); if (aviso) aviso.remove();
+      if (d.generated_by !== "llm" && (d.motivo === "proveedor_no_disponible" || d.motivo === "borrador_invalido")) {
+        ocupado(b, false); b.textContent = "Reintentar con IA";
+      } else {
+        b.remove();
+        const aviso = document.querySelector(".aviso-envio"); if (aviso) aviso.remove();
+      }
     } catch (e) { mostrarError(errc, e); ocupado(b, false); }
   }));
 

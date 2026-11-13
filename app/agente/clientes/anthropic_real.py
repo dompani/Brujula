@@ -16,6 +16,7 @@ class ErrorProveedor(Exception):
 class ClienteAnthropic:
     def __init__(self, api_key: str, model: str, timeout_s: float = 20.0):
         self.api_key, self.model, self.timeout_s = api_key, model, timeout_s
+        self.ultimo_mensaje = ""
 
     def completar(self, system: str, mensajes: list[dict], max_tokens: int, plazo_total_s: float = 30.0) -> dict:
         """Devuelve {texto, tokens_in, tokens_out}. Como máximo un reintento por fallo transitorio."""
@@ -29,15 +30,20 @@ class ClienteAnthropic:
                 break
             try:
                 r = httpx.post(URL, json=cuerpo, headers=cab, timeout=min(self.timeout_s, restante))
-            except httpx.HTTPError:
-                ultimo = "proveedor_no_disponible"
+            except httpx.HTTPError as ex:
+                ultimo = f"proveedor_no_disponible:{type(ex).__name__}"
             else:
                 if r.status_code == 200:
                     d = r.json()
                     texto = "".join(b.get("text", "") for b in d.get("content", []) if b.get("type") == "text")
                     u = d.get("usage") or {}
                     return {"texto": texto, "tokens_in": u.get("input_tokens"), "tokens_out": u.get("output_tokens")}
-                ultimo = f"proveedor_http_{r.status_code}"
+                try:
+                    e = r.json().get("error") or {}
+                except ValueError:
+                    e = {}
+                ultimo = f"proveedor_http_{r.status_code}:{e.get('type', '')}"
+                self.ultimo_mensaje = str(e.get("message", ""))[:200]
                 if r.status_code not in TRANSITORIOS:
                     break
             if intento == 0:
