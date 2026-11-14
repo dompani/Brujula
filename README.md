@@ -20,6 +20,7 @@ Grupo 2 del curso Advanced Prompt Engineering (UAI, 2026): Diego Silva, Keith Wa
 |---|---|
 | `SPEC.md` | Especificación completa: alcance, reglas, arquitectura, prompts, criterios de aceptación A01–A64 y anexos |
 | `CHANGELOG.md` | Registro de cambios del SPEC, con un número C por cambio |
+| `PROMPT_MAESTRO.md` | Entrada de trabajo para el agente de código: rol, límites, secuencia de hitos y formato de cierre; si difiere del SPEC, prevalece `SPEC.md` |
 | `AGENTS.md` · `CLAUDE.md` | Instrucciones para agentes de código |
 | `prompts/` | Prompt de sistema vigente y tareas de explicación evaluadas |
 | `data/catalogo_demo_v3.json` | Catálogo ficticio D01–D09 (§7.2) |

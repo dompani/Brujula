@@ -41,7 +41,7 @@ jobs:
       - name: Diagramas Mermaid
         run: |
           cd scripts && npm ci --no-audit --no-fund
-          cd .. && node scripts/verificar_mermaid.mjs SPEC.md
+          cd .. && node scripts/verificar_mermaid.mjs SPEC.md && node scripts/verificar_mermaid.mjs PROMPT_MAESTRO.md
 
       - name: Validadores del golden set y coherencia de los prompts
         run: node --test tests/golden_set.test.mjs

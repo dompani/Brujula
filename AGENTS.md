@@ -1,6 +1,6 @@
 # Instrucciones para agentes de código
 
-1. **`SPEC.md` es la fuente de verdad.** Léelo completo antes de actuar. Ante un conflicto, aplica su sección «Jerarquía ante conflictos».
+1. **`SPEC.md` es la fuente de verdad.** Léelo completo antes de actuar. Ante un conflicto, aplica su sección «Jerarquía ante conflictos». `PROMPT_MAESTRO.md` es tu entrada de trabajo (rol, límites, hitos y formato de cierre de cada hito); si difiere del SPEC, prevalece `SPEC.md` y la diferencia se corrige por pull request.
 2. **Primera respuesta sin código.** Sigue «Instrucción de uso para el agente de código» del SPEC: resumen, contradicciones o vacíos, arquitectura y árbol de carpetas (§6.4), los seis hitos con sus criterios, decisiones técnicas y hasta cinco preguntas bloqueantes. Espera la aprobación del grupo.
 3. **Trabaja por hitos.** Un hito no se aprueba sin la evidencia de su fila en el plan de ejecución.
 4. **No modifiques una prueba ni una regla para que pase.** Informa el conflicto y propone una alternativa (SPEC, «Jerarquía ante conflictos»).
